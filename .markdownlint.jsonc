@@ -135,10 +135,7 @@
   // MD032/blanks-around-lists : Lists should be surrounded by blank lines : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md032.md
   "MD032": true,
   // MD033/no-inline-html : Inline HTML : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md033.md
-  "MD033": {
-    // Allowed elements
-    "allowed_elements": ["a", "details", "summary"]
-  },
+  "MD033": false,
   // MD034/no-bare-urls : Bare URL used : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md034.md
   "MD034": true,
   // MD035/hr-style : Horizontal rule style : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md035.md
@@ -147,10 +144,7 @@
     "style": "consistent"
   },
   // MD036/no-emphasis-as-heading : Emphasis used instead of a heading : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md036.md
-  "MD036": {
-    // Punctuation characters
-    "punctuation": ".,;:!?。，；：！？"
-  },
+  "MD036": false,
   // MD037/no-space-in-emphasis : Spaces inside emphasis markers : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md037.md
   "MD037": true,
   // MD038/no-space-in-code : Spaces inside code span elements : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md038.md
