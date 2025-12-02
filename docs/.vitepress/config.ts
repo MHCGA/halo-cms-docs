@@ -146,8 +146,6 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: { src: "/ico.ico", width: 24, height: 24 },
 
-    socialLinks: [{ icon: "github", link: "https://github.com/MHCGA/blog" }],
-
     docFooter: {
       prev: "上一页",
       next: "下一页",

@@ -13,7 +13,7 @@
     "lint:md": "markdownlint \"**/*.md\" --fix",
     "lint:autocorrect": "autocorrect --fix",
     "format": "pnpm run \"/^format:.*/\"",
-    "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" ./docs/**/*.{ts,md,vue,json,css}\"",
+    "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" \"./docs/**/*.{ts,md,vue,json,css}\"",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
