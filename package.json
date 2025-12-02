@@ -12,9 +12,8 @@
     "lint:style": "stylelint --fix ./docs/.vitepress/**/*.{css,vue}\"",
     "lint:md": "markdownlint \"**/*.md\" --fix",
     "lint:autocorrect": "autocorrect --fix",
-    "lint:type-check": "tsgo --noEmit",
     "format": "pnpm run \"/^format:.*/\"",
-    "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" ./docs/**/*.{ts,md,vue,json}\"",
+    "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" ./docs/**/*.{ts,md,vue,json,css}\"",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -41,7 +40,6 @@
     "@eslint/js": "^9.39.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@typescript-eslint/parser": "^8.48.0",
-    "@typescript/native-preview": "7.0.0-dev.20251201.1",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.0",
     "eslint": "^9.39.1",
@@ -50,6 +48,7 @@
     "eslint-plugin-oxlint": "^1.30.0",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-vue": "^10.6.2",
+    "globals": "^16.5.0",
     "lightningcss": "^1.30.2",
     "markdownlint-cli": "^0.46.0",
     "oxlint": "^1.30.0",
@@ -63,6 +62,7 @@
     "stylelint-order": "^7.0.0",
     "typescript-eslint": "^8.48.0",
     "vitepress": "2.0.0-alpha.15",
+    "vitepress-plugin-pagefind": "^0.4.16",
     "vue": "^3.5.25",
     "vue-eslint-parser": "^10.2.0"
   }

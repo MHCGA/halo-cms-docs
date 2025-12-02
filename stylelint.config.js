@@ -1,10 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: [
-    "stylelint-config-standard",
-    "stylelint-config-html",
-    "stylelint-config-recommended-vue",
-  ],
+  extends: ["stylelint-config-standard", "stylelint-config-html", "stylelint-config-recommended-vue"],
   plugins: ["stylelint-order"],
   rules: {
     // 嵌套选择器规则
@@ -56,6 +52,8 @@ export default {
         ignoreTypes: ["hide", "spoiler"],
       },
     ],
+
+    "selector-class-pattern": null,
 
     // 其他规则
     "no-empty-source": null, // 允许空文件
