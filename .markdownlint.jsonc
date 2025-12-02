@@ -55,11 +55,11 @@
   // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md013.md
   "MD013": {
     // Number of characters
-    "line_length": 200,
+    "line_length": 400,
     // Number of characters for headings
     "heading_line_length": 80,
     // Number of characters for code blocks
-    "code_block_line_length": 200,
+    "code_block_line_length": 400,
     // Include code blocks
     "code_blocks": true,
     // Include tables
@@ -99,8 +99,8 @@
   "MD025": {
     // Heading level
     "level": 1,
-    // RegExp for matching title in front matter
-    "front_matter_title": "^\\s*title\\s*[:=]"
+    // Disable treating front matter titles as headings so content must define its own H1
+    "front_matter_title": null
   },
   // MD026/no-trailing-punctuation : Trailing punctuation in heading : https://github.com/DavidAnson/markdownlint/blob/v0.37.4/doc/md026.md
   "MD026": {

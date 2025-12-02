@@ -1,0 +1,88 @@
+name: Auto Assign Reviewers
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+    paths:
+      - 'docs/**/*.md'
+      - '!docs/.vitepress/**'
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Assign reviewers and add labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          REVIEWERS_FILE=".github/REVIEWERS.json"
+          
+          if [ ! -f "$REVIEWERS_FILE" ]; then
+            echo "Reviewers file not found: $REVIEWERS_FILE"
+            exit 1
+          fi
+          
+          MIN_REVIEWERS=$(jq -r '.rules.minReviewers' "$REVIEWERS_FILE")
+          
+          AVAILABLE_REVIEWERS=$(jq -r --arg author "$PR_AUTHOR" \
+            '.reviewers[] | select(.username != $author) | .username' \
+            "$REVIEWERS_FILE" | jq -R -s -c 'split("\n")[:-1]')
+          
+          REVIEWER_COUNT=$(echo "$AVAILABLE_REVIEWERS" | jq 'length')
+          
+          if [ "$REVIEWER_COUNT" -lt "$MIN_REVIEWERS" ]; then
+            echo "Warning: Not enough reviewers available. Need $MIN_REVIEWERS, have $REVIEWER_COUNT"
+            ASSIGN_COUNT=$REVIEWER_COUNT
+          else
+            ASSIGN_COUNT=$MIN_REVIEWERS
+          fi
+          
+          SELECTED_REVIEWERS=$(echo "$AVAILABLE_REVIEWERS" | jq -c --argjson count "$ASSIGN_COUNT" \
+            'if length > 0 then . | sort_by(. | @base64) | .[:$count] else [] end')
+          
+          if [ "$(echo "$SELECTED_REVIEWERS" | jq 'length')" -gt 0 ]; then
+            echo "Assigning reviewers: $SELECTED_REVIEWERS"
+            
+            gh pr edit "$PR_NUMBER" --add-reviewer "$(echo "$SELECTED_REVIEWERS" | jq -r 'join(",")')"
+            
+            REVIEWER_NAMES=$(echo "$SELECTED_REVIEWERS" | jq -r '.[]' | sed 's/^/@/' | paste -sd ',' - | sed 's/,/, /g')
+            
+            gh pr comment "$PR_NUMBER" --body "🤖 **自动分配审稿人** 已自动为此 PR 分配审稿人: $REVIEWER_NAMES 根据项目规则，需要至少 **$MIN_REVIEWERS** 名审稿人批准才能合并。 💡 提示：累计 3 篇投稿通过后，贡献者将自动升级为审稿人。"
+          else
+            echo "No reviewers available to assign"
+            gh pr comment "$PR_NUMBER" --body "⚠️ **无法自动分配审稿人** 当前没有可用的审稿人。请联系项目维护者手动审核。"
+          fi
+          
+          CHANGED_FILES=$(gh pr view "$PR_NUMBER" --json files --jq '.files[].path')
+          
+          for file in $CHANGED_FILES; do
+            if [[ "$file" =~ docs/(en/)?posts/plugins ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "category:plugins"
+            elif [[ "$file" =~ docs/(en/)?posts/themes ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "category:themes"
+            elif [[ "$file" =~ docs/(en/)?posts/plugin-theme-synergy ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "category:plugin-theme-synergy"
+            elif [[ "$file" =~ docs/(en/)?posts/usage ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "category:usage"
+            elif [[ "$file" =~ docs/(en/)?posts/misc ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "category:misc"
+            fi
+          done

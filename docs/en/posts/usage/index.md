@@ -1,0 +1,20 @@
+---
+publish: false
+---
+
+# Usage Tips
+
+<script setup lang="ts">
+import { data as posts } from "./posts.data.ts";
+</script>
+
+Operational insights for Halo CMS, covering daily management, content workflows, and automation.
+
+## Article List
+
+<ul class="category-post-list">
+ <li v-for="post in posts" :key="post.url">
+  <a :href="post.url">{{ post.title }}</a>
+    <span v-if="post.lastUpdated" class="category-post-date">({{ post.lastUpdated }})</span>
+ </li>
+</ul>

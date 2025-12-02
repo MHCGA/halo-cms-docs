@@ -1,5 +1,145 @@
-import { defineConfig } from "vitepress";
+import fs from "node:fs";
+import path from "node:path";
+import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
+import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
+
+const baseUrl = "https://howiehz.top";
+const basePath = "/mhcga/";
+const githubRepoUrl = "https://github.com/MHCGA/blog";
+
+const DOCS_ROOT = path.resolve(__dirname, "..");
+const POST_GROUPS = ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"] as const;
+
+const ROOT_INFO_SIDEBAR: DefaultTheme.SidebarItem[] = [
+  {
+    text: "投稿指南",
+    items: [{ text: "投稿须知", link: "/contributing/" }],
+  },
+  {
+    text: "关于此项目",
+    items: [{ text: "项目简介", link: "/about/" }],
+  },
+  {
+    text: "版权说明",
+    items: [{ text: "版权说明", link: "/license/" }],
+  },
+];
+
+const EN_INFO_SIDEBAR: DefaultTheme.SidebarItem[] = [
+  {
+    text: "Contributing",
+    items: [{ text: "Submission Guide", link: "/en/contributing/" }],
+  },
+  {
+    text: "About this Project",
+    items: [{ text: "Overview", link: "/en/about/" }],
+  },
+  {
+    text: "License",
+    items: [{ text: "License Overview", link: "/en/license/" }],
+  },
+];
+
+type LocaleKey = "root" | "en";
+
+const POST_LABELS: Record<
+  LocaleKey,
+  {
+    header: string;
+    overview: string;
+    prefix: string;
+    categories: Record<(typeof POST_GROUPS)[number], string>;
+  }
+> = {
+  root: {
+    header: "文章分类",
+    overview: "分类概览",
+    prefix: "",
+    categories: {
+      plugins: "插件开发技巧",
+      themes: "主题开发技巧",
+      "plugin-theme-synergy": "插件与主题协同技巧",
+      usage: "使用技巧",
+      misc: "其他实践",
+    },
+  },
+  en: {
+    header: "Categories",
+    overview: "Overview",
+    prefix: "/en",
+    categories: {
+      plugins: "Plugin Development",
+      themes: "Theme Development",
+      "plugin-theme-synergy": "Plugin & Theme Synergy",
+      usage: "Usage Tips",
+      misc: "Miscellaneous",
+    },
+  },
+};
+
+function buildPostSidebar(locale: LocaleKey): DefaultTheme.SidebarItem[] {
+  const meta = POST_LABELS[locale];
+  const sidebar: DefaultTheme.SidebarItem[] = [
+    {
+      text: meta.header,
+      items: [{ text: meta.overview, link: `${meta.prefix}/posts/` }],
+    },
+  ];
+
+  for (const key of POST_GROUPS) {
+    const articles = collectPosts(locale, key);
+    sidebar.push({
+      text: meta.categories[key],
+      collapsed: true,
+      items: [{ text: meta.categories[key], link: `${meta.prefix}/posts/${key}/` }, ...articles],
+    });
+  }
+
+  return sidebar;
+}
+
+function collectPosts(locale: LocaleKey, category: (typeof POST_GROUPS)[number]): DefaultTheme.SidebarItem[] {
+  const baseDir = path.join(DOCS_ROOT, locale === "root" ? "" : "en", "posts", category);
+  if (!fs.existsSync(baseDir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(baseDir)
+    .filter((file) => file.endsWith(".md") && file !== "index.md")
+    .sort()
+    .map((file) => {
+      const filePath = path.join(baseDir, file);
+      const slug = file.replace(/\.md$/, "");
+      const linkPrefix = POST_LABELS[locale].prefix;
+      const link = `${linkPrefix}/posts/${category}/${slug}`;
+      return {
+        text: extractTitle(filePath) ?? slug,
+        link,
+      } satisfies DefaultTheme.SidebarItem;
+    });
+}
+
+function extractTitle(filePath: string): string | undefined {
+  const content = fs.readFileSync(filePath, "utf8");
+  const frontmatterMatch = content.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---/);
+  if (frontmatterMatch) {
+    const titleLine = frontmatterMatch[1]
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .find((line) => line.startsWith("title:"));
+    if (titleLine) {
+      return titleLine
+        .replace(/^title:\s*/, "")
+        .replace(/^['"]|['"]$/g, "")
+        .trim();
+    }
+  }
+
+  const headingMatch = content.match(/^#\s+(.+)$/m);
+  return headingMatch ? headingMatch[1].trim() : undefined;
+}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -63,28 +203,48 @@ export default defineConfig({
             placeholder: "Search Docs...",
             emptyText: "No results",
             heading: "Total {{searchResult}} results",
-            showDate: true,
           },
         },
       }),
+      // RSS feed plugin
+      RssPlugin({
+        locales: {
+          root: {
+            baseUrl,
+            title: "Halo CMS 知识库",
+            copyright: "版权所有 © 2025-至今 MHCGA",
+            description: "Make Halo CMS Great Again · 分享与 Halo CMS 相关的插件、主题与运营经验。",
+            language: "zh-Hans",
+            filename: "rss.xml",
+          },
+          en: {
+            baseUrl,
+            title: "Halo CMS Knowledge Base",
+            copyright: "Copyright © 2025-present MHCGA",
+            description:
+              "Make Halo CMS Great Again · Sharing plugins, themes, and operational experience related to Halo CMS.",
+            language: "en",
+            filename: "rss.en.xml",
+          },
+        },
+      } satisfies RSSOptions),
     ],
   },
-  title: "Make Halo CMS Great Again",
-  description: "Share tips related to Halo CMS.",
+  base: basePath,
 
   head: [
-    ["link", { rel: "icon", type: "image/x-icon", href: "/mhcga/ico.ico" }],
+    ["link", { rel: "icon", type: "image/x-icon", href: `${basePath}ico_64x64.ico` }],
     ["meta", { name: "theme-color", content: "#5f67ee" }],
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:site_name", content: "Make Halo CMS Great Again" }],
+    ["meta", { property: "og:site_name", content: "Halo CMS 知识库" }],
     [
       "meta",
       {
         property: "og:image",
-        content: "https://howiehz.top/mhcga/ico.ico",
+        content: `${baseUrl}${basePath}ico_200x200.ico`,
       },
     ],
-    ["meta", { property: "og:url", content: "https://howiehz.top/mhcga/" }],
+    ["meta", { property: "og:url", content: `${baseUrl}${basePath}` }],
     // <script defer src="https://umami.howiehz.top/script.js" data-website-id="7b461ac5-155d-45a8-a118-178d0a2936e4" data-domains="howiehz.top"></script>
     [
       "script",
@@ -101,21 +261,8 @@ export default defineConfig({
   cleanUrls: true,
   metaChunk: true,
 
-  locales: {
-    root: {
-      label: "简体中文",
-      lang: "zh-Hans",
-      dir: "ltr",
-    },
-    en: {
-      label: "English",
-      lang: "en-US",
-      dir: "ltr",
-    },
-  },
-
   sitemap: {
-    hostname: "https://howiehz.top/mhcga/",
+    hostname: `${baseUrl}${basePath}`,
     xmlns: {
       // trim the xml namespace
       news: true, // flip to false to omit the xml namespace for news
@@ -129,76 +276,135 @@ export default defineConfig({
     },
   },
 
-  markdown: {
-    container: {
-      tipLabel: "提示",
-      warningLabel: "警告",
-      dangerLabel: "危险",
-      infoLabel: "信息",
-      detailsLabel: "详细信息",
-    },
-    image: {
-      lazyLoading: true,
-    },
+  themeConfig: {
+    logo: { src: "/ico_25x25.png", width: 24, height: 24 },
   },
 
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    logo: { src: "/ico.ico", width: 24, height: 24 },
-
-    docFooter: {
-      prev: "上一页",
-      next: "下一页",
-    },
-
-    footer: {
-      message: "基于 MIT 许可发布",
-      copyright: "版权所有 © 2025-至今 MHCGA",
-    },
-
-    editLink: {
-      pattern: "https://github.com/MHCGA/blog/edit/main/docs/:path",
-      text: "在 GitHub 上编辑此页面",
-    },
-
-    outline: {
-      label: "本页大纲",
-    },
-
-    lastUpdated: {
-      text: "最后更新于",
-    },
-
-    notFound: {
-      title: "页面未找到",
-      quote: "但如果你不改变方向，并且继续寻找，你可能最终会到达你所前往的地方。",
-      linkLabel: "前往首页",
-      linkText: "带我回首页",
-    },
-
-    langMenuLabel: "多语言",
-    returnToTopLabel: "回到顶部",
-    sidebarMenuLabel: "菜单",
-    darkModeSwitchLabel: "主题",
-    lightModeSwitchTitle: "切换到浅色模式",
-    darkModeSwitchTitle: "切换到深色模式",
-    skipToContentLabel: "跳转到内容",
-
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "Examples", link: "/markdown-examples" },
-    ],
-
-    sidebar: [
-      {
-        text: "Examples",
-        items: [
-          { text: "Markdown Examples", link: "/markdown-examples" },
-          { text: "Runtime API Examples", link: "/api-examples" },
-        ],
+  locales: {
+    root: {
+      title: "Halo CMS 知识库",
+      titleTemplate: ":title | Halo CMS 知识库",
+      description: "Make Halo CMS Great Again · 分享与 Halo CMS 相关的插件、主题与运营经验。",
+      label: "简体中文",
+      lang: "zh-Hans",
+      dir: "ltr",
+      markdown: {
+        container: {
+          tipLabel: "提示",
+          warningLabel: "警告",
+          dangerLabel: "危险",
+          infoLabel: "信息",
+          detailsLabel: "详细信息",
+        },
+        image: {
+          lazyLoading: true,
+        },
       },
-    ],
+      // 主题配置放在 locales 里是为了覆盖默认语言
+      themeConfig: {
+        socialLinks: [{ icon: "github", link: githubRepoUrl }],
+        nav: [
+          { text: "首页", link: "/" },
+          {
+            text: "文章分类",
+            items: [
+              { text: "插件开发技巧", link: "/posts/plugins/" },
+              { text: "主题开发技巧", link: "/posts/themes/" },
+              { text: "插件与主题协同技巧", link: "/posts/plugin-theme-synergy/" },
+              { text: "使用技巧", link: "/posts/usage/" },
+              { text: "其他", link: "/posts/misc/" },
+            ],
+          },
+          { text: "投稿指南", link: "/contributing/" },
+        ],
+        sidebar: {
+          "/posts/": buildPostSidebar("root"),
+          "/about/": ROOT_INFO_SIDEBAR,
+          "/license/": ROOT_INFO_SIDEBAR,
+          "/contributing/": ROOT_INFO_SIDEBAR,
+        },
+        footer: {
+          message: '代码 MIT · 文稿 CC BY-SA 4.0 + SATA · <a href="/license/">版权说明</a>',
+          copyright: "版权所有 © 2025-至今 MHCGA",
+        },
 
-    socialLinks: [{ icon: "github", link: "https://github.com/MHCGA/blog" }],
+        docFooter: {
+          prev: "上一页",
+          next: "下一页",
+        },
+
+        editLink: {
+          pattern: `${githubRepoUrl}/edit/main/docs/:path`,
+          text: "在 GitHub 上编辑此页面",
+        },
+
+        outline: {
+          label: "本页大纲",
+        },
+
+        lastUpdated: {
+          text: "最后更新于",
+        },
+
+        notFound: {
+          title: "页面未找到",
+          quote: "但如果你不改变方向，并且继续寻找，你可能最终会到达你所前往的地方。",
+          linkLabel: "前往首页",
+          linkText: "带我回首页",
+        },
+
+        langMenuLabel: "多语言",
+        returnToTopLabel: "回到顶部",
+        sidebarMenuLabel: "菜单",
+        darkModeSwitchLabel: "主题",
+        lightModeSwitchTitle: "切换到浅色模式",
+        darkModeSwitchTitle: "切换到深色模式",
+        skipToContentLabel: "跳转到内容",
+      },
+    },
+    en: {
+      title: "Halo CMS Knowledge Base",
+      titleTemplate: ":title | Halo CMS Knowledge Base",
+      description:
+        "Make Halo CMS Great Again · Sharing plugins, themes, and operational experience related to Halo CMS.",
+      label: "English",
+      lang: "en-US",
+      dir: "ltr",
+      markdown: {
+        image: {
+          lazyLoading: true,
+        },
+      },
+      themeConfig: {
+        socialLinks: [{ icon: "github", link: githubRepoUrl }],
+        nav: [
+          { text: "Home", link: "/en/" },
+          {
+            text: "Categories",
+            items: [
+              { text: "Plugin Development", link: "/en/posts/plugins/" },
+              { text: "Theme Development", link: "/en/posts/themes/" },
+              { text: "Plugin & Theme Synergy", link: "/en/posts/plugin-theme-synergy/" },
+              { text: "Usage Tips", link: "/en/posts/usage/" },
+              { text: "Miscellaneous", link: "/en/posts/misc/" },
+            ],
+          },
+          { text: "Contributing", link: "/en/contributing/" },
+        ],
+        sidebar: {
+          "/en/posts/": buildPostSidebar("en"),
+          "/en/about/": EN_INFO_SIDEBAR,
+          "/en/license/": EN_INFO_SIDEBAR,
+          "/en/contributing/": EN_INFO_SIDEBAR,
+        },
+        footer: {
+          message: 'Code MIT · Content CC BY-SA 4.0 + SATA · <a href="/en/license/">License details</a>',
+          copyright: "Copyright © 2025-present MHCGA",
+        },
+        editLink: {
+          pattern: `${githubRepoUrl}/edit/main/docs/:path`,
+        },
+      },
+    },
   },
 });

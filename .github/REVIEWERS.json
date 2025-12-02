@@ -1,0 +1,18 @@
+{
+  "$schema": "./reviewers-schema.json",
+  "reviewers": [
+    {
+      "username": "MHCGA",
+      "name": "MHCGA Team",
+      "role": "maintainer",
+      "approvedCount": 0,
+      "specialties": ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"]
+    }
+  ],
+  "contributors": [],
+  "rules": {
+    "minReviewers": 2,
+    "autoPromoteThreshold": 3,
+    "categories": ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"]
+  }
+}

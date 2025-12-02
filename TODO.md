@@ -1,11 +1,11 @@
 # TODO
 
-- [ ] 创建 README.md
-  - [ ] 中文版（涵盖项目简介、快速开始、贡献指南）
-  - [ ] 英文版（同步中文内容并通过 grammar check）
-- [ ] 初始化 vitepress 设置
-  - [ ] 英文主页（启用导航、分页）
-  - [ ] 中文页（配置本地化、语言切换）
+- [x] 创建 README.md
+  - [x] 中文版（涵盖项目简介、快速开始、贡献指南）
+  - [x] 英文版（同步中文内容并通过 grammar check）
+- [x] 初始化 vitepress 设置
+  - [x] 英文主页（启用导航、分页）
+  - [x] 中文页（配置本地化、语言切换）
 - [ ] 完善 CONTRIBUTING.md
   - [ ] 英文版（新增 issue 模板与 PR 流程）
   - [ ] 中文版（同步英文版内容并审校术语）
@@ -16,10 +16,10 @@
   - [ ] 自动添加到根目录文件做管理
   - [ ] 约定文章质量
   - [ ] 文章基本形式约定：问题场景，既有方案，如何解决，拓展
-- [ ] 测试 workflow（CI、文档部署均通过）
-- [ ] 测试 package.json 脚本
-  - [ ] 测试 format（pnpm format）
-  - [ ] 测试 lint（pnpm lint）
-- [ ] 画新 LOGO
+- [x] 测试 workflow（CI、文档部署均通过）
+- [x] 测试 package.json 脚本
+  - [x] 测试 format（pnpm format）
+  - [x] 测试 lint（pnpm lint）
+- [x] 画新 LOGO
 - [ ] 为 vitepress 构建 rss 方案（支持多语言 feed）
 - [ ] 讨论后考虑是否要购置新域名（决定暂缓，季度复议）

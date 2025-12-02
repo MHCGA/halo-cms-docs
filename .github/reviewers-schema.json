@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reviewers Configuration",
+  "description": "Configuration for reviewers and contributors in the MHCGA blog project",
+  "type": "object",
+  "properties": {
+    "reviewers": {
+      "type": "array",
+      "description": "List of approved reviewers",
+      "items": {
+        "type": "object",
+        "required": ["username", "name", "role", "approvedCount"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "GitHub username"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["maintainer", "reviewer"],
+            "description": "Role in the project"
+          },
+          "approvedCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of approved articles"
+          },
+          "specialties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"]
+            },
+            "description": "Areas of expertise"
+          },
+          "contact": {
+            "type": "string",
+            "description": "Contact information (email or social)"
+          }
+        }
+      }
+    },
+    "contributors": {
+      "type": "array",
+      "description": "List of contributors (not yet promoted to reviewers)",
+      "items": {
+        "type": "object",
+        "required": ["username", "name", "approvedCount"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "GitHub username"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "approvedCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of approved contributions"
+          },
+          "contact": {
+            "type": "string",
+            "description": "Contact information"
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "description": "Rules for review process",
+      "required": ["minReviewers", "autoPromoteThreshold", "categories"],
+      "properties": {
+        "minReviewers": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Minimum number of reviewers required"
+        },
+        "autoPromoteThreshold": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of approved articles needed for auto-promotion to reviewer"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Valid article categories"
+        }
+      }
+    }
+  },
+  "required": ["reviewers", "contributors", "rules"]
+}

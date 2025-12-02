@@ -16,7 +16,7 @@
     "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" \"./docs/**/*.{ts,md,vue,json,css}\"",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "pnpm run docs:build && vitepress preview docs"
   },
   "browserslist": [
     "defaults",
@@ -64,6 +64,7 @@
     "typescript-eslint": "^8.48.0",
     "vitepress": "2.0.0-alpha.15",
     "vitepress-plugin-pagefind": "^0.4.16",
+    "vitepress-plugin-rss": "^0.3.4",
     "vue": "^3.5.25",
     "vue-eslint-parser": "^10.2.0"
   }

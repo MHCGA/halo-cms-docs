@@ -1,0 +1,104 @@
+name: Update Contributor Stats
+
+on:
+  pull_request:
+    types: [closed]
+    paths:
+      - 'docs/**/*.md'
+      - '!docs/.vitepress/**'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Update contributor stats
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          REVIEWERS_FILE=".github/REVIEWERS.json"
+          
+          AUTHOR_IN_REVIEWERS=$(jq --arg author "$PR_AUTHOR" \
+            '.reviewers[] | select(.username == $author)' "$REVIEWERS_FILE")
+          
+          AUTHOR_IN_CONTRIBUTORS=$(jq --arg author "$PR_AUTHOR" \
+            '.contributors[] | select(.username == $author)' "$REVIEWERS_FILE")
+          
+          AUTO_PROMOTE_THRESHOLD=$(jq -r '.rules.autoPromoteThreshold' "$REVIEWERS_FILE")
+          
+          if [ -n "$AUTHOR_IN_REVIEWERS" ]; then
+            jq --arg author "$PR_AUTHOR" \
+              '(.reviewers[] | select(.username == $author) | .approvedCount) += 1' \
+              "$REVIEWERS_FILE" > tmp.json && mv tmp.json "$REVIEWERS_FILE"
+            
+            echo "Updated reviewer $PR_AUTHOR stats"
+          elif [ -n "$AUTHOR_IN_CONTRIBUTORS" ]; then
+            NEW_COUNT=$(jq --arg author "$PR_AUTHOR" \
+              '.contributors[] | select(.username == $author) | .approvedCount + 1' \
+              "$REVIEWERS_FILE")
+            
+            jq --arg author "$PR_AUTHOR" \
+              '(.contributors[] | select(.username == $author) | .approvedCount) += 1' \
+              "$REVIEWERS_FILE" > tmp.json && mv tmp.json "$REVIEWERS_FILE"
+            
+            if [ "$NEW_COUNT" -ge "$AUTO_PROMOTE_THRESHOLD" ]; then
+              echo "Promoting $PR_AUTHOR to reviewer!"
+              
+              CONTRIBUTOR_DATA=$(jq --arg author "$PR_AUTHOR" \
+                '.contributors[] | select(.username == $author)' "$REVIEWERS_FILE")
+              
+              jq --arg author "$PR_AUTHOR" --argjson data "$CONTRIBUTOR_DATA" \
+                '.contributors |= map(select(.username != $author)) | 
+                 .reviewers += [($data | . + {role: "reviewer", specialties: ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"]})]' \
+                "$REVIEWERS_FILE" > tmp.json && mv tmp.json "$REVIEWERS_FILE"
+              
+              gh issue create \
+                --title "🎉 恭喜 @$PR_AUTHOR 晋升为审稿人！" \
+                --body "恭喜 @$PR_AUTHOR！您的第 $NEW_COUNT 篇投稿已通过审核，根据项目规则，您已自动晋升为审稿人。审稿人权限：可以审核其他投稿、参与项目决策讨论、在 REVIEWERS.json 中被列为正式审稿人。感谢您对 Halo CMS 知识库（口号：Make Halo CMS Great Again）项目的持续贡献！" \
+                --label "announcement"
+            fi
+          else
+            AUTHOR_NAME=$(gh api "/users/$PR_AUTHOR" --jq '.name // .login')
+            
+            jq --arg username "$PR_AUTHOR" --arg name "$AUTHOR_NAME" \
+              '.contributors += [{
+                "username": $username,
+                "name": $name,
+                "approvedCount": 1
+              }]' \
+              "$REVIEWERS_FILE" > tmp.json && mv tmp.json "$REVIEWERS_FILE"
+            
+            echo "Added new contributor $PR_AUTHOR"
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          if git diff --quiet .github/REVIEWERS.json; then
+            echo "No changes to commit"
+          else
+            git add .github/REVIEWERS.json
+            git commit -m "chore: update contributor stats after PR #${{ github.event.pull_request.number }}"
+            git push
+          fi
