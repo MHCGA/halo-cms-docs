@@ -51,7 +51,7 @@ spec:
 
 :::
 
-模板代码示例如下：  
+模板代码示例如下： 
 （这段代码是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，可以将 `th:if="${#lists.size(firstPagePostList) > 1}"` 中的 `> 1` 改为 `> 0`，并且要去除 `<div th:if="${post.metadata.name != iterPost.metadata.name}"> .. </div>` 的 `th:if` 属性。具体含义会在下文解释。）
 
 ```html
