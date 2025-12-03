@@ -18,7 +18,7 @@ The Halo CMS Knowledge Base continuously covers:
 - **Tooling and workflow guides**: Continuously improve development, testing, deployment, monitoring and other supporting guides.
 - **Community insights and interviews**: Document stories and participants of the Halo ecosystem.
 
-Visit us directly at [Official site](https://howiehz.top/mhcga).
+Visit us directly at [Official site](https://howiehz.top/mhcga)
 
 ## Subscribe via RSS
 
@@ -50,4 +50,4 @@ Code uses [MIT License](LICENSE); documentation follows CC BY-SA 4.0 + SATA comb
 
 - Thanks to all [contributors](https://github.com/MHCGA/blog/graphs/contributors) for their contributions to content, scripts, and reviews.
 
-We look forward to you becoming the next contributor and helping us make the Halo CMS Knowledge Base even better!
+We look forward to you becoming the next contributor and helping us make the Knowledge Base even better!
