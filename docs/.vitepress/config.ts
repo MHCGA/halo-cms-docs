@@ -208,6 +208,12 @@ export default defineConfig({
       }),
       // RSS feed plugin
       RssPlugin({
+        baseUrl,
+        title: "Halo CMS 知识库",
+        copyright: "版权所有 © 2025-至今 MHCGA",
+        description: "Make Halo CMS Great Again · 分享与 Halo CMS 相关的插件、主题与运营经验。",
+        language: "zh-Hans",
+        filename: "rss.xml",
         locales: {
           root: {
             baseUrl,
@@ -215,7 +221,7 @@ export default defineConfig({
             copyright: "版权所有 © 2025-至今 MHCGA",
             description: "Make Halo CMS Great Again · 分享与 Halo CMS 相关的插件、主题与运营经验。",
             language: "zh-Hans",
-            filename: "rss.xml",
+            filename: "rss.zh-hans.xml",
           },
           en: {
             baseUrl,
