@@ -150,7 +150,7 @@ spec:
 使用 `#lists.size` 检查 `firstPagePostList` 变量保存的文章数据是否大于 1，如果大于 1 则进入下一层，否则不进行文章推荐。（这段代码原本是设计放置在文章页模板，即 `/templates/post.html`。如果等于 1，说明当前站点仅有一篇文章，无需进行重复推荐。如果这段模板代码不是放置在文章页模板，可以将 `> 1` 改为 `> 0`。）
 
 - `th:with` 初始化了多个变量：
-  - `randomPageNumber`：为 [Thymeleaf 随机数生成与格式化详解（整数/小数/浮点数）](/archives/thymeleaf-generate-format-random-number) 的应用示例，根据一开始查询结果的总页码数，来随机生成一个页码。
+  - `randomPageNumber`：根据一开始查询结果的总页码数，来随机生成一个数，范围是 `[1, 总页码]`。正好对应有效页码。
   - `targetPagePostFinderResult`：使用 Halo CMS 提供的 Finder API 中的 [list({...})](https://docs.halo.run/developer-guide/theme/finder-apis/post/#list) 获取文章列表数据（查询参数设置了目标页码、分页条数和排序字段。目标页码为随机出的页码 `randomPageNumber`；排序字段无要求；分页条数必须为 `n`，保证随机出的文章数接近要求数。参数含义详情请参考[官方文档](https://docs.halo.run/developer-guide/theme/finder-apis/post/#%E5%8F%82%E6%95%B0-4)），变量类型为 [ListResult\<ListedPostVo>](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listresultlistedpostvo)。
   - `targetPagePostList`：保存 `targetPagePostFinderResult` 的文章列表数据，变量类型为 List\<[ListedPostVo](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listedpostvo)\>。
 
