@@ -19,7 +19,7 @@ references:
 
 ## 完整代码示例
 
-模板代码使用了两配置项：
+模板代码使用了两个配置项：
 
 - `theme.config?.post_styles?.is_post_recommended_articles_show` 控制是否启用推荐文章
 - `theme.config?.post_styles?.post_recommended_articles_count` 控制推荐文章数。
