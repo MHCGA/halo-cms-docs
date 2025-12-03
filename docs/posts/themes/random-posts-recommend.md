@@ -324,7 +324,7 @@ spec:
                 categoryName: firstCategoryName,
                 sort: {'spec.publishTime,desc', 'metadata.creationTimestamp,asc'}
               })},
-              targetPagePostList=${targetPagePostFinderResult.items},"
+              targetPagePostList=${targetPagePostFinderResult.items}"
 >
   <!-- ... -->
 </th:block>
