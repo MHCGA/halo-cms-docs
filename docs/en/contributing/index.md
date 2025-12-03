@@ -12,15 +12,21 @@ references:
 All maintainers of the Halo CMS Knowledge Base sincerely welcome your contributions. It is thanks to countless contributors like you that we can continuously create and maintain the "Make Halo CMS Great Again" knowledge experience.
 This page references best practices from the community and systematically introduces how to write or edit articles for this project. Please read through it carefully before starting to help ensure higher quality submissions.
 
-## Before You Start
+::: tip Quick Submission
+
+You can directly submit the original article link in an [issue](https://github.com/MHCGA/blog/issues/new), and then project volunteers will help move it into the knowledge base.
+
+:::
+
+## Contributing Guide
 
 Before editing, please read the following materials to stay aligned with community standards:
 
 - [Project Overview and Site Guidelines](/en/about/)
-- [Repository README](https://github.com/MHCGA/blog/blob/main/README.md) and [English README](https://github.com/MHCGA/blog/blob/main/README.en.md)
-- Sections on "Submission Rules" and "Collaboration Flow" on this page
+- [Repository README](https://github.com/MHCGA/blog/blob/main/README.en.md)
+- Sections below
 
-## Getting Started
+## Participate in Collaboration
 
 ::: warning Reminder
 Before writing, please browse the [Issues list](https://github.com/MHCGA/blog/issues) to ensure no one is already working on the same topic. If it appears free, please open a new issue to record your plan and scope for easier collaboration.
@@ -30,7 +36,7 @@ Before writing, please browse the [Issues list](https://github.com/MHCGA/blog/is
 The iteration plans and Todo labels in Issues aggregate large amounts of pending work — an excellent entry point for understanding project pace and selecting tasks.
 :::
 
-To ensure article professionalism and accuracy, please consider the following before editing:
+To ensure article professionalism and accuracy, please consider the following points before editing:
 
 1. **Prioritize familiar domains**: write based on your technical background or operational experience to produce higher-value content more easily.
 2. **Be cautious entering new topics**: if you're still learning a subject, read and practice first to ensure understanding before writing.

@@ -11,13 +11,19 @@ references:
 
 在开始之前，Halo CMS 知识库全体维护者诚挚欢迎你加入。正是因为有无数位和你一样的贡献者，我们才能持续打造“Make Halo CMS Great Again”的内容体验。该页面参考社区优秀做法，系统介绍如何为本项目撰稿或修订文章，请务必在动笔前通读一遍，以帮助你提交更高质量的内容。
 
+::: tip 快速投稿
+
+可以直接发原文链接在 [issue](https://github.com/MHCGA/blog/issues/new) 投稿，然后项目志愿者会帮忙加入知识库。
+
+:::
+
 ## 贡献指南
 
 在动手编辑前，请先阅读下列资料，便于与社区保持一致：
 
 - [项目简介与站点方针](/about/)
-- [仓库 README](https://github.com/MHCGA/blog/blob/main/README.md) 与 [英文 README](https://github.com/MHCGA/blog/blob/main/README.en.md)
-- 本页“提交规范”“协作流程”等章节
+- [仓库 README](https://github.com/MHCGA/blog/blob/main/README.md)
+- 本页下方的章节
 
 ## 参与协作
 

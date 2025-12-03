@@ -2,7 +2,9 @@
 import { useData } from "vitepress";
 import { computed } from "vue";
 
-const { page } = useData();
+const { page, site } = useData();
+
+const base = computed(() => site.value.base);
 
 const isEnglish = computed(() => page.value.relativePath?.startsWith("en/") ?? false);
 const copy = computed(() => {
@@ -13,8 +15,8 @@ const copy = computed(() => {
       connector: " and ",
       sataText: "the SATA License",
       suffix: "; please also follow any supplementary notices referenced in this article.",
-      ccHref: "/en/license/#content-license",
-      sataHref: "/en/license/#content-license",
+      ccHref: `${base.value}en/license/#content-license`,
+      sataHref: `${base.value}en/license/#content-license`,
     } as const;
   }
   return {
@@ -23,8 +25,8 @@ const copy = computed(() => {
     connector: " 和 ",
     sataText: "SATA 协议",
     suffix: " 条款，如文稿另有补充说明请一并遵守。",
-    ccHref: "/license/#content-license",
-    sataHref: "/license/#content-license",
+    ccHref: `${base.value}license/#content-license`,
+    sataHref: `${base.value}license/#content-license`,
   } as const;
 });
 </script>

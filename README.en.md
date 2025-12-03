@@ -7,15 +7,18 @@
 [![GitHub Stars](https://img.shields.io/github/stars/MHCGA/blog.svg?style=social&label=Star)](https://github.com/MHCGA/blog)
 [![GitHub Watchers](https://img.shields.io/github/watchers/MHCGA/blog.svg?style=social&label=Watch)](https://github.com/MHCGA/blog)
 
-## About
+## About This Project
 
-The Halo CMS community has accumulated extensive hands-on experience with plugins, themes, operations, and ecosystem expansion, though the resources are often scattered. The Halo CMS Knowledge Base aims to become a free bilingual (Chinese/English) knowledge integration site, continuously covering:
+The Halo CMS community has accumulated extensive hands-on experience with plugins, themes, operations, and ecosystem expansion, though the resources are often scattered. We aim to build a high-quality, sustainable knowledge base through community collaboration to help creators launch and grow their Halo sites faster.
 
-- Plugin and theme development techniques, debugging practices, release pipelines
-- Site operations, content workflows, automated deployment solutions
-- Ecosystem collaboration (plugins × themes), community cases, tooling guides
+The Halo CMS Knowledge Base continuously covers:
 
-Visit us directly at [https://howiehz.top/mhcga](https://howiehz.top/mhcga).
+- **In-depth technical articles**: Share key ideas, pitfalls, and best practices for plugin or theme development.
+- **Standout site showcases**: Showcase Halo solutions in different scenarios.
+- **Tooling and workflow guides**: Continuously improve development, testing, deployment, monitoring and other supporting guides.
+- **Community insights and interviews**: Document stories and participants of the Halo ecosystem.
+
+Visit us directly at [Official site](https://howiehz.top/mhcga).
 
 ## Subscribe via RSS
 

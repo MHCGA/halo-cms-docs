@@ -7,13 +7,16 @@
 [![GitHub Stars](https://img.shields.io/github/stars/MHCGA/blog.svg?style=social&label=Star)](https://github.com/MHCGA/blog)
 [![GitHub Watchers](https://img.shields.io/github/watchers/MHCGA/blog.svg?style=social&label=Watch)](https://github.com/MHCGA/blog)
 
-## 内容
+## 关于此项目
 
-Halo CMS 社区在插件、主题、运营、扩展生态上积累了大量一线经验，但资料往往分散。Halo CMS 知识库立志成为免费的中文/英文知识整合站点，持续收录：
+Halo CMS 社区在插件、主题、运营、扩展生态上积累了大量一线经验，但资料往往分散。我们希望通过集体协作，建立一个高质量、可持续维护的知识库，帮助更多创作者更快地完成站点搭建与运营。
 
-- 插件与主题开发技巧、调试实践、发布流水线
-- 站点运营、内容工作流、自动化部署方案
-- 扩展生态协同（插件 × 主题）、社区案例、工具链指南
+Halo CMS 知识库持续收录以下内容：
+
+- **深入的技术文章**：分享插件或主题开发中的关键思路、踩坑经验与最佳实践。
+- **优秀的站点案例**：展示 Halo 在不同场景下的落地方案。
+- **工具链与流程**：持续改进研发、测试、部署、监控等配套指南。
+- **社区洞察与访谈**：记录 Halo 生态的故事与参与者。
 
 你可以直接访问：[官网](https://howiehz.top/mhcga)。
 
