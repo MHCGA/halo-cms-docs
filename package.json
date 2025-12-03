@@ -14,6 +14,7 @@
     "lint:autocorrect": "autocorrect --fix",
     "format": "pnpm run \"/^format:.*/\"",
     "format:prettier": "prettier --write \"*.{js,ts,json,yaml,md,jsonc}\" \"./docs/**/*.{ts,md,vue,json,css}\"",
+    "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run format",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "pnpm run docs:build && vitepress preview docs"
