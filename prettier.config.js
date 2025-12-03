@@ -9,7 +9,7 @@ const config = {
   endOfLine: "lf",
   importOrder: ["^@core/(.*)$", "", "^@server/(.*)$", "", "^@ui/(.*)$", "", "^[./]"],
   importOrderTypeScriptVersion: "5.0.0",
-  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  plugins: ["@ianvs/prettier-plugin-sort-imports"],
   overrides: [
     {
       files: ["**/*.jsonc"],
