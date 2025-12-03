@@ -18,7 +18,7 @@ Halo CMS 知识库持续收录以下内容：
 - **工具链与流程**：持续改进研发、测试、部署、监控等配套指南。
 - **社区洞察与访谈**：记录 Halo 生态的故事与参与者。
 
-你可以直接访问：[官网](https://howiehz.top/mhcga)。
+你可以直接访问：[官网](https://howiehz.top/mhcga)
 
 ## 订阅 RSS
 
@@ -44,6 +44,6 @@ Halo CMS 知识库持续收录以下内容：
 
 ## 鸣谢
 
-- 感谢所有 [贡献者](https://github.com/MHCGA/blog/graphs/contributors) 在内容、脚本、审稿上的投入。
+- 感谢所有[贡献者](https://github.com/MHCGA/blog/graphs/contributors)在内容、脚本、审稿上的投入。
 
-期待你也成为下一位贡献者，和我们一起让 Halo CMS 知识库更好用！
+期待你也成为下一位贡献者，和我们一起让知识库更好用！
