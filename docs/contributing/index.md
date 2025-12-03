@@ -5,6 +5,8 @@ references:
     url: https://zh.wikipedia.org/wiki/Wikipedia:%E6%96%B0%E6%89%8B%E5%85%A5%E9%96%80/%E7%B7%A8%E8%BC%AF
   - name: GitHub Web 编辑器说明
     url: https://docs.github.com/zh/codespaces/developing-in-codespaces/web-based-editor
+  - name: "OI Wiki: 如何参与"
+    url: https://oi-wiki.org/intro/htc/
 ---
 
 # 投稿指南
@@ -39,7 +41,7 @@ Issues 中的迭代计划与 Todo 标签聚合了大量待办工作，是了解�
 
 1. **优先选择熟悉的领域**：围绕自身的技术背景或运营经验撰写，更容易输出高价值内容。
 2. **谨慎进入全新主题**：如果你对某个话题仍在入门，请先阅读/实践，确保理解后再撰稿。
-3. **查阅权威资料**：引用外部观点时请附上来源链接，必要时可在文末的 `references` 字段列出参考资料。
+3. **查阅权威资料**：引用外部观点时请附上来源链接，必要时可在 `Frontmatter` 的 `references` 字段列出参考资料。
 
 我们珍惜每位贡献者的热情，也理解大家的经验各不相同。让我们携手维护一个准确、友好的知识空间。引用维基百科的一句话：
 

@@ -5,6 +5,8 @@ references:
     url: https://en.wikipedia.org/wiki/Wikipedia:Tutorial/Editing
   - name: GitHub Web Editor Documentation
     url: https://docs.github.com/en/codespaces/developing-in-codespaces/web-based-editor
+  - name: "OI Wiki: How to Contribute"
+    url: https://oi-wiki.org/intro/htc/
 ---
 
 # Contribution Guide
@@ -40,7 +42,7 @@ To ensure article professionalism and accuracy, please consider the following po
 
 1. **Prioritize familiar domains**: write based on your technical background or operational experience to produce higher-value content more easily.
 2. **Be cautious entering new topics**: if you're still learning a subject, read and practice first to ensure understanding before writing.
-3. **Consult authoritative sources**: when citing external perspectives, please attach source links, and you can list reference materials in the `references` field at the end.
+3. **Consult authoritative sources**: when citing external perspectives, please attach source links, and you can list reference materials in the `references` field in Frontmatter.
 
 We cherish every contributor's enthusiasm and understand that everyone's experience varies. Let's work together to maintain an accurate and friendly knowledge space. Quoting Wikipedia:
 
