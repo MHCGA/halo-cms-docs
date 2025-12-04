@@ -4,7 +4,7 @@ authors:
     url: https://github.com/HowieHz
     email: ""
 references:
-  - name: 在 Halo CMS 中通过模板实现随机推荐多篇文章
+  - name: 皓子的小站 | 在 Halo CMS 中通过模板实现随机推荐多篇文章
     url: https://howiehz.top/archives/halo-cms-thymeleaf-random-posts-recommend
 ---
 
