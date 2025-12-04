@@ -17,13 +17,15 @@ references:
 将以下代码插入模板，会创建一个指向随机文章的超链接。
 
 ```html
-<a
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink}"
-  th:href="${postPermalink}"
-  >随机文章</a
->
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <a
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink}"
+    th:href="${postPermalink}"
+    >随机文章</a
+  >
+</th:block>
 ```
 
 ### 原理讲解
@@ -44,63 +46,69 @@ references:
 ::: code-group
 
 ```html [window.location.href]
-<script
-  th:inline="javascript"
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink}"
->
-  function toRandomPost() {
-    // 将地址保存到变量中
-    let permalink = /*[[${postPermalink}]]*/ "/";
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:inline="javascript"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 将地址保存到变量中
+      let permalink = /*[[${postPermalink}]]*/ "/";
 
-    // 跳转到目标链接
-    window.location.href = permalink;
+      // 跳转到目标链接
+      window.location.href = permalink;
 
-    // 省略 permalink 变量，直接作为参数传入的写法：
-    // window.location.href = /*[[${postPermalink}]]*/ "/";
-  }
-</script>
+      // 省略 permalink 变量，直接作为参数传入的写法：
+      // window.location.href = /*[[${postPermalink}]]*/ "/";
+    }
+  </script>
+</th:block>
 ```
 
 ```html [window.open]
-<script
-  th:inline="javascript"
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink}"
->
-  function toRandomPost() {
-    // 将地址保存到变量中
-    let permalink = /*[[${postPermalink}]]*/ "/";
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:inline="javascript"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 将地址保存到变量中
+      let permalink = /*[[${postPermalink}]]*/ "/";
 
-    // 跳转到目标链接
-    window.open(permalink);
+      // 跳转到目标链接
+      window.open(permalink);
 
-    // 省略 permalink 变量，直接作为参数传入的写法：
-    // window.open(/*[[${postPermalink}]]*/ "/");
-  }
-</script>
+      // 省略 permalink 变量，直接作为参数传入的写法：
+      // window.open(/*[[${postPermalink}]]*/ "/");
+    }
+  </script>
+</th:block>
 ```
 
 ```html [pjax.loadUrl]
-<script
-  th:inline="javascript"
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink}"
->
-  function toRandomPost() {
-    // 将地址保存到变量中
-    let permalink = /*[[${postPermalink}]]*/ "/";
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:inline="javascript"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 将地址保存到变量中
+      let permalink = /*[[${postPermalink}]]*/ "/";
 
-    // 跳转到目标链接
-    pjax.loadUrl(permalink);
+      // 跳转到目标链接
+      pjax.loadUrl(permalink);
 
-    // 省略 permalink 变量，直接作为参数传入的写法：
-    // pjax.loadUrl(/*[[${postPermalink}]]*/ "/");
-  }
-</script>
+      // 省略 permalink 变量，直接作为参数传入的写法：
+      // pjax.loadUrl(/*[[${postPermalink}]]*/ "/");
+    }
+  </script>
+</th:block>
 ```
 
 :::
@@ -113,30 +121,34 @@ references:
 将超链接的文字替换为目标文章标题：
 
 ```html
-<a
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink},
-    postTitle=${allPostList[randomIndex].spec.title}"
-  th:href="${postPermalink}"
-  th:text="${postTitle}"
-></a>
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <a
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink},
+      postTitle=${allPostList[randomIndex].spec.title}"
+    th:href="${postPermalink}"
+    th:text="${postTitle}"
+  ></a>
+</th:block>
 ```
 
 弹出一个带有消息和确认按钮的警告框，显示目标文章标题：
 
 ```html
-<script
-  th:inline="javascript"
-  th:with="allPostList=${postFinder.listAll()},
-    randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
-    postPermalink=${allPostList[randomIndex].status.permalink},
-    postTitle=${allPostList[randomIndex].spec.title}"
->
-  function toRandomPost() {
-    alert(/*[[${postTitle}]]*/ "");
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    th:inline="javascript"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))},
+      postPermalink=${allPostList[randomIndex].status.permalink},
+      postTitle=${allPostList[randomIndex].spec.title}"
+  >
+    function toRandomPost() {
+      alert(/*[[${postTitle}]]*/ "");
 
-    window.location.href = /*[[${postPermalink}]]*/ "/";
-  }
-</script>
+      window.location.href = /*[[${postPermalink}]]*/ "/";
+    }
+  </script>
+</th:block>
 ```
