@@ -30,6 +30,12 @@ references:
 
 ### 原理讲解
 
+::: tip 提示
+
+当没有文章时（`allPostList` 为空），`randomIndex` 会是 0，访问 `allPostList[0]` 会导致错误。因此需要先使用 `th:if="${not #lists.isEmpty(allPostList)}"` 在 `allPostList` 为空时移除元素，避免产生错误。
+
+:::
+
 - `allPostList = ${postFinder.listAll()}`：
   - 使用 Finder API [postFinder.listAll()](https://docs.halo.run/developer-guide/theme/finder-apis/post#listall) 获取所有文章。赋值给 `allPostList`。
 - `randomIndex = ${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))}`：
