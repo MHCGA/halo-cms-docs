@@ -276,6 +276,12 @@ export default defineConfig({
     logo: { src: "/ico_25x25.png", width: 24, height: 24 },
   },
 
+  markdown: {
+    image: {
+      lazyLoading: true,
+    },
+  },
+
   locales: {
     root: {
       title: "Halo CMS 知识库",
@@ -291,9 +297,6 @@ export default defineConfig({
           dangerLabel: "危险",
           infoLabel: "信息",
           detailsLabel: "详细信息",
-        },
-        image: {
-          lazyLoading: true,
         },
       },
       // 主题配置放在 locales 里是为了覆盖默认语言
@@ -371,11 +374,6 @@ export default defineConfig({
       label: "English",
       lang: "en-US",
       dir: "ltr",
-      markdown: {
-        image: {
-          lazyLoading: true,
-        },
-      },
       themeConfig: {
         socialLinks: [{ icon: "github", link: githubRepoUrl }],
         nav: [
