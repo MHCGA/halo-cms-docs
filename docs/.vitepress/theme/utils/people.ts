@@ -1,6 +1,6 @@
 export interface FrontmatterPerson {
   name?: string;
-  url?: string;
+  link?: string;
   email?: string;
 }
 
@@ -34,7 +34,7 @@ function normalizeEntry(person?: FrontmatterPerson): NormalizedPerson | undefine
   }
 
   const label = person.name?.trim();
-  const url = person.url?.trim();
+  const link = person.link?.trim();
   const email = person.email?.trim();
 
   if (!label) {
@@ -43,14 +43,14 @@ function normalizeEntry(person?: FrontmatterPerson): NormalizedPerson | undefine
 
   return {
     label,
-    link: buildLink(url, email),
+    link: buildLink(link, email),
   };
 }
 
-function buildLink(url?: string, email?: string): string | undefined {
-  // 优先使用 url，url 为空或 '' 则使用 email
-  if (url && url !== "") {
-    return url;
+function buildLink(link?: string, email?: string): string | undefined {
+  // 优先使用 link，link 为空或 '' 则使用 email
+  if (link && link !== "") {
+    return link;
   }
 
   if (email && email !== "") {

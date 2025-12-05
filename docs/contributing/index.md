@@ -2,11 +2,11 @@
 publish: false
 references:
   - name: "Wikipedia: 新手入门/编辑"
-    url: https://zh.wikipedia.org/wiki/Wikipedia:%E6%96%B0%E6%89%8B%E5%85%A5%E9%96%80/%E7%B7%A8%E8%BC%AF
+    link: https://zh.wikipedia.org/wiki/Wikipedia:%E6%96%B0%E6%89%8B%E5%85%A5%E9%96%80/%E7%B7%A8%E8%BC%AF
   - name: GitHub Web 编辑器说明
-    url: https://docs.github.com/zh/codespaces/developing-in-codespaces/web-based-editor
+    link: https://docs.github.com/zh/codespaces/developing-in-codespaces/web-based-editor
   - name: "OI Wiki: 如何参与"
-    url: https://oi-wiki.org/intro/htc/
+    link: https://oi-wiki.org/intro/htc/
 ---
 
 # 投稿指南
@@ -69,26 +69,26 @@ Issues 中的迭代计划与 Todo 标签聚合了大量待办工作，是了解�
 
 ```yaml
 ---
-authors:
+author:
   - name: 投稿者 A
-    url: https://github.com/contributor-a
+    link: https://github.com/contributor-a
     email: ""
   - name: 投稿者 B
-    url: ""
+    link: ""
     email: contributor-b@example.com
 references:
   - name: 参考资料名称
-    url: https://example.com
+    link: https://example.com
 ---
 ```
 
 字段说明：
 
-- `authors`（必填）：至少填写一位作者的 `name`；`url` 和 `email` 均可选。
-  - `url`：主要联系方式（个人网站、GitHub 主页等），若存在则优先使用。
-  - `email`：备选联系方式，仅在 `url` 为空或缺失时使用。若无邮箱可填空字符串 `''`。
-  - 渲染规则：若 `url` 存在则链接至该地址，否则链接至 `email`（格式为 `mailto:`），两项都为空则不生成链接。
-- `references`（可选）：引用资料列表；每项需要 `name` 与 `url`，若没有参考资料可省略整个字段。
+- `author`（必填）：至少填写一位作者的 `name`；`link` 和 `email` 均可选。
+  - `link`：主要联系方式（个人网站、GitHub 主页等），若存在则优先使用。
+  - `email`：备选联系方式，仅在 `link` 为空或缺失时使用。若无邮箱可填空字符串 `''`。
+  - 渲染规则：若 `link` 存在则链接至该地址，否则链接至 `email`（格式为 `mailto:`），两项都为空则不生成链接。
+- `references`（可选）：引用资料列表；每项需要 `name` 与 `link`，若没有参考资料可省略整个字段。
 
 > Frontmatter 必须位于 Markdown 文件最开头，并用一对 `---` 包裹，中间填写上述字段；正文须以 `# 文章标题` 的一级标题开头。
 
@@ -153,9 +153,9 @@ references:
 
 ## Frontmatter 责任
 
-建文稿时需在 Frontmatter 中维护 `authors`、`references` 等字段：
+建文稿时需在 Frontmatter 中维护 `author`、`references` 等字段：
 
-- 若多人共同创作，请在 `authors` 列表中依次填写每位作者的 `name`，`url` 和 `email` 视情况添加。
+- 若多人共同创作，请在 `author` 列表中依次填写每位作者的 `name`，`link` 和 `email` 视情况添加。
 - 页面会依据 Frontmatter 自动渲染文章开结尾的作者/参考资料信息，请保持内容一致、真实。
 - 若文章引入外部素材，请在 `references` 中列出名称与链接；没有引用时可省略。
 - 若修改了他人文章，请在 PR 描述中说明原作者，尊重署名。

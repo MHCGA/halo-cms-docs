@@ -2,11 +2,11 @@
 publish: false
 references:
   - name: "Wikipedia: Beginner's Guide/Editing"
-    url: https://en.wikipedia.org/wiki/Wikipedia:Tutorial/Editing
+    link: https://en.wikipedia.org/wiki/Wikipedia:Tutorial/Editing
   - name: GitHub Web Editor Documentation
-    url: https://docs.github.com/en/codespaces/developing-in-codespaces/web-based-editor
+    link: https://docs.github.com/en/codespaces/developing-in-codespaces/web-based-editor
   - name: "OI Wiki: How to Contribute"
-    url: https://oi-wiki.org/intro/htc/
+    link: https://oi-wiki.org/intro/htc/
 ---
 
 # Contribution Guide
@@ -70,26 +70,26 @@ We cherish every contributor's enthusiasm and understand that everyone's experie
 
 ```yaml
 ---
-authors:
+author:
   - name: Contributor A
-    url: https://github.com/contributor-a
+    link: https://github.com/contributor-a
     email: ""
   - name: Contributor B
-    url: ""
+    link: ""
     email: contributor-b@example.com
 references:
   - name: Reference name
-    url: https://example.com
+    link: https://example.com
 ---
 ```
 
 Field explanation:
 
-- `authors` (required): at least one author with `name`; both `url` and `email` are optional.
-  - `url`: primary contact method (personal website, GitHub profile, etc.); prioritized if present.
-  - `email`: fallback contact, only used when `url` is empty or missing. Use empty string `''` if not available.
-  - Rendering rules: if `url` exists, link to that address; otherwise link to `email` (formatted as `mailto:`); skip linking if both are empty.
-- `references` (optional): reference materials list; each item needs `name` and `url`. Can omit the entire field if no references.
+- `author` (required): at least one author with `name`; both `link` and `email` are optional.
+  - `link`: primary contact method (personal website, GitHub profile, etc.); prioritized if present.
+  - `email`: fallback contact, only used when `link` is empty or missing. Use empty string `''` if not available.
+  - Rendering rules: if `link` exists, link to that address; otherwise link to `email` (formatted as `mailto:`); skip linking if both are empty.
+- `references` (optional): reference materials list; each item needs `name` and `link`. Can omit the entire field if no references.
 
 > Frontmatter must be placed at the very beginning of the Markdown file, wrapped by a pair of `---`, with fields in between. The article content must begin with `# Article Title` as a level-one heading.
 
@@ -154,9 +154,9 @@ Each PR automatically triggers GitHub Actions to ensure lint and build pass. Cur
 
 ## Frontmatter Responsibilities
 
-When creating articles, you need to maintain the `authors` and `references` fields in Frontmatter:
+When creating articles, you need to maintain the `author` and `references` fields in Frontmatter:
 
-- If multiple people co-author, list each author's `name` in the `authors` list in order; add `url` and `email` as needed.
+- If multiple people co-author, list each author's `name` in the `author` list in order; add `link` and `email` as needed.
 - The page automatically renders author/reference sections based on Frontmatter, so keep content consistent and accurate.
 - If the article references external materials, list the name and link in `references`. If there are no references, you can omit the entire field.
 - If modifying someone else's article, please mention the original author in your PR description to respect attribution.

@@ -2,11 +2,11 @@
 publish: false
 references:
   - name: MIT License
-    url: https://opensource.org/licenses/MIT
+    link: https://opensource.org/licenses/MIT
   - name: Creative Commons BY-SA 4.0
-    url: https://creativecommons.org/licenses/by-sa/4.0/
+    link: https://creativecommons.org/licenses/by-sa/4.0/
   - name: Star And Thank Author (SATA) License
-    url: https://github.com/zTrix/sata-license
+    link: https://github.com/zTrix/sata-license
 ---
 
 # License Overview

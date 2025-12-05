@@ -1,13 +1,13 @@
 ---
-authors:
+author:
   - name: HowieHz
-    url: https://github.com/HowieHz
+    link: https://github.com/HowieHz
     email: ""
 references:
   - name: halo-theme-higan-hz v1.49.0 字数统计实现
-    url: https://github.com/HowieHz/halo-theme-higan-hz/blob/005f040d4f5c8f1a0a9a64ad69de4260ade0c276/src/templates/components/list-post-summary/template.html#L121
+    link: https://github.com/HowieHz/halo-theme-higan-hz/blob/005f040d4f5c8f1a0a9a64ad69de4260ade0c276/src/templates/components/list-post-summary/template.html#L121
   - name: Liks'Blog | Halo 的文章字数统计实现
-    url: https://blog.liks.space/archives/halo-post-words-count/
+    link: https://blog.liks.space/archives/halo-post-words-count/
 ---
 
 # 实现字数统计

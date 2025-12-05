@@ -11,7 +11,7 @@ interface FrontmatterReference {
   name?: string;
   title?: string;
   type?: string;
-  url?: string;
+  link?: string;
 }
 
 interface NormalizedReference {
@@ -61,8 +61,8 @@ function normalizeReferences(
         return buildReference(entry, entry);
       }
 
-      const label = entry.name?.trim() || entry.title?.trim() || entry.type?.trim() || entry.url?.trim();
-      const url = entry.url?.trim();
+      const label = entry.name?.trim() || entry.title?.trim() || entry.type?.trim() || entry.link?.trim();
+      const url = entry.link?.trim();
       if (!label || !url) {
         return undefined;
       }

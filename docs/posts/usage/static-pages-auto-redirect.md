@@ -1,10 +1,10 @@
 ---
-authors:
+author:
   - name: HowieHz
-    url: https://github.com/HowieHz
+    link: https://github.com/HowieHz
 references:
   - name: VitePress | 生成简洁的 URL
-    url: https://vitepress.dev/zh/guide/routing#generating-clean-url
+    link: https://vitepress.dev/zh/guide/routing#generating-clean-url
 ---
 
 # 静态网页服务插件内部自动重定向
