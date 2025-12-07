@@ -223,7 +223,11 @@ export default defineConfig({
       exclude: ["@nolebase/vitepress-plugin-enhanced-readabilities/client", "vitepress", "@nolebase/ui"],
     },
     ssr: {
-      noExternal: ["@nolebase/vitepress-plugin-enhanced-readabilities", "@nolebase/ui"],
+      noExternal: [
+        "@nolebase/vitepress-plugin-enhanced-readabilities",
+        "@nolebase/ui",
+        "@nolebase/vitepress-plugin-highlight-targeted-heading",
+      ],
     },
   },
   base: basePath,

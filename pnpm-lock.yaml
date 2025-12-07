@@ -23,6 +23,9 @@ importers:
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: ^2.18.2
         version: 2.18.2(vitepress@2.0.0-alpha.15(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))(vue@3.5.25(typescript@5.9.3))
+      '@nolebase/vitepress-plugin-highlight-targeted-heading':
+        specifier: ^2.18.2
+        version: 2.18.2(vitepress@2.0.0-alpha.15(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
       '@typescript-eslint/parser':
         specifier: ^8.48.1
         version: 8.48.1(eslint@9.39.1)(typescript@5.9.3)
@@ -652,6 +655,11 @@ packages:
 
   '@nolebase/vitepress-plugin-enhanced-readabilities@2.18.2':
     resolution: {integrity: sha512-fDhdZBSJL2qs/1xac0PtJfU5UI7b36ffVPYgzM8Ig2NjqMJ7cBvrTTPGq03lUeMjK7GD7fItAKudaP+ZrtMg8w==}
+    peerDependencies:
+      vitepress: ^1.5.0 || ^2.0.0-alpha.1
+
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2':
+    resolution: {integrity: sha512-RVrT7FgyjxrnFFR9twc1OJI/5B09+biVbSiO36Yiu2YC+kRMz1Mb553l2DyioLtWJgVNTJ7sj66ZJi40JpDh7g==}
     peerDependencies:
       vitepress: ^1.5.0 || ^2.0.0-alpha.1
 
@@ -3188,6 +3196,11 @@ snapshots:
       vitepress: 2.0.0-alpha.15(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
     transitivePeerDependencies:
       - vue
+
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(vitepress@2.0.0-alpha.15(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))':
+    dependencies:
+      less: 4.4.2
+      vitepress: 2.0.0-alpha.15(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
 
   '@oxlint-tsgolint/darwin-arm64@0.8.3':
     optional: true

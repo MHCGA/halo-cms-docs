@@ -44,6 +44,7 @@
     "@giscus/vue": "^3.1.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.18.2",
+    "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@typescript-eslint/parser": "^8.48.1",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.1",
