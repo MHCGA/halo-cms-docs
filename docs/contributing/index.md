@@ -80,6 +80,8 @@ author:
 references:
   - name: 参考资料名称
     link: https://example.com
+    archive:
+      ia: https://web.archive.org/web/20231207120000*/https://example.com
 ---
 ```
 
@@ -90,7 +92,9 @@ references:
   - `link`：主要联系方式（个人网站、GitHub 主页等），若存在则优先使用。
   - `email`：备选联系方式，仅在 `link` 为空或缺失时使用。若无邮箱可填空字符串 `''`。
   - 渲染规则：若 `link` 存在则链接至该地址，否则链接至 `email`（格式为 `mailto:`），两项都为空则不生成链接。
-- `references`（可选）：引用资料列表；每项需要 `name` 与 `link`，若没有参考资料可省略整个字段。
+- `references`（可选）：引用资料列表；每项需要 `name`、`link` 与 `archive`，若没有参考资料可省略整个字段。
+  - `archive`：备份信息。目前支持 `ia`（Internet Archive），将来可能支持其他备份类型。
+    - `ia`：Internet Archive 已保存的快照链接，通过访问 `https://web.archive.org/save/${link}` 保存页面后，重定向到的快照 URL，以确保引用页面在原链接失效时仍可访问。
 
 > Frontmatter 必须位于 Markdown 文件最开头，并用一对 `---` 包裹，中间填写上述字段；正文须以 `# 文章标题` 的一级标题开头。
 
@@ -159,7 +163,7 @@ references:
 
 - 若多人共同创作，请在 `author` 列表中依次填写每位作者的 `name`，`link` 和 `email` 视情况添加。
 - 页面会依据 Frontmatter 自动渲染文章开结尾的作者/参考资料信息，请保持内容一致、真实。
-- 若文章引入外部素材，请在 `references` 中列出名称与链接；没有引用时可省略。
+- 若文章引入外部素材，请在 `references` 中列出名称、链接与 Internet Archive 保存链接；没有引用时可省略。
 - 若修改了他人文章，请在 PR 描述中说明原作者，尊重署名。
 
 ## Commit 信息规范

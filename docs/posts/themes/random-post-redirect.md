@@ -7,8 +7,12 @@ author:
 references:
   - name: 皓子的小站 | 在 Halo CMS 中通过模板实现随机文章跳转功能
     link: https://howiehz.top/archives/halo-cms-thymeleaf-random-post-redirect
+    archive:
+      ia: https://web.archive.org/web/20251207120000*/https://howiehz.top/archives/halo-cms-thymeleaf-random-post-redirect
   - name: 皓子的小站 | Thymeleaf 随机数生成与格式化详解
     link: https://howiehz.top/archives/thymeleaf-generate-format-random-number
+    archive:
+      ia: https://web.archive.org/web/20251207120000*/https://howiehz.top/archives/thymeleaf-generate-format-random-number
 ---
 
 # 实现随机文章跳转功能
