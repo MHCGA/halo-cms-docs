@@ -70,7 +70,11 @@ function normalizeReferences(
 
       const label = entry.name?.trim() || entry.title?.trim() || entry.type?.trim() || entry.link?.trim();
       const url = entry.link?.trim();
-      const archives = entry.archive?.ia ? [{ type: "ia", url: entry.archive.ia.trim() }] : [];
+      const archives = entry.archive
+        ? Object.entries(entry.archive)
+            .filter(([, value]) => value && typeof value === "string")
+            .map(([type, url]) => ({ type: type.trim(), url: (url as string).trim() }))
+        : [];
       if (!label || !url) {
         return undefined;
       }

@@ -93,8 +93,8 @@ references:
   - `email`：备选联系方式，仅在 `link` 为空或缺失时使用。若无邮箱可填空字符串 `''`。
   - 渲染规则：若 `link` 存在则链接至该地址，否则链接至 `email`（格式为 `mailto:`），两项都为空则不生成链接。
 - `references`（可选）：引用资料列表；每项需要 `name`、`link` 与 `archive`，若没有参考资料可省略整个字段。
-  - `archive`：备份信息。目前支持 `ia`（Internet Archive），将来可能支持其他备份类型。
-    - `ia`：Internet Archive 已保存的快照链接，通过访问 `https://web.archive.org/save/${link}` 保存页面后，重定向到的快照 URL，以确保引用页面在原链接失效时仍可访问。
+  - `archive`：备份信息。可以包含多个备份类型，如 `ia`（Internet Archive）、`wayback` 等，每个类型对应一个备份 URL。
+    - 示例：`ia: https://web.archive.org/web/...` 或 `wayback: https://...`
 
 > Frontmatter 必须位于 Markdown 文件最开头，并用一对 `---` 包裹，中间填写上述字段；正文须以 `# 文章标题` 的一级标题开头。
 

@@ -94,8 +94,8 @@ Field explanation:
   - `email`: fallback contact, only used when `link` is empty or missing. Use empty string `''` if not available.
   - Rendering rules: if `link` exists, link to that address; otherwise link to `email` (formatted as `mailto:`); skip linking if both are empty.
 - `references` (optional): reference materials list; each item needs `name`, `link`, and `archive`. Can omit the entire field if no references.
-  - `archive`: backup information. Currently supports `ia` (Internet Archive), may support other backup types in the future.
-    - `ia`: Internet Archive saved snapshot link, obtained by visiting `https://web.archive.org/save/${link}` to save the page, then using the redirected snapshot URL, to ensure the referenced page remains accessible if the original link becomes unavailable.
+  - `archive`: backup information. Can include multiple backup types, such as `ia` (Internet Archive), `wayback`, etc., each type corresponding to a backup URL.
+    - Example: `ia: https://web.archive.org/web/...` or `wayback: https://...`
 
 > Frontmatter must be placed at the very beginning of the Markdown file, wrapped by a pair of `---`, with fields in between. The article content must begin with `# Article Title` as a level-one heading.
 
