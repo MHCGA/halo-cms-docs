@@ -11,7 +11,7 @@
       :reactions-enabled="reactionsEnabled"
       :emit-metadata="emitMetadata"
       :input-position="inputPosition"
-      :theme="theme"
+      :theme="giscusTheme"
       :lang="giscusLang"
       :loading="loading"
     />
@@ -50,10 +50,10 @@ const props = withDefaults(defineProps<Props>(), {
   theme: "preferred_color_scheme",
   lang: "zh-CN",
   loading: "lazy",
-  term: "Welcome to giscus!",
+  term: undefined,
 });
 
-const { page } = useData();
+const { page, isDark } = useData();
 
 // 路径前缀到 Giscus 语言代码的映射
 const pathToLang: Record<string, string> = {
@@ -72,6 +72,8 @@ const giscusLang = computed(() => {
   }
   return rt;
 });
+
+const giscusTheme = computed(() => (isDark.value ? "dark" : "light"));
 
 const shouldShow = computed(() => {
   // 不在 publish: false 页面显示
