@@ -12,14 +12,13 @@
       :emit-metadata="emitMetadata"
       :input-position="inputPosition"
       :theme="theme"
-      :lang="lang"
+      :lang="giscusLang"
       :loading="loading"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-/* eslint-disable */
 import Giscus from "@giscus/vue";
 import { useData } from "vitepress";
 import { computed } from "vue";
@@ -40,6 +39,8 @@ interface Props {
   loading?: string;
 }
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable eslint(no-undef) */
 const props = withDefaults(defineProps<Props>(), {
   mapping: "pathname",
   strict: true,
@@ -49,6 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   theme: "preferred_color_scheme",
   lang: "zh-CN",
   loading: "lazy",
+  term="Welcome to giscus!",
 });
 
 const { page } = useData();
@@ -59,7 +61,7 @@ const pathToLang: Record<string, string> = {
   en: "en",
 };
 
-const lang = computed(() => {
+const giscusLang = computed(() => {
   const path = page.value.relativePath || "";
   let rt = pathToLang["root"]; // 默认语言
   for (const [prefix, langCode] of Object.entries(pathToLang)) {
