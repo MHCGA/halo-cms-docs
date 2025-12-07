@@ -219,6 +219,12 @@ export default defineConfig({
         },
       } satisfies RSSOptions),
     ],
+    optimizeDeps: {
+      exclude: ["@nolebase/vitepress-plugin-enhanced-readabilities/client", "vitepress", "@nolebase/ui"],
+    },
+    ssr: {
+      noExternal: ["@nolebase/vitepress-plugin-enhanced-readabilities", "@nolebase/ui"],
+    },
   },
   base: basePath,
 
