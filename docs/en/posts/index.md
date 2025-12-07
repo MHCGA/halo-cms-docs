@@ -16,8 +16,8 @@ Welcome to browse articles or submit content according to the following topics:
 
 The site provides the following RSS feeds for you to get the latest content in real time:
 
-- **Comprehensive Feed**: [rss.xml](https://howiehz.top/mhcga/rss.xml)
-- **Simplified Chinese**: [rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
-- **English**: [rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
+- Comprehensive Feed: [rss.xml](https://howiehz.top/mhcga/rss.xml)
+- Simplified Chinese: [rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
+- English: [rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
 
 Subscribe using your favorite RSS reader.

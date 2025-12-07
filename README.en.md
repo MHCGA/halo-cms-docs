@@ -13,10 +13,10 @@ The Halo CMS community has accumulated extensive hands-on experience with plugin
 
 The Halo CMS Knowledge Base continuously covers:
 
-- **In-depth technical articles**: Share key ideas, pitfalls, and best practices for plugin or theme development.
-- **Standout site showcases**: Showcase Halo solutions in different scenarios.
-- **Tooling and workflow guides**: Continuously improve development, testing, deployment, monitoring and other supporting guides.
-- **Community insights and interviews**: Document stories and participants of the Halo ecosystem.
+- In-depth technical articles: Share key ideas, pitfalls, and best practices for plugin or theme development.
+- Standout site showcases: Showcase Halo solutions in different scenarios.
+- Tooling and workflow guides: Continuously improve development, testing, deployment, monitoring and other supporting guides.
+- Community insights and interviews: Document stories and participants of the Halo ecosystem.
 
 Visit us directly at [Official site](https://howiehz.top/mhcga)
 
@@ -24,9 +24,9 @@ Visit us directly at [Official site](https://howiehz.top/mhcga)
 
 The site provides the following RSS feeds for convenient access to the latest content:
 
-- **All Content**：[rss.xml](https://howiehz.top/mhcga/rss.xml)
-- **Simplified Chinese**：[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
-- **English**：[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
+- All Content：[rss.xml](https://howiehz.top/mhcga/rss.xml)
+- Simplified Chinese：[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
+- English：[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
 
 Subscribe using your favorite RSS reader.
 
