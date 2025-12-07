@@ -13,10 +13,10 @@ Halo CMS 社区在插件、主题、运营、扩展生态上积累了大量一�
 
 Halo CMS 知识库持续收录以下内容：
 
-- **深入的技术文章**：分享插件或主题开发中的关键思路、踩坑经验与最佳实践。
-- **优秀的站点案例**：展示 Halo 在不同场景下的落地方案。
-- **工具链与流程**：持续改进研发、测试、部署、监控等配套指南。
-- **社区洞察与访谈**：记录 Halo 生态的故事与参与者。
+- 深入的技术文章：分享插件或主题开发中的关键思路、踩坑经验与最佳实践。
+- 优秀的站点案例：展示 Halo 在不同场景下的落地方案。
+- 工具链与流程：持续改进研发、测试、部署、监控等配套指南。
+- 社区洞察与访谈：记录 Halo 生态的故事与参与者。
 
 你可以直接访问：[官网](https://howiehz.top/mhcga)
 
@@ -24,9 +24,9 @@ Halo CMS 知识库持续收录以下内容：
 
 站点提供了以下 RSS 源，便于你实时获取最新内容：
 
-- **综合源**：[rss.xml](https://howiehz.top/mhcga/rss.xml)
-- **简体中文**：[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
-- **英文**：[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
+- 综合源：[rss.xml](https://howiehz.top/mhcga/rss.xml)
+- 简体中文：[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
+- 英文：[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
 
 使用你常用的 RSS 阅读器订阅即可。
 
