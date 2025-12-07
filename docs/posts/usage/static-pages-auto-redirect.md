@@ -6,6 +6,8 @@ author:
 references:
   - name: VitePress | 生成简洁的 URL
     link: https://vitepress.dev/zh/guide/routing#generating-clean-url
+    archive:
+      ia: https://web.archive.org/web/20251207120000*/https://vitepress.dev/zh/guide/routing#generating-clean-url
 ---
 
 # 静态网页服务插件内部自动重定向

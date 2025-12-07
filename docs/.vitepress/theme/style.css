@@ -149,6 +149,23 @@
     opacity 0.25s;
 }
 
+.post-meta__list .archive-link {
+  background-color: var(--vp-c-default-soft);
+  border-radius: 4px;
+  color: var(--vp-c-text-2);
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-left: 0.25rem;
+  padding: 0.1rem 0.3rem;
+  text-decoration: none;
+  transition: background-color 0.25s;
+}
+
+.post-meta__list .archive-link:hover {
+  background-color: var(--vp-c-default-3);
+  color: var(--vp-c-text-1);
+}
+
 .VPHero .image .image-src {
   border-radius: 18% / 24%;
 }

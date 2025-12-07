@@ -81,6 +81,8 @@ author:
 references:
   - name: Reference name
     link: https://example.com
+    archive:
+      ia: https://web.archive.org/web/20231207120000*/https://example.com
 ---
 ```
 
@@ -91,7 +93,9 @@ Field explanation:
   - `link`: primary contact method (personal website, GitHub profile, etc.); prioritized if present.
   - `email`: fallback contact, only used when `link` is empty or missing. Use empty string `''` if not available.
   - Rendering rules: if `link` exists, link to that address; otherwise link to `email` (formatted as `mailto:`); skip linking if both are empty.
-- `references` (optional): reference materials list; each item needs `name` and `link`. Can omit the entire field if no references.
+- `references` (optional): reference materials list; each item needs `name`, `link`, and `archive`. Can omit the entire field if no references.
+  - `archive`: backup information. Can include multiple backup types, such as `ia` (Internet Archive), `wayback`, etc., each type corresponding to a backup URL.
+    - Example: `ia: https://web.archive.org/web/...` or `wayback: https://...`
 
 > Frontmatter must be placed at the very beginning of the Markdown file, wrapped by a pair of `---`, with fields in between. The article content must begin with `# Article Title` as a level-one heading.
 
@@ -160,7 +164,7 @@ When creating articles, you need to maintain the `author` and `references` field
 
 - If multiple people co-author, list each author's `name` in the `author` list in order; add `link` and `email` as needed.
 - The page automatically renders author/reference sections based on Frontmatter, so keep content consistent and accurate.
-- If the article references external materials, list the name and link in `references`. If there are no references, you can omit the entire field.
+- If the article references external materials, list the name, link, and Internet Archive save link in `references`. If there are no references, you can omit the entire field.
 - If modifying someone else's article, please mention the original author in your PR description to respect attribution.
 
 ## Commit Convention

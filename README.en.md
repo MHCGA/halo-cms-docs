@@ -24,9 +24,9 @@ Visit us directly at [Official site](https://howiehz.top/mhcga)
 
 The site provides the following RSS feeds for convenient access to the latest content:
 
-- All Content：[rss.xml](https://howiehz.top/mhcga/rss.xml)
-- Simplified Chinese：[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
-- English：[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
+- All Content:[rss.xml](https://howiehz.top/mhcga/rss.xml)
+- Simplified Chinese:[rss.zh-hans.xml](https://howiehz.top/mhcga/rss.zh-hans.xml)
+- English:[rss.en.xml](https://howiehz.top/mhcga/rss.en.xml)
 
 Subscribe using your favorite RSS reader.
 

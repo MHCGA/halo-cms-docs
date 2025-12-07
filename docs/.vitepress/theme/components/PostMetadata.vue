@@ -12,11 +12,18 @@ interface FrontmatterReference {
   title?: string;
   type?: string;
   link?: string;
+  archive?: {
+    ia?: string;
+  };
 }
 
 interface NormalizedReference {
   label: string;
   url: string;
+  archives?: {
+    type: string;
+    url: string;
+  }[];
 }
 
 const labels = computed(() =>
@@ -63,18 +70,24 @@ function normalizeReferences(
 
       const label = entry.name?.trim() || entry.title?.trim() || entry.type?.trim() || entry.link?.trim();
       const url = entry.link?.trim();
+      const archives = entry.archive
+        ? Object.entries(entry.archive)
+            .filter(([, value]) => value && typeof value === "string")
+            .map(([type, url]) => ({ type: type.trim(), url: (url as string).trim() }))
+        : [];
       if (!label || !url) {
         return undefined;
       }
-      return buildReference(label, url);
+      return buildReference(label, url, archives);
     })
     .filter((item): item is NormalizedReference => Boolean(item));
 }
 
-function buildReference(label: string, url: string): NormalizedReference {
+function buildReference(label: string, url: string, archives?: { type: string; url: string }[]): NormalizedReference {
   return {
     label,
     url,
+    archives,
   };
 }
 </script>
@@ -100,6 +113,15 @@ function buildReference(label: string, url: string): NormalizedReference {
       <ul class="post-meta__list">
         <li v-for="(reference, index) in references" :key="reference.url">
           <a :href="reference.url" target="_blank" rel="noreferrer">{{ reference.label }}</a>
+          <a
+            v-for="archive in reference.archives"
+            :key="archive.type"
+            :href="archive.url"
+            target="_blank"
+            rel="noreferrer"
+            class="archive-link"
+            >[{{ archive.type.toUpperCase() }}]</a
+          >
           <span v-if="index < references.length - 1" aria-hidden="true">, </span>
         </li>
       </ul>
