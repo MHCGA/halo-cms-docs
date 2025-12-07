@@ -2,16 +2,16 @@
   <div v-if="shouldShow" class="giscus-wrapper">
     <Giscus
       :repo="repo"
-      :repo-id="repoId"
+      :repoId="repoId"
       :category="category"
-      :category-id="categoryId"
+      :categoryId="categoryId"
       :mapping="mapping"
       :term="term"
-      :strict="strict"
-      :reactions-enabled="reactionsEnabled"
-      :emit-metadata="emitMetadata"
-      :input-position="inputPosition"
       :theme="giscusTheme"
+      :strict="giscusStrict"
+      :reactionsEnabled="giscusReactionsEnabled"
+      :emitMetadata="giscusEmitMetadata"
+      :inputPosition="inputPosition"
       :lang="giscusLang"
       :loading="loading"
     />
@@ -19,27 +19,18 @@
 </template>
 
 <script setup lang="ts">
-import Giscus from "@giscus/vue";
+import Giscus, { type AvailableLanguage, type BooleanString, type GiscusProps, type Theme } from "@giscus/vue";
 import { useData } from "vitepress";
 import { computed } from "vue";
 
-interface Props {
-  repo: string;
-  repoId: string;
-  category: string;
-  categoryId: string;
-  mapping?: string;
-  term?: string;
+// 使用 Omit 排除需要重新定义的布尔属性，然后扩展
+interface Props extends Omit<GiscusProps, "strict" | "reactionsEnabled" | "emitMetadata"> {
+  // 重新定义为布尔类型，提供更直观的 API
   strict?: boolean;
   reactionsEnabled?: boolean;
   emitMetadata?: boolean;
-  inputPosition?: string;
-  theme?: string;
-  lang?: string;
-  loading?: string;
 }
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable eslint(no-undef) */
 const props = withDefaults(defineProps<Props>(), {
   mapping: "pathname",
@@ -50,18 +41,17 @@ const props = withDefaults(defineProps<Props>(), {
   theme: "preferred_color_scheme",
   lang: "zh-CN",
   loading: "lazy",
-  term: undefined,
 });
 
 const { page, isDark } = useData();
 
 // 路径前缀到 Giscus 语言代码的映射
-const pathToLang: Record<string, string> = {
+const pathToLang: Record<string, AvailableLanguage> = {
   root: "zh-CN",
   en: "en",
 };
 
-const giscusLang = computed(() => {
+const giscusLang = computed((): AvailableLanguage => {
   const path = page.value.relativePath || "";
   let rt = pathToLang["root"]; // 默认语言
   for (const [prefix, langCode] of Object.entries(pathToLang)) {
@@ -73,7 +63,11 @@ const giscusLang = computed(() => {
   return rt;
 });
 
-const giscusTheme = computed(() => (isDark.value ? "dark" : "light"));
+const giscusTheme: Theme = computed(() => (isDark.value ? "dark" : "light"));
+
+const giscusStrict: BooleanString = computed(() => (props.strict ? "1" : "0"));
+const giscusReactionsEnabled: BooleanString = computed(() => (props.reactionsEnabled ? "1" : "0"));
+const giscusEmitMetadata: BooleanString = computed(() => (props.emitMetadata ? "1" : "0"));
 
 const shouldShow = computed(() => {
   // 不在 publish: false 页面显示
