@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   theme: "preferred_color_scheme",
   lang: "zh-CN",
   loading: "lazy",
-  term="Welcome to giscus!",
+  term: "Welcome to giscus!",
 });
 
 const { page } = useData();
