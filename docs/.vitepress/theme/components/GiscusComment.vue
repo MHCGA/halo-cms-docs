@@ -20,9 +20,9 @@
 
 <script setup lang="ts">
 /* eslint-disable */
-import { computed } from "vue";
-import { useData } from "vitepress";
 import Giscus from "@giscus/vue";
+import { useData } from "vitepress";
+import { computed } from "vue";
 
 interface Props {
   repo: string;
@@ -55,20 +55,25 @@ const { page } = useData();
 
 // 路径前缀到 Giscus 语言代码的映射
 const pathToLang: Record<string, string> = {
-  'en/': 'en',
-  // 将来可以添加更多语言，如 'ja/': 'ja', 'fr/': 'fr'
+  root: "zh-CN",
+  en: "en",
 };
 
 const lang = computed(() => {
-  const path = page.value.relativePath || '';
-  const prefix = path.split('/')[0];
-  const langPrefix = prefix ? `${prefix}/` : '';
-  return pathToLang[langPrefix] || 'zh-CN';
+  const path = page.value.relativePath || "";
+  let rt = pathToLang["root"]; // 默认语言
+  for (const [prefix, langCode] of Object.entries(pathToLang)) {
+    if (prefix !== "root" && path.startsWith(`${prefix}/`)) {
+      rt = langCode;
+      break;
+    }
+  }
+  return rt;
 });
 
 const shouldShow = computed(() => {
-  // 只在文章页面显示，不在首页等显示
-  return page.value.relativePath?.startsWith("posts/") ?? false;
+  // 不在 publish: false 页面显示
+  return page.value?.frontmatter?.publish !== false;
 });
 </script>
 
