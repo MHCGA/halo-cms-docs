@@ -7,12 +7,8 @@ author:
 references:
   - name: halo-theme-higan-hz v1.49.0 字数统计实现
     link: https://github.com/HowieHz/halo-theme-higan-hz/blob/005f040d4f5c8f1a0a9a64ad69de4260ade0c276/src/templates/components/list-post-summary/template.html#L121
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://github.com/HowieHz/halo-theme-higan-hz/blob/005f040d4f5c8f1a0a9a64ad69de4260ade0c276/src/templates/components/list-post-summary/template.html#L121
   - name: Liks'Blog | Halo 的文章字数统计实现
     link: https://blog.liks.space/archives/halo-post-words-count/
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://blog.liks.space/archives/halo-post-words-count/
 ---
 
 # 实现字数统计

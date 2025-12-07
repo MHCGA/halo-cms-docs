@@ -7,8 +7,6 @@ author:
 references:
   - name: 皓子的小站 | 在 Halo CMS 中通过模板实现随机推荐多篇文章
     link: https://howiehz.top/archives/halo-cms-thymeleaf-random-posts-recommend
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://howiehz.top/archives/halo-cms-thymeleaf-random-posts-recommend
 ---
 
 # 实现随机推荐多篇文章

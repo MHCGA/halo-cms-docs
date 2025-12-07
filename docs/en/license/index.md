@@ -3,16 +3,10 @@ publish: false
 references:
   - name: MIT License
     link: https://opensource.org/licenses/MIT
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://opensource.org/licenses/MIT
   - name: Creative Commons BY-SA 4.0
     link: https://creativecommons.org/licenses/by-sa/4.0/
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://creativecommons.org/licenses/by-sa/4.0/
   - name: Star And Thank Author (SATA) License
     link: https://github.com/zTrix/sata-license
-    archive:
-      ia: https://web.archive.org/web/20251207120000*/https://github.com/zTrix/sata-license
 ---
 
 # License Overview
