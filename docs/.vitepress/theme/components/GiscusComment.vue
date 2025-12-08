@@ -2,16 +2,16 @@
   <div v-if="shouldShow" class="giscus-wrapper">
     <Giscus
       :repo="repo"
-      :repoId="repoId"
+      :repo-id="repoId"
       :category="category"
-      :categoryId="categoryId"
+      :category-id="categoryId"
       :mapping="mapping"
       :term="term"
       :theme="giscusTheme"
       :strict="giscusStrict"
-      :reactionsEnabled="giscusReactionsEnabled"
-      :emitMetadata="giscusEmitMetadata"
-      :inputPosition="inputPosition"
+      :reactions-enabled="giscusReactionsEnabled"
+      :emit-metadata="giscusEmitMetadata"
+      :input-position="inputPosition"
       :lang="giscusLang"
       :loading="loading"
     />
