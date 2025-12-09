@@ -45,7 +45,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@types/node": "^24.10.2",
-    "@typescript-eslint/parser": "^8.48.1",
+    "@typescript-eslint/parser": "^8.49.0",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.1",
     "eslint": "^9.39.1",
