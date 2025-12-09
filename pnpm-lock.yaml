@@ -20,9 +20,6 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.7.0
         version: 4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.4)
-      '@nolebase/vitepress-plugin-enhanced-readabilities':
-        specifier: ^2.18.2
-        version: 2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))(vue@3.5.25(typescript@5.9.3))
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: ^2.18.2
         version: 2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
@@ -447,15 +444,6 @@ packages:
       prettier-plugin-ember-template-tag:
         optional: true
 
-  '@iconify-json/carbon@1.2.15':
-    resolution: {integrity: sha512-9tW0nZY5QtKkMhuYzW09BM1345SyXNuA+gx2ub0j/fnfHOD5XVimMJ/D76H3tTez25NJbPYCLIQoFhvJc1HVBQ==}
-
-  '@iconify-json/icon-park-outline@1.2.4':
-    resolution: {integrity: sha512-NyZxXe2gD2TbTOyoRRMdtEJhr6i2KQCdDlYYoOn5oZLndQjwpIhw79hzeFhXvP38/o40D3gQ+l+IaSJgbB+0TQ==}
-
-  '@iconify-json/octicon@1.2.19':
-    resolution: {integrity: sha512-q1a9fpyg0Cw/Bt9hEfP86eJlgKtMXzNIRQnsbPZi1MBoHlPyi056TdzV72zY/F+oJSJ8b5Ub8njL2fWs/iLJAg==}
-
   '@iconify-json/simple-icons@1.2.61':
     resolution: {integrity: sha512-DG6z3VEAxtDEw/SuZssZ/E8EvhjBhFQqxpEo3uckRKiia3LfZHmM4cx4RsaO2qX1Bqo9uadR5c/hYavvUQVuHw==}
 
@@ -649,17 +637,6 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
-
-  '@nolebase/ui@2.18.2':
-    resolution: {integrity: sha512-xxfRacF9cqQ5/umMhvhr0y2W4SkhzTmrrAHJ0UAAu/pIWfV/JPE9Hj0buH06bK7ZEUur+036gxkKlStI6UtDBw==}
-    peerDependencies:
-      vitepress: ^1.5.0 || ^2.0.0-alpha.1
-      vue: '>= 3.5.18'
-
-  '@nolebase/vitepress-plugin-enhanced-readabilities@2.18.2':
-    resolution: {integrity: sha512-fDhdZBSJL2qs/1xac0PtJfU5UI7b36ffVPYgzM8Ig2NjqMJ7cBvrTTPGq03lUeMjK7GD7fItAKudaP+ZrtMg8w==}
-    peerDependencies:
-      vitepress: ^1.5.0 || ^2.0.0-alpha.1
 
   '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2':
     resolution: {integrity: sha512-RVrT7FgyjxrnFFR9twc1OJI/5B09+biVbSiO36Yiu2YC+kRMz1Mb553l2DyioLtWJgVNTJ7sj66ZJi40JpDh7g==}
@@ -3022,18 +2999,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@iconify-json/carbon@1.2.15':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/icon-park-outline@1.2.4':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/octicon@1.2.19':
-    dependencies:
-      '@iconify/types': 2.0.0
-
   '@iconify-json/simple-icons@1.2.61':
     dependencies:
       '@iconify/types': 2.0.0
@@ -3188,23 +3153,6 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
-
-  '@nolebase/ui@2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))(vue@3.5.25(typescript@5.9.3))':
-    dependencies:
-      '@iconify-json/octicon': 1.2.19
-      less: 4.4.2
-      vitepress: 2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
-      vue: 3.5.25(typescript@5.9.3)
-
-  '@nolebase/vitepress-plugin-enhanced-readabilities@2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))(vue@3.5.25(typescript@5.9.3))':
-    dependencies:
-      '@iconify-json/carbon': 1.2.15
-      '@iconify-json/icon-park-outline': 1.2.4
-      '@nolebase/ui': 2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))(vue@3.5.25(typescript@5.9.3))
-      less: 4.4.2
-      vitepress: 2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
-    transitivePeerDependencies:
-      - vue
 
   '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(vitepress@2.0.0-alpha.15(@types/node@24.10.2)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))':
     dependencies:
