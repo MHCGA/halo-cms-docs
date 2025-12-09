@@ -19,16 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import Giscus, { type AvailableLanguage, type BooleanString, type GiscusProps, type Theme } from "@giscus/vue";
+import Giscus, { type AvailableLanguage, type GiscusProps } from "@giscus/vue";
 import { useData } from "vitepress";
-import { computed } from "vue";
+import { computed, type ComputedRef } from "vue";
 
 // 使用 Omit 排除需要重新定义的布尔属性，然后扩展
-interface Props extends Omit<GiscusProps, "strict" | "reactionsEnabled" | "emitMetadata"> {
+interface Props extends Omit<GiscusProps, "strict" | "reactionsEnabled" | "emitMetadata" | "mapping"> {
   // 重新定义为布尔类型，提供更直观的 API
   strict?: boolean;
   reactionsEnabled?: boolean;
   emitMetadata?: boolean;
+  mapping?: GiscusProps["mapping"];
 }
 
 /* oxlint-disable eslint(no-undef) */
@@ -63,11 +64,11 @@ const giscusLang = computed((): AvailableLanguage => {
   return rt;
 });
 
-const giscusTheme: Theme = computed(() => (isDark.value ? "dark" : "light"));
+const giscusTheme: ComputedRef<"light" | "dark"> = computed(() => (isDark.value ? "dark" : "light"));
 
-const giscusStrict: BooleanString = computed(() => (props.strict ? "1" : "0"));
-const giscusReactionsEnabled: BooleanString = computed(() => (props.reactionsEnabled ? "1" : "0"));
-const giscusEmitMetadata: BooleanString = computed(() => (props.emitMetadata ? "1" : "0"));
+const giscusStrict: ComputedRef<"0" | "1"> = computed(() => (props.strict ? "1" : "0"));
+const giscusReactionsEnabled: ComputedRef<"0" | "1"> = computed(() => (props.reactionsEnabled ? "1" : "0"));
+const giscusEmitMetadata: ComputedRef<"0" | "1"> = computed(() => (props.emitMetadata ? "1" : "0"));
 
 const shouldShow = computed(() => {
   // 不在 publish: false 页面显示

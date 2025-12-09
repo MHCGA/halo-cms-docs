@@ -294,15 +294,6 @@ export default defineConfig({
       label: "简体中文",
       lang: "zh-Hans",
       dir: "ltr",
-      markdown: {
-        container: {
-          tipLabel: "提示",
-          warningLabel: "警告",
-          dangerLabel: "危险",
-          infoLabel: "信息",
-          detailsLabel: "详细信息",
-        },
-      },
       // 主题配置放在 locales 里是为了覆盖默认语言
       themeConfig: {
         socialLinks: [{ icon: "github", link: githubRepoUrl }],
