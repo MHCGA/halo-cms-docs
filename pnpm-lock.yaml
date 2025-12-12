@@ -22,10 +22,10 @@ importers:
         version: 4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.4)
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: ^2.18.2
-        version: 2.18.2(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
+        version: 2.18.2(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
       '@types/node':
         specifier: ^25.0.0
-        version: 25.0.0
+        version: 25.0.1
       '@typescript-eslint/parser':
         specifier: ^8.48.1
         version: 8.49.0(eslint@9.39.1)(typescript@5.9.3)
@@ -64,10 +64,10 @@ importers:
         version: 0.47.0
       oxlint:
         specifier: ^1.31.0
-        version: 1.32.0(oxlint-tsgolint@0.8.5)
+        version: 1.32.0(oxlint-tsgolint@0.8.6)
       oxlint-tsgolint:
-        specifier: ^0.8.5
-        version: 0.8.5
+        specifier: ^0.8.6
+        version: 0.8.6
       pagefind:
         specifier: ^1.4.0
         version: 1.4.0
@@ -94,13 +94,13 @@ importers:
         version: 8.49.0(eslint@9.39.1)(typescript@5.9.3)
       vitepress:
         specifier: 2.0.0-alpha.15
-        version: 2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
+        version: 2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
       vitepress-plugin-pagefind:
         specifier: ^0.4.17
-        version: 0.4.17(pagefind@1.4.0)(typescript@5.9.3)(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
+        version: 0.4.17(pagefind@1.4.0)(typescript@5.9.3)(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
       vitepress-plugin-rss:
         specifier: ^0.4.1
-        version: 0.4.1(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
+        version: 0.4.1(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))
       vue:
         specifier: ^3.5.25
         version: 3.5.25(typescript@5.9.3)
@@ -643,33 +643,33 @@ packages:
     peerDependencies:
       vitepress: ^1.5.0 || ^2.0.0-alpha.1
 
-  '@oxlint-tsgolint/darwin-arm64@0.8.5':
-    resolution: {integrity: sha512-6Fmcrk33+PbA8fEeuz8AGD7G3KoGWTJfvCflQD8zgY8AYK8OIs7bh4WUfZiRLVJdZ0PLY6y85J2IbfXy5dTrjQ==}
+  '@oxlint-tsgolint/darwin-arm64@0.8.6':
+    resolution: {integrity: sha512-khvQiNpPVNkyz6vmN50v5j1X6r9anRDXy3htDBpObx4V5bp33BK94onh46e91GTEbBevmeUG/Zm/U3+np4gehw==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint-tsgolint/darwin-x64@0.8.5':
-    resolution: {integrity: sha512-vaB8oNS1gkJYpGq09UfpF62kPew3Ia7WHYQeD9IIOnUHWW1LNyZdNHuB6h99Kn9irMLj/uhbl7HtDzP+Lk4BNg==}
+  '@oxlint-tsgolint/darwin-x64@0.8.6':
+    resolution: {integrity: sha512-AardvXBLB0m05BGcubXTqWSpNv2aD68QyY7BB/u2AqKzMoEtvzSB710FL06vOTPpaVpl3GvSVHCFw2juo35lTQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint-tsgolint/linux-arm64@0.8.5':
-    resolution: {integrity: sha512-avfdBAcvqGacG78I919wMl4Cv3wT/to0u7CwyvFC/8vvIpPq983xmiPjMqFt1m/6ADtvRQfmSMK18C9l8uew7A==}
+  '@oxlint-tsgolint/linux-arm64@0.8.6':
+    resolution: {integrity: sha512-oSgMIilQBUVSOGdWIm4/5GJV4QmqwBQYpsGtRUpTAd3BZTWVuo40//n/ogJFnlCVd+i4yhsGLtwexd/7YlJ9sw==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint-tsgolint/linux-x64@0.8.5':
-    resolution: {integrity: sha512-CvUc+0iCLBUKRiIzFIMhPJQpGI1JA29hiFWlLU/qBtf3V/IanxSbcgOm8zaO2/agg0yfS/oHrL/u8SR9xdcIvA==}
+  '@oxlint-tsgolint/linux-x64@0.8.6':
+    resolution: {integrity: sha512-EhR2TejCW5gBPEs6ASgfFFgdveHvpKOHQC2zbO3HoFT/xNU0DvYbEsScKM8SUDWFMQlHU67A7bynNGRY2kFSSg==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint-tsgolint/win32-arm64@0.8.5':
-    resolution: {integrity: sha512-2opjh8Vev+Z1dsi0lTYeGeI+Pbm6JgLT2U7l3+t8Ww3d/lhXgxUP9l+nX3ioCQd8auUy198MoWYice3OhjCX1w==}
+  '@oxlint-tsgolint/win32-arm64@0.8.6':
+    resolution: {integrity: sha512-PQeV8YitT2HR/uJV8ugERIpA4WHDem7i5TuPtgYrp7wvKS98G9ILpnPgATrOup/VdBMIzCDl02c23z4+I5NSTw==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint-tsgolint/win32-x64@0.8.5':
-    resolution: {integrity: sha512-HGsTFdQDbXJ6VP9smhQyv3Pi/Vybabad57vT/SH12xYBYaIt1A0YO9ioQN36iYOb+971G9lo+YZjifa3vwDilA==}
+  '@oxlint-tsgolint/win32-x64@0.8.6':
+    resolution: {integrity: sha512-JDlyJSOnJXahee9xL55gT02kmQGSP0hR/5OP5asXvr7q6dj9t4skltcwYiA+D4HthF04oaW1F0+6pJnNTfDE0w==}
     cpu: [x64]
     os: [win32]
 
@@ -920,8 +920,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@25.0.0':
-    resolution: {integrity: sha512-rl78HwuZlaDIUSeUKkmogkhebA+8K1Hy7tddZuJ3D0xV8pZSfsYGTsliGUol1JPzu9EKnTxPC4L1fiWouStRew==}
+  '@types/node@25.0.1':
+    resolution: {integrity: sha512-czWPzKIAXucn9PtsttxmumiQ9N0ok9FrBwgRWrwmVLlp86BrMExzvXRLFYRJ+Ex3g6yqj+KuaxfX1JTgV2lpfg==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -2202,8 +2202,8 @@ packages:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
 
-  oxlint-tsgolint@0.8.5:
-    resolution: {integrity: sha512-QpUm0kMilACiEQEgPa/APIvCMmVZOtiSne7kK6iLCcJb/5DvQD5ggyrYXkQLbUiEZj6ouV4XSnpvG/BzuPRnYw==}
+  oxlint-tsgolint@0.8.6:
+    resolution: {integrity: sha512-DC9rqwFyEb5RlxOjvXdqaqxM5PwK01002oh/fcdC05mNPiI04d6CPWtReHqX6Ig1dc5LYuVeh3wuPrrp6WTjtw==}
     hasBin: true
 
   oxlint@1.32.0:
@@ -3171,27 +3171,27 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))':
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3))':
     dependencies:
       less: 4.4.2
-      vitepress: 2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
+      vitepress: 2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
 
-  '@oxlint-tsgolint/darwin-arm64@0.8.5':
+  '@oxlint-tsgolint/darwin-arm64@0.8.6':
     optional: true
 
-  '@oxlint-tsgolint/darwin-x64@0.8.5':
+  '@oxlint-tsgolint/darwin-x64@0.8.6':
     optional: true
 
-  '@oxlint-tsgolint/linux-arm64@0.8.5':
+  '@oxlint-tsgolint/linux-arm64@0.8.6':
     optional: true
 
-  '@oxlint-tsgolint/linux-x64@0.8.5':
+  '@oxlint-tsgolint/linux-x64@0.8.6':
     optional: true
 
-  '@oxlint-tsgolint/win32-arm64@0.8.5':
+  '@oxlint-tsgolint/win32-arm64@0.8.6':
     optional: true
 
-  '@oxlint-tsgolint/win32-x64@0.8.5':
+  '@oxlint-tsgolint/win32-x64@0.8.6':
     optional: true
 
   '@oxlint/darwin-arm64@1.32.0':
@@ -3383,7 +3383,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@25.0.0':
+  '@types/node@25.0.1':
     dependencies:
       undici-types: 7.16.0
 
@@ -3551,10 +3551,10 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitejs/plugin-vue@6.0.2(vite@7.2.6(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2))(vue@3.5.25(typescript@5.9.3))':
+  '@vitejs/plugin-vue@6.0.2(vite@7.2.6(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.50
-      vite: 7.2.6(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)
+      vite: 7.2.6(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)
       vue: 3.5.25(typescript@5.9.3)
 
   '@vue/compiler-core@3.5.25':
@@ -4741,16 +4741,16 @@ snapshots:
       type-check: 0.4.0
       word-wrap: 1.2.5
 
-  oxlint-tsgolint@0.8.5:
+  oxlint-tsgolint@0.8.6:
     optionalDependencies:
-      '@oxlint-tsgolint/darwin-arm64': 0.8.5
-      '@oxlint-tsgolint/darwin-x64': 0.8.5
-      '@oxlint-tsgolint/linux-arm64': 0.8.5
-      '@oxlint-tsgolint/linux-x64': 0.8.5
-      '@oxlint-tsgolint/win32-arm64': 0.8.5
-      '@oxlint-tsgolint/win32-x64': 0.8.5
+      '@oxlint-tsgolint/darwin-arm64': 0.8.6
+      '@oxlint-tsgolint/darwin-x64': 0.8.6
+      '@oxlint-tsgolint/linux-arm64': 0.8.6
+      '@oxlint-tsgolint/linux-x64': 0.8.6
+      '@oxlint-tsgolint/win32-arm64': 0.8.6
+      '@oxlint-tsgolint/win32-x64': 0.8.6
 
-  oxlint@1.32.0(oxlint-tsgolint@0.8.5):
+  oxlint@1.32.0(oxlint-tsgolint@0.8.6):
     optionalDependencies:
       '@oxlint/darwin-arm64': 1.32.0
       '@oxlint/darwin-x64': 1.32.0
@@ -4760,7 +4760,7 @@ snapshots:
       '@oxlint/linux-x64-musl': 1.32.0
       '@oxlint/win32-arm64': 1.32.0
       '@oxlint/win32-x64': 1.32.0
-      oxlint-tsgolint: 0.8.5
+      oxlint-tsgolint: 0.8.6
 
   p-limit@3.1.0:
     dependencies:
@@ -5262,7 +5262,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@7.2.6(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2):
+  vite@7.2.6(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
@@ -5271,33 +5271,33 @@ snapshots:
       rollup: 4.53.3
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 25.0.0
+      '@types/node': 25.0.1
       fsevents: 2.3.3
       less: 4.4.2
       lightningcss: 1.30.2
 
-  vitepress-plugin-pagefind@0.4.17(pagefind@1.4.0)(typescript@5.9.3)(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)):
+  vitepress-plugin-pagefind@0.4.17(pagefind@1.4.0)(typescript@5.9.3)(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)):
     dependencies:
       '@sugarat/theme-shared': 0.0.7
       '@vueuse/core': 9.13.0(vue@3.5.25(typescript@5.9.3))
       javascript-stringify: 2.1.0
       pagefind: 1.4.0
-      vitepress: 2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
+      vitepress: 2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
       vue: 3.5.25(typescript@5.9.3)
       vue-command-palette: 0.1.4
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
 
-  vitepress-plugin-rss@0.4.1(vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)):
+  vitepress-plugin-rss@0.4.1(vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)):
     dependencies:
       '@sugarat/theme-shared': 0.0.7
       feed: 5.1.0
       markdown-it-container: 4.0.0
       sharp: 0.34.5
-      vitepress: 2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
+      vitepress: 2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3)
 
-  vitepress@2.0.0-alpha.15(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3):
+  vitepress@2.0.0-alpha.15(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)(postcss@8.5.6)(typescript@5.9.3):
     dependencies:
       '@docsearch/css': 4.3.2
       '@docsearch/js': 4.3.2
@@ -5306,7 +5306,7 @@ snapshots:
       '@shikijs/transformers': 3.19.0
       '@shikijs/types': 3.19.0
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 6.0.2(vite@7.2.6(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2))(vue@3.5.25(typescript@5.9.3))
+      '@vitejs/plugin-vue': 6.0.2(vite@7.2.6(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2))(vue@3.5.25(typescript@5.9.3))
       '@vue/devtools-api': 8.0.5
       '@vue/shared': 3.5.25
       '@vueuse/core': 14.1.0(vue@3.5.25(typescript@5.9.3))
@@ -5315,7 +5315,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 7.2.0
       shiki: 3.19.0
-      vite: 7.2.6(@types/node@25.0.0)(less@4.4.2)(lightningcss@1.30.2)
+      vite: 7.2.6(@types/node@25.0.1)(less@4.4.2)(lightningcss@1.30.2)
       vue: 3.5.25(typescript@5.9.3)
     optionalDependencies:
       postcss: 8.5.6
