@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import * as cheerio from "cheerio";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
 import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
@@ -218,23 +219,21 @@ export default defineConfig({
           },
         },
       } satisfies RSSOptions),
-      // Inject Google Tag Manager noscript into body
-      {
-        name: "vite-plugin-body-inject",
-        enforce: "post",
-        transformIndexHtml: {
-          order: "post",
-          handler: (html, ctx) => {
-            const noscriptTag = `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T447LW69" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
-            return html.replace(/(<body(?=\s|>)[^>]*>)/i, `$1\n${noscriptTag}\n`);
-          },
-        },
-      },
     ],
     ssr: {
       noExternal: ["@nolebase/vitepress-plugin-highlight-targeted-heading"],
     },
   },
+
+  async transformHtml(code, id) {
+    // 在 body 开头插入 GTM 的 noscript 回退（便于不支持 JS 的环境统计）
+    const $ = cheerio.load(code);
+    $("body").prepend(
+      `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T447LW69" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`,
+    );
+    return $.html().replace(/^\s*[\r\n]/gm, "");
+  },
+
   base: basePath,
 
   head: [
