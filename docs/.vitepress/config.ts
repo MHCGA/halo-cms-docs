@@ -225,7 +225,7 @@ export default defineConfig({
     },
   },
 
-  async transformHtml(code, id) {
+  async transformHtml(code) {
     // 在 body 开头插入 GTM 的 noscript 回退（便于不支持 JS 的环境统计）
     const $ = cheerio.load(code);
     $("body").prepend(
