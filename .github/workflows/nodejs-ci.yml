@@ -1,4 +1,4 @@
-name: Node.js Lint Check
+name: Node.js Format and Lint Check
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
     branches: [main]
 jobs:
   check:
+    name: Node.js Format and Lint Check
     runs-on: ubuntu-latest
     
     permissions:
@@ -27,7 +28,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: 'pnpm'
 
       - name: Install dependencies
