@@ -1,7 +1,6 @@
 packages:
   - .
 onlyBuiltDependencies:
-  - esbuild
   - sharp
   - unrs-resolver
   - vue-demi
