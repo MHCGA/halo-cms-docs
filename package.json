@@ -73,5 +73,8 @@
     "vitepress-plugin-rss": "^0.4.1",
     "vue": "^3.5.26",
     "vue-eslint-parser": "^10.2.0"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@^7.2.10"
   }
 }

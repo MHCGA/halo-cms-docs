@@ -1,9 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import browserslist from "browserslist";
 import * as cheerio from "cheerio";
+import { browserslistToTargets } from "lightningcss";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
 import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
+
+import pkg from "../../package.json";
 
 const baseUrl = "https://howiehz.top";
 const basePath = "/mhcga/";
@@ -222,6 +226,16 @@ export default defineConfig({
     ],
     ssr: {
       noExternal: ["@nolebase/vitepress-plugin-highlight-targeted-heading"],
+    },
+    css: {
+      transformer: "lightningcss",
+      lightningcss: {
+        // https://cn.vitejs.dev/guide/features#lightning-css
+        targets: browserslistToTargets(browserslist(pkg.browserslist)),
+      },
+    },
+    build: {
+      cssMinify: "lightningcss",
     },
   },
 
