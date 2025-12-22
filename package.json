@@ -69,7 +69,7 @@
     "stylelint-order": "^7.0.0",
     "typescript-eslint": "^8.49.0",
     "vitepress": "2.0.0-alpha.15",
-    "vitepress-plugin-pagefind": "^0.4.17",
+    "vitepress-plugin-pagefind": "^0.4.18",
     "vitepress-plugin-rss": "^0.4.1",
     "vue": "^3.5.26",
     "vue-eslint-parser": "^10.2.0"
