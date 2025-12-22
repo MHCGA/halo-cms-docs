@@ -53,8 +53,8 @@ jobs:
   deploy:
     needs: build
     if: |
-      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-      (github.event_name == 'release' && github.event.action == 'published' && github.event.release.target_commitish == 'main') ||
+      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'release' && github.event.action == 'published' && github.event.release.target_commitish == 'main')) && github.actor != 'dependabot[bot]' ||
       (github.event_name == 'workflow_dispatch' && inputs.deploy == true)
     runs-on: ubuntu-latest
     steps:
