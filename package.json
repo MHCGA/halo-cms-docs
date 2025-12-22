@@ -36,7 +36,7 @@
     "url": "https://github.com/MHCGA/halo-cms-docs",
     "type": "git"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.26.1",
   "license": "MIT",
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
