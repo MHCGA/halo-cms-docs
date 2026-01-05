@@ -4,7 +4,6 @@ import { includeIgnoreFile } from "@eslint/compat";
 import js from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
 import oxlint from "eslint-plugin-oxlint";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import pluginVue from "eslint-plugin-vue";
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
@@ -68,6 +67,5 @@ export default defineConfig(
       },
     },
   },
-  eslintPluginPrettierRecommended,
   ...oxlint.buildFromOxlintConfigFile("./.oxlintrc.json"),
 );
