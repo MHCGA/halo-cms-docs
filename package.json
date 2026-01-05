@@ -11,7 +11,7 @@
     "dev": "pnpm run \"/:dev$/\"",
     "lint": "pnpm run \"/^lint:/\"",
     "lint:eslint": "oxlint --type-aware --fix && eslint --fix",
-    "lint:style": "stylelint --fix \"**/*.{css,vue}\" --ignore-path .gitignore",
+    "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
     "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
     "lint:autocorrect": "autocorrect --fix",
     "format": "pnpm run \"/^format:/\"",
