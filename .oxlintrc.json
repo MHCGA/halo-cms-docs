@@ -177,10 +177,6 @@
     },
     {
       "files": ["**/*.js", "**/*.ts", "**/*.vue"],
-      "globals": {
-        "CSSStyleProperties": "readonly",
-        "Temporal": "readonly"
-      },
       "env": {
         "es2026": true,
         "browser": true
