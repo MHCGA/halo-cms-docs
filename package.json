@@ -48,7 +48,7 @@
     "@typescript-eslint/parser": "^8.53.1",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.1",
-    "cheerio": "^1.1.2",
+    "cheerio": "^1.2.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.16.1",
