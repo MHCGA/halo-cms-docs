@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import { constants } from "node:zlib";
 import browserslist from "browserslist";
 import * as cheerio from "cheerio";
 import { browserslistToTargets } from "lightningcss";
+import { compression, defineAlgorithm } from "vite-plugin-compression2";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
 import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
-import { constants } from "node:zlib";
-import { compression, defineAlgorithm } from "vite-plugin-compression2";
 
 import pkg from "../../package.json";
 
