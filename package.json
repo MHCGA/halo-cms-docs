@@ -67,7 +67,6 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-order": "^7.0.1",
     "typescript-eslint": "^8.55.0",
-    "vite-plugin-compression2": "^2.4.0",
     "vitepress": "2.0.0-alpha.16",
     "vitepress-plugin-pagefind": "^0.4.18",
     "vitepress-plugin-rss": "^0.4.2",
