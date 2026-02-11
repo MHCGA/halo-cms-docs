@@ -6,6 +6,8 @@ import { browserslistToTargets } from "lightningcss";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
 import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
+import { constants } from "node:zlib";
+import { compression, defineAlgorithm } from "vite-plugin-compression2";
 
 import pkg from "../../package.json";
 
@@ -223,6 +225,20 @@ export default defineConfig({
           },
         },
       } satisfies RSSOptions),
+      // Compression plugin
+      compression({
+        algorithms: [
+          defineAlgorithm("gzip", { level: 9 }),
+          defineAlgorithm("brotliCompress", {
+            params: {
+              [constants.BROTLI_PARAM_QUALITY]: 11,
+            },
+          }),
+        ],
+        include: [
+          /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+        ],
+      }),
     ],
     ssr: {
       noExternal: ["@nolebase/vitepress-plugin-highlight-targeted-heading"],
