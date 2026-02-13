@@ -68,6 +68,8 @@ application/atom+xml application/javascript application/json application/vnd.api
 ### 构建配置
 
 - Vite: [适用于 Vite 的配置](#适用于-vite-的配置)
+- Rsbuild: [适用于 Rsbuild 的配置](#适用于-rsbuild-的配置)
+- webpack: [适用于 webpack 的配置](#适用于-webpack-的配置)
 
 #### 适用于 Vite 的配置
 
@@ -90,13 +92,14 @@ yarn add vite-plugin-compression2 -D
 安装完成后配置 `vite.config.ts`：
 
 ```ts
+// vite.config.ts
 import { constants } from "node:zlib";
 import { compression, defineAlgorithm } from "vite-plugin-compression2";
 
 export default defineConfig({
-  // 其他配置
+  // ...
   plugins: [
-    // 其他插件
+    // ...
     compression({
       algorithms: [
         // 设置为最大压缩等级 9
@@ -107,7 +110,7 @@ export default defineConfig({
             [constants.BROTLI_PARAM_QUALITY]: 11,
           },
         }),
-        // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除这段。
+        // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
         defineAlgorithm("zstandard", {
           params: {
             [constants.ZSTD_c_compressionLevel]: 22,
@@ -120,8 +123,147 @@ export default defineConfig({
       ],
     }),
   ],
-  // 其他配置
 });
+```
+
+注意：此插件与 VitePress 兼容性不佳，会导致生成的 `.js` 预压缩文件中出现多余的 `__VP_STATIC_START__` and `__VP_STATIC_END__` 标记。
+
+#### 适用于 Rsbuild 的配置
+
+安装 [compression-webpack-plugin](https://www.npmjs.com/package/compression-webpack-plugin) 插件进行预压缩：
+
+选择合适的安装方式：
+
+```bash
+npm install compression-webpack-plugin -D
+```
+
+```bash
+pnpm add compression-webpack-plugin -D
+```
+
+```bash
+yarn add compression-webpack-plugin -D
+```
+
+安装完成后配置 `rsbuild.config.ts`：
+
+```ts
+// rsbuild.config.ts
+import { constants } from "node:zlib";
+import CompressionPlugin from "compression-webpack-plugin";
+
+export default defineConfig({
+  // ...
+  tools: {
+    rspack: {
+      plugins: [
+        new CompressionPlugin({
+          algorithm: "gzip",
+          include:
+            /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+          // 设置为最大压缩等级 9
+          compressionOptions: { level: 9 },
+          // minRatio 配置可参考文档：https://github.com/webpack/compression-webpack-plugin#minratio
+          minRatio: Number.MAX_SAFE_INTEGER,
+        }),
+        new CompressionPlugin({
+          algorithm: "brotliCompress",
+          include:
+            /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+          // 设置为最大压缩等级 11
+          compressionOptions: {
+            params: {
+              [constants.BROTLI_PARAM_QUALITY]: 11,
+            },
+          },
+          minRatio: Number.MAX_SAFE_INTEGER,
+        }),
+        new CompressionPlugin({
+          // 必须，否则此插件会将文件命名为 [path][base].gz 与 gzip 冲突
+          filename: "[path][base].zst",
+          algorithm: "zstdCompress",
+          include:
+            /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+          // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
+          compressionOptions: {
+            params: {
+              [constants.ZSTD_c_compressionLevel]: 22,
+            },
+          },
+          minRatio: Number.MAX_SAFE_INTEGER,
+        }),
+      ],
+    },
+  },
+});
+```
+
+#### 适用于 webpack 的配置
+
+安装 [compression-webpack-plugin](https://www.npmjs.com/package/compression-webpack-plugin) 插件进行预压缩：
+
+选择合适的安装方式：
+
+```bash
+npm install compression-webpack-plugin -D
+```
+
+```bash
+pnpm add compression-webpack-plugin -D
+```
+
+```bash
+yarn add compression-webpack-plugin -D
+```
+
+安装完成后配置 `webpack.config.js`：
+
+```js
+// webpack.config.js
+const { constants } = require("zlib");
+const CompressionPlugin = require("compression-webpack-plugin");
+
+module.exports = {
+  // ...
+  plugins: [
+    new CompressionPlugin({
+      algorithm: "gzip",
+      include:
+        /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+      // 设置为最大压缩等级 9
+      compressionOptions: { level: 9 },
+      // minRatio 配置可参考文档：https://github.com/webpack/compression-webpack-plugin#minratio
+      minRatio: Number.MAX_SAFE_INTEGER,
+    }),
+    new CompressionPlugin({
+      algorithm: "brotliCompress",
+      include:
+        /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+      // 设置为最大压缩等级 11
+      compressionOptions: {
+        params: {
+          [constants.BROTLI_PARAM_QUALITY]: 11,
+        },
+      },
+      minRatio: Number.MAX_SAFE_INTEGER,
+    }),
+    new CompressionPlugin({
+      // 必须，否则此插件会将文件命名为 [path][base].gz 与 gzip 冲突
+      filename: "[path][base].zst",
+      algorithm: "zstdCompress",
+      include:
+        /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
+      // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
+      compressionOptions: {
+        params: {
+          [constants.ZSTD_c_compressionLevel]: 22,
+        },
+      },
+      minRatio: Number.MAX_SAFE_INTEGER,
+    }),
+  ],
+};
 ```
 
 ### 部署配置
