@@ -47,6 +47,14 @@ references:
 
 ## 如何配置
 
+### 通用配置
+
+- 适合预压缩的文件后缀：
+  - 正则表达式形式：`/\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md)$/`
+  - 可根据实际情况补充其他文件，例如：conf, ini, cfg。
+- 对应 MIME：`application/atom+xml application/javascript application/json application/vnd.api+json application/rss+xml application/vnd.ms-fontobject application/x-font-opentype application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/eot font/opentype font/otf font/truetype image/svg+xml image/vnd.microsoft.icon image/x-icon image/x-win-bitmap text/css text/javascript text/plain text/xml text/html`
+  - 根据文档，nginx 配置 `gzip_types`, `brotli_types`, `zstd_types` 时，均无需填写 `text/html`。不论 `*_types`是否包括`text/html`，`text/html` 始终会被动态压缩。相关文档：[gzip_types](https://nginx.org/en/docs/http/ngx_http_gzip_module.html#gzip_types)，[brotli_types](https://github.com/google/ngx_brotli#brotli_types)，[zstd_types](https://github.com/tokers/zstd-nginx-module#zstd_types)。
+
 ### 构建配置
 
 - Vite: [适用于 Vite 的配置](#适用于-vite-的配置)
