@@ -49,7 +49,7 @@ references:
 
 ### 构建配置
 
-- Vite: [适用于 Vite 的配置](#适用于-Vite-的配置)
+- Vite: [适用于 Vite 的配置](#适用于-vite-的配置)
 
 #### 适用于 Vite 的配置
 
@@ -108,9 +108,9 @@ export default defineConfig({
 
 ### 部署配置
 
-- Halo CMS: [在 Halo CMS 上使用](#在-Halo-CMS-上使用)
+- Halo CMS: [在 Halo CMS 上使用](#在-halo-cms-上使用)
 - nginx: [在 nginx 上使用](#在-nginx-上使用)
-- Apache: [在 Apache 上使用](#在-Apache-上使用)
+- Apache: [在 Apache 上使用](#在-apache-上使用)
 
 #### 在 Halo CMS 上使用
 
