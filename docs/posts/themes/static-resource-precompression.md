@@ -65,6 +65,29 @@ application/atom+xml application/javascript application/json application/vnd.api
 
 注：根据文档，nginx 配置 `gzip_types`, `brotli_types`, `zstd_types` 时，均无需填写 `text/html`。不论 `*_types`是否包括`text/html`，`text/html` 始终会被动态压缩。相关文档：[gzip_types](https://nginx.org/en/docs/http/ngx_http_gzip_module.html#gzip_types)，[brotli_types](https://github.com/google/ngx_brotli#brotli_types)，[zstd_types](https://github.com/tokers/zstd-nginx-module#zstd_types)。
 
+### 系统相关配置
+
+在内存受限环境中使用 zstandard 最高压缩等级（​level 22）时，构建过程可能因内存不足被系统终止。
+此时建议增加可用虚拟内存：​Windows 扩大虚拟内存（pagefile），​Linux 增加交换分区（swap）。
+
+例如，在 GitHub Actions 的 `ubuntu-latest`（[公开仓库](https://docs.github.com/zh/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories)为 ​16GB 内存 + 4GB 交换分区​）中，可在 `steps` 开头增加以下步骤，额外创建 ​12GB 交换分区，以降低构建失败的风险：
+
+```yaml
+- name: Add swap space
+  run: |
+    SWAP_FILE="/tmp/github-actions-swap-$$"
+    MEMORY_LIMIT_GB=12
+    # Add swap space to help with memory issues during build
+    sudo fallocate -l ${MEMORY_LIMIT_GB}G "$SWAP_FILE"
+    sudo chmod 600 "$SWAP_FILE"
+    sudo mkswap "$SWAP_FILE"
+    sudo swapon "$SWAP_FILE"
+    echo "Added ${MEMORY_LIMIT_GB}GB swap at $SWAP_FILE"
+    free -h
+```
+
+请根据项目实际规模调整交换分区的大小。
+
 ### 构建配置
 
 - Vite: [适用于 Vite 的配置](#适用于-vite-的配置)
@@ -110,7 +133,7 @@ export default defineConfig({
             [constants.BROTLI_PARAM_QUALITY]: 11,
           },
         }),
-        // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
+        // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
         defineAlgorithm("zstandard", {
           params: {
             [constants.ZSTD_c_compressionLevel]: 22,
@@ -185,7 +208,7 @@ export default defineConfig({
           algorithm: "zstdCompress",
           include:
             /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
-          // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
+          // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
           compressionOptions: {
             params: {
               [constants.ZSTD_c_compressionLevel]: 22,
@@ -254,7 +277,7 @@ module.exports = {
       algorithm: "zstdCompress",
       include:
         /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
-      // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，20，或去除此段
+      // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
       compressionOptions: {
         params: {
           [constants.ZSTD_c_compressionLevel]: 22,
