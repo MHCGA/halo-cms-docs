@@ -4,14 +4,14 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
     branches: [main]
   release:
     types: [published]
   workflow_dispatch:
     inputs:
       deploy:
-        description: 'Deploy to Halo after build'
+        description: "Deploy to Halo after build"
         required: true
         type: boolean
         default: false
@@ -35,11 +35,11 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'pnpm'
+          node-version: lts/*
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Documentation
         run: pnpm docs:build
@@ -71,12 +71,12 @@ jobs:
         with:
           # version: 10 <- auto use package.json with the key "packageManager", so commented this line
           run_install: false
-      
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'pnpm'
+          node-version: lts/*
+          cache: "pnpm"
 
       - name: Deploy Doc to Halo
         run: |

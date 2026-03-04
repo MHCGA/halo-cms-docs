@@ -1,3 +1,4 @@
+import { NolebaseHighlightTargetedHeading } from "@nolebase/vitepress-plugin-highlight-targeted-heading/client";
 // https://vitepress.dev/guide/custom-theme
 import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
@@ -5,11 +6,9 @@ import { h } from "vue";
 
 import GiscusComment from "./components/GiscusComment.vue";
 import PageFooterNotice from "./components/PageFooterNotice.vue";
-import PostMetadata from "./components/PostMetadata.vue";
 
 import "./style.css";
-
-import { NolebaseHighlightTargetedHeading } from "@nolebase/vitepress-plugin-highlight-targeted-heading/client";
+import PostMetadata from "./components/PostMetadata.vue";
 
 import "@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css";
 
