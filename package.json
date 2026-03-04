@@ -1,48 +1,40 @@
 {
-  "private": true,
-  "type": "module",
   "name": "halo-cms-docs",
   "version": "1.0.0",
+  "private": true,
   "description": "Share tips related to Halo CMS.",
-  "main": "index.js",
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "build": "pnpm run \"/:build$/\"",
-    "dev": "pnpm run \"/:dev$/\"",
-    "lint": "pnpm run \"/^lint:/\"",
-    "lint:eslint": "oxlint --type-aware --fix && eslint --fix",
-    "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
-    "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
-    "lint:autocorrect": "autocorrect --fix",
-    "format": "pnpm run \"/^format:/\"",
-    "format:prettier": "prettier --write \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\"",
-    "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run format",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "pnpm run docs:build && vitepress preview docs"
-  },
-  "browserslist": [
-    "defaults",
-    "Safari >= 16.4",
-    "Chrome >= 111",
-    "Firefox >= 128"
-  ],
   "keywords": [
     "halo"
   ],
-  "author": "MHCGA",
   "homepage": "https://github.com/MHCGA",
-  "repository": {
-    "url": "https://github.com/MHCGA/halo-cms-docs",
-    "type": "git"
-  },
-  "packageManager": "pnpm@10.26.1",
   "license": "MIT",
+  "author": "MHCGA",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MHCGA/halo-cms-docs"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run \"/:build$/\"",
+    "dev": "pnpm run \"/:dev$/\"",
+    "docs:build": "vitepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:preview": "pnpm run docs:build && vitepress preview docs",
+    "fmt": "pnpm run \"/^fmt:/\"",
+    "fmt:oxfmt": "oxfmt \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
+    "lint": "pnpm run \"/^lint:/\"",
+    "lint:autocorrect": "autocorrect --fix",
+    "lint:eslint": "oxlint --type-aware --fix && eslint --fix",
+    "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
+    "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
+    "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run fmt",
+    "preinstall": "npx only-allow pnpm"
+  },
   "devDependencies": {
     "@eslint/compat": "^2.0.2",
     "@eslint/js": "^9.39.3",
     "@giscus/vue": "^3.1.1",
-    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@types/node": "^25.3.3",
     "@typescript-eslint/parser": "^8.56.1",
@@ -57,10 +49,10 @@
     "globals": "^17.4.0",
     "lightningcss": "^1.31.1",
     "markdownlint-cli": "^0.48.0",
+    "oxfmt": "^0.36.0",
     "oxlint": "^1.51.0",
     "oxlint-tsgolint": "^0.16.0",
     "pagefind": "^1.4.0",
-    "prettier": "^3.8.1",
     "stylelint": "^17.4.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-vue": "^1.6.1",
@@ -75,5 +67,12 @@
   },
   "overrides": {
     "vite": "npm:rolldown-vite@^7.2.10"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "Safari >= 16.4",
+    "Chrome >= 111",
+    "Firefox >= 128"
+  ],
+  "packageManager": "pnpm@10.30.3"
 }
