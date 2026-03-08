@@ -3,7 +3,7 @@ published: 2025-12-04T05:29:55Z
 author:
   - name: HowieHz
     link: https://github.com/HowieHz
-    email: ""
+    email: howie_hzgo@outlook.com
 references:
   - name: 皓子的小站 | 在 Halo CMS 中通过模板实现随机文章跳转功能
     link: https://howiehz.top/archives/halo-cms-thymeleaf-random-post-redirect

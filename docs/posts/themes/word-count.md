@@ -3,7 +3,7 @@ published: 2025-12-04T08:09:39Z
 author:
   - name: HowieHz
     link: https://github.com/HowieHz
-    email: ""
+    email: howie_hzgo@outlook.com
 references:
   - name: halo-theme-higan-hz v1.49.0 字数统计实现
     link: https://github.com/HowieHz/halo-theme-higan-hz/blob/005f040d4f5c8f1a0a9a64ad69de4260ade0c276/src/templates/components/list-post-summary/template.html#L121
