@@ -3,7 +3,7 @@ published: 2026-02-13T06:19:00Z
 author:
   - name: HowieHz
     link: https://github.com/HowieHz
-    email: ""
+    email: howie_hzgo@outlook.com
 references:
   - name: 皓子的小站 | 静态资源预压缩：零运行时开销，极致节省带宽
     link: https://howiehz.top/archives/static-resource-precompression

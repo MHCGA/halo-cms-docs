@@ -3,6 +3,7 @@ published: 2025-12-04T09:35:46Z
 author:
   - name: HowieHz
     link: https://github.com/HowieHz
+    email: howie_hzgo@outlook.com
 references:
   - name: VitePress | 生成简洁的 URL
     link: https://vitepress.dev/zh/guide/routing#generating-clean-url

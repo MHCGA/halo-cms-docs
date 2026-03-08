@@ -73,9 +73,9 @@ published: 2025-12-07T21:45:30Z
 author:
   - name: 投稿者 A
     link: https://github.com/contributor-a
-    email: ""
+    email: contributor-a@example.com
   - name: 投稿者 B
-    link: ""
+    link: https://github.com/contributor-b
     email: contributor-b@example.com
 references:
   - name: 参考资料名称
@@ -89,8 +89,8 @@ references:
 
 - `published`（必填）：发布时间。
 - `author`（必填）：至少填写一位作者的 `name`；`link` 和 `email` 均可选。
-  - `link`：主要联系方式（个人网站、GitHub 主页等），若存在则优先使用。
-  - `email`：备选联系方式，仅在 `link` 为空或缺失时使用。若无邮箱可填空字符串 `''`。
+  - `link`：网页联系方式（可填写个人网站、GitHub 主页等）。
+  - `email`：电子邮箱联系方式。
   - 渲染规则：若 `link` 存在则链接至该地址，否则链接至 `email`（格式为 `mailto:`），两项都为空则不生成链接。
 - `references`（可选）：引用资料列表；每项需要 `name`、`link` 与 `archive`，若没有参考资料可省略整个字段。
   - `archive`：备份信息。可以包含多个备份类型，如 `ia`（Internet Archive）、`wayback` 等，每个类型对应一个备份 URL。

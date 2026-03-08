@@ -209,9 +209,11 @@ export default defineConfig({
         copyright: "版权所有 © 2025-至今 MHCGA",
         description: "Make Halo CMS Great Again · 分享与 Halo CMS 相关的插件、主题与运营经验。",
         language: "zh-Hans",
+        feed: `${baseUrl}${basePath}rss.xml`,
         filename: "rss.xml",
         locales: {
           root: {
+            feed: `${baseUrl}${basePath}rss.zh-hans.xml`,
             filename: "rss.zh-hans.xml",
           },
           en: {
@@ -220,6 +222,7 @@ export default defineConfig({
             description:
               "Make Halo CMS Great Again · Sharing plugins, themes, and operational experience related to Halo CMS.",
             language: "en",
+            feed: `${baseUrl}${basePath}rss.en.xml`,
             filename: "rss.en.xml",
           },
         },

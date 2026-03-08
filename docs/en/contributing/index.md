@@ -74,9 +74,9 @@ published: 2025-12-07T21:45:30Z
 author:
   - name: Contributor A
     link: https://github.com/contributor-a
-    email: ""
+    email: contributor-a@example.com
   - name: Contributor B
-    link: ""
+    link: https://github.com/contributor-b
     email: contributor-b@example.com
 references:
   - name: Reference name
@@ -90,8 +90,8 @@ Field explanation:
 
 - `published` (required): Publication time.
 - `author` (required): at least one author with `name`; both `link` and `email` are optional.
-  - `link`: primary contact method (personal website, GitHub profile, etc.); prioritized if present.
-  - `email`: fallback contact, only used when `link` is empty or missing. Use empty string `''` if not available.
+  - `link`: Web contact information (can be a personal website, GitHub profile, etc.).
+  - `email`: Email contact information.
   - Rendering rules: if `link` exists, link to that address; otherwise link to `email` (formatted as `mailto:`); skip linking if both are empty.
 - `references` (optional): reference materials list; each item needs `name`, `link`, and `archive`. Can omit the entire field if no references.
   - `archive`: backup information. Can include multiple backup types, such as `ia` (Internet Archive), `wayback`, etc., each type corresponding to a backup URL.
