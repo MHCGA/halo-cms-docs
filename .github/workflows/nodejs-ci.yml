@@ -20,7 +20,7 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref }}
           # why token is required
-          # ref: https://github.com/stefanzweifel/git-auto-commit-action/tree/v5/?tab=readme-ov-file#commits-made-by-this-action-do-not-trigger-new-workflow-runs
+          # ref: https://github.com/stefanzweifel/git-auto-commit-action/tree/v7/?tab=readme-ov-file#commits-made-by-this-action-do-not-trigger-new-workflow-runs
           token: ${{ secrets.PR_WORKFLOW_TOKEN || github.token }}
 
       - uses: pnpm/action-setup@v4
@@ -29,7 +29,7 @@ jobs:
           run_install: false
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: "pnpm"
@@ -44,7 +44,7 @@ jobs:
         run: pnpm lint
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         id: auto-commit-action
         with:
           commit_message: |
