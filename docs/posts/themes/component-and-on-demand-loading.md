@@ -73,7 +73,7 @@ src/
 ```plaintext
 src/components/pagination/
   ├── main.ts        ← 脚本 + 样式导入
-  ├── main.css       ← 样式定义
+  ├── styles.css     ← 样式定义
   └── index.html     ← Thymeleaf 模板（两个片段）
 ```
 
@@ -522,7 +522,7 @@ import "./styles.css";
 ```plaintext
 src/components/pagination/
   ├── main.ts       ← 脚本：处理分页交互（比如动态加载）
-  ├── main.css      ← 样式：定义分页器的外观
+  ├── styles.css    ← 样式：定义分页器的外观
   └── index.html    ← Thymeleaf 模板：定义两个片段（head 和 body）
 ```
 
