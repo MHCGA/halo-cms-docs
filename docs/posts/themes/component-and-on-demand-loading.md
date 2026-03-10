@@ -130,7 +130,7 @@ src/
 │   ├── component-a/       ← 组件 A
 │   │   ├── main.ts        ← 组件 A 的脚本（包含 import "./styles.css";）
 │   │   ├── styles.css     ← 组件 A 样式
-|   |   └── index.html     ← 组件 A 的 HTML 文件
+│   │   └── index.html     ← 组件 A 的 HTML 文件
 │   └── component-b/       ← 组件 B
 │       ├── main.ts
 │       ├── styles.css
@@ -192,15 +192,15 @@ src/
   │   ├── pagination/        ← 分页组件
   │   │   ├── main.ts
   │   │   ├── styles.css
-  |   |   └── index.html
+  │   │   └── index.html
   │   ├── post-list/         ← 文章列表组件
   │   │   ├── main.ts
   │   │   ├── styles.css
-  |   |   └── index.html
+  │   │   └── index.html
   │   └── header/            ← 页面头部组件（如页面导航）
   │       ├── main.ts
   │       ├── styles.css
-  |       └── index.html
+  │       └── index.html
   └── templates/
       ├── fragments
       │   └── layout.html     ← 公共布局模板（根级布局片段）
