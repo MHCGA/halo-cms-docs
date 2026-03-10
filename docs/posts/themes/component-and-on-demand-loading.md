@@ -4,6 +4,9 @@ author:
   - name: HowieHz
     link: https://github.com/HowieHz
     email: howie_hzgo@outlook.com
+references:
+  - name: HowieHz/halo-theme-higan-hz 主题实现仓库
+    link: https://github.com/HowieHz/halo-theme-higan-hz/tree/95d7b8ee1d985667e7c375c04f19889c0ac6b3ec/
 ---
 
 # 实现组件化与资源按需加载
