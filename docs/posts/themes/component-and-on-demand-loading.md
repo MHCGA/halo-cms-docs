@@ -56,7 +56,7 @@ Thymeleaf 是 Halo CMS 使用的服务端模板引擎。它支持片段的概念
 
 传统的前端开发中，常常这样组织代码：
 
-```
+```plaintext
 src/
   ├── scripts/
   │   └── pagination.js     ← 分页逻辑
@@ -70,7 +70,7 @@ src/
 
 而在组件化架构中，我们将它们放在一起，并通过 Thymeleaf 片段的机制**一次性导入**：
 
-```
+```plaintext
 src/components/pagination/
   ├── main.ts        ← 脚本 + 样式导入
   ├── main.css       ← 样式定义
@@ -96,7 +96,7 @@ src/components/pagination/
 
 ### 集中化架构（以 [halo-dev/theme-modern-starter](https://github.com/halo-dev/theme-modern-starter/tree/c44c56c7a30b3a65ba56988a8d083d42b62b64e5/) 为例）
 
-```
+```plaintext
 templates/
   ├── modules
   │   └── layout.html       ← 公共布局模板（根级布局片段）
@@ -109,7 +109,7 @@ src/
 
 构建结果：
 
-```
+```plaintext
 dist/
   ├── main.iife.js         ← 所有页面共享的脚本文件
   └── style.css            ← 所有页面共享的样式文件
@@ -119,7 +119,7 @@ dist/
 
 ### 组件化架构（以 [HowieHz/halo-theme-higan-hz](https://github.com/HowieHz/halo-theme-higan-hz/tree/95d7b8ee1d985667e7c375c04f19889c0ac6b3ec/src/) 为例）
 
-```
+```plaintext
 src/
 ├── templates/
 │   ├── fragments
@@ -149,7 +149,7 @@ src/
 
 构建结果（由 Vite 自动处理）：
 
-```
+```plaintext
 dist/
   ├── BHmhdQc.js          ← 首页代码（仅此页面需要）
   ├── A1h342c.css         ← 首页样式（仅此页面需要）
@@ -176,7 +176,7 @@ dist/
 
 首先，建立以下文件结构：
 
-```
+```plaintext
 src/
   ├── styles/
   │   ├── main.css           ← 全局样式
@@ -519,7 +519,7 @@ import "./styles.css";
 
 假设你有一个 `pagination` 组件：
 
-```
+```plaintext
 src/components/pagination/
   ├── main.ts       ← 脚本：处理分页交互（比如动态加载）
   ├── main.css      ← 样式：定义分页器的外观
