@@ -623,7 +623,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/themes/ABC/", // ABC 替换为主题的 metaname.name
+  base: "/themes/ABC/", // ABC 替换为主题的 metadata.name
   build: {
     outDir: fileURLToPath(new URL("./templates/", import.meta.url)),
     rollupOptions: {
@@ -758,7 +758,7 @@ import { defineConfig } from "vite";
 import moveHtmlPlugin from "./plugins/vite-plugin-move-html";
 
 export default defineConfig({
-  base: "/themes/ABC/", // ABC 替换为主题的 metaname.name
+  base: "/themes/ABC/", // ABC 替换为主题的 metadata.name
   plugins: [
     moveHtmlPlugin({ dest: "templates", flatten: 2 }), // 移除两层嵌套
   ],
