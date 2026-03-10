@@ -192,15 +192,15 @@ src/
   │   ├── pagination/        ← 分页组件
   │   │   ├── main.ts
   │   │   ├── styles.css
-  |   |   └── index.html
+  │   │   └── index.html
   │   ├── post-list/         ← 文章列表组件
   │   │   ├── main.ts
   │   │   ├── styles.css
-  |   |   └── index.html
+  │   │   └── index.html
   │   └── header/            ← 页面头部组件（如页面导航）
   │       ├── main.ts
   │       ├── styles.css
-  |       └── index.html
+  │       └── index.html
   └── templates/
       ├── fragments
       │   └── layout.html     ← 公共布局模板（根级布局片段）
