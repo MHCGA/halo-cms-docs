@@ -286,7 +286,7 @@ export default defineConfig({
     <!-- 所有页面共享的全局脚本和全局样式 -->
     <script src="/src/scripts/main.ts" type="module"></script>
 
-    <!-- 位符：页面特定的 head 内容会被插入这里 -->
+    <!-- 页面特定的 head 内容会被插入这里 -->
     <th:block th:insert="${head}"></th:block>
   </head>
 
