@@ -1,7 +1,6 @@
 docs/.vitepress/dist
 docs/.vitepress/cache
 .oxlintrc.json.bak
-halo-theme-higan-hz-main
 
 # Logs
 logs
