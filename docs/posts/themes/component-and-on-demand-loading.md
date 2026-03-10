@@ -949,4 +949,4 @@ export default defineConfig({
 
 ### 静态资源预压缩
 
-参考 [《实现静态资源预压缩》](static-resource-precompression.html) 一文，在构建时生成 gzip、brotli 等多种压缩格式，让服务器直接提供预压缩文件，节省运行时的 CPU 和带宽。
+参考 [《实现静态资源预压缩》](./static-resource-precompression) 一文，在构建时生成 gzip、brotli 等多种压缩格式，让服务器直接提供预压缩文件，节省运行时的 CPU 和带宽。
