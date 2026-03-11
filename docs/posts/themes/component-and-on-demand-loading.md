@@ -31,15 +31,15 @@ references:
 附加收益：
 
 - 可扩展的前端工程能力：可接入 Tailwind 类名压缩、SRI 生成、构建期预压缩等插件能力，持续优化产物质量
-- 自动生成 `modulepreload`：让浏览器提前获取潜在依赖模块，减少后续模块执行前的等待时间
+- 自动生成 `<link rel="modulepreload">`：让浏览器提前获取依赖模块，减少后续模块执行前的等待时间
 
 ## 核心概念与技术栈
 
 ### Vite 和 Rollup/Rolldown
 
-Vite 是现代化的前端构建工具，它使用 Rollup（v8 版本之前）/Rolldown（v8 版本开始）作为生产构建器。在 Vite 中，`build.rollupOptions.input`/`build.rolldownOptions.input` 允许配置多个 HTML 入口文件，而不是单一 JS 入口。
+Vite 是现代化的前端构建工具，采用 Rollup（v8 版本之前）或 Rolldown（v8 版本之后）作为生产构建器。在 Vite 中，`build.rollupOptions.input` 或 `build.rolldownOptions.input` 支持配置多个 HTML 入口文件，突破了单一 JS 入口的限制。
 
-由于本文写作时 Vite v8 尚未发布正式版，使用 Vite v7 作为示例，配置文件中使用 `build.rollupOptions.input`。如果你在使用 Vite v8 及其以后的版本，你可以使用 `build.rolldownOptions.input` 而不影响所描述的功能实现。
+本文以 Vite v7 为例进行讲解，使用 `build.rollupOptions.input` 进行配置。若你使用的是 Vite v8 或更高版本，可直接使用 `build.rolldownOptions.input` 替代，不会影响功能实现。
 
 ::: tip 这意味着什么？
 
@@ -62,11 +62,11 @@ Thymeleaf 是 Halo CMS 使用的服务端模板引擎。它支持片段的概念
 ```plaintext
 src/
   ├── scripts/
-  │   └── pagination.js     ← 分页逻辑
+  │   └── pagination.js   ← 分页逻辑
   ├── styles/
-  │   └── pagination.css    ← 分页样式
+  │   └── pagination.css  ← 分页样式
   └── templates/
-      └── pagination.html   ← 分页 HTML
+      └── pagination.html ← 分页 HTML
 ```
 
 问题是：这三个文件虽然逻辑相关，但在物理上分散开来，使用时容易遗漏其中某个文件。
@@ -75,9 +75,9 @@ src/
 
 ```plaintext
 src/components/pagination/
-  ├── main.ts        ← 脚本 + 样式导入
-  ├── styles.css     ← 样式定义
-  └── index.html     ← Thymeleaf 模板（两个片段）
+  ├── main.ts    ← 脚本 + 样式导入
+  ├── styles.css ← 样式定义
+  └── index.html ← Thymeleaf 模板（两个片段）
 ```
 
 使用时：
@@ -102,23 +102,23 @@ src/components/pagination/
 ```plaintext
 templates/
   ├── modules
-  │   └── layout.html       ← 公共布局模板（根级布局片段）
-  ├── post.html             ← 文章详情页模板
-  └── index.html            ← 首页模板
+  │   └── layout.html ← 公共布局模板（根级布局片段）
+  ├── post.html       ← 文章详情页模板
+  └── index.html      ← 首页模板
 
 src/
-  └── main.ts              ← 单一入口文件
+  └── main.ts         ← 单一入口文件
 ```
 
 构建结果：
 
 ```plaintext
 dist/
-  ├── main.iife.js         ← 所有页面共享的脚本文件
-  └── style.css            ← 所有页面共享的样式文件
+  ├── main.iife.js ← 所有页面共享的脚本文件
+  └── style.css    ← 所有页面共享的样式文件
 ```
 
-劣势：无论用户访问哪个页面，都要加载整个 `main.iife.js`。
+劣势：无论用户访问哪个页面，都需要加载完整的 `main.iife.js` 和 `style.css` 文件。这对于适配多个第三方插件的主题来说，会产生更明显的影响。
 
 ### 组件化架构（以 [HowieHz/halo-theme-higan-hz](https://github.com/HowieHz/halo-theme-higan-hz/tree/95d7b8ee1d985667e7c375c04f19889c0ac6b3ec/src/) 为例）
 
@@ -126,42 +126,42 @@ dist/
 src/
 ├── templates/
 │   ├── fragments
-│   │   └── layout.html     ← 公共布局模板（根级布局片段）
-│   ├── post.html           ← 包含：<script src="/src/scripts/pages/post.ts" type="module"></script>，编译后会替换为对应的样式表和脚本链接。
-│   └── index.html          ← 包含：<script src="/src/scripts/pages/index.ts" type="module"></script>
+│   │   └── layout.html ← 公共布局模板（根级布局片段）
+│   ├── post.html       ← 文章详情页模板（包含：<script src="/src/scripts/pages/post.ts" type="module"></script>），编译后会替换为对应的样式表和脚本链接。
+│   └── index.html      ← 首页模板（包含：<script src="/src/scripts/pages/index.ts" type="module"></script>）
 ├── components/
-│   ├── component-a/       ← 组件 A
-│   │   ├── main.ts        ← 组件 A 的脚本（包含 import "./styles.css";）
-│   │   ├── styles.css     ← 组件 A 样式
-│   │   └── index.html     ← 组件 A 的 HTML 文件
-│   └── component-b/       ← 组件 B
+│   ├── component-a/    ← 组件 A
+│   │   ├── main.ts     ← 组件 A 的脚本（包含 import "./styles.css";）
+│   │   ├── styles.css  ← 组件 A 样式
+│   │   └── index.html  ← 组件 A 的 HTML 文件
+│   └── component-b/    ← 组件 B
 │       ├── main.ts
 │       ├── styles.css
 │       └── index.html
 ├── styles/
-│   ├── main.css           ← 全局样式
-│   └── pages/             ← 各自的样式文件，在各自的入口文件中被导入
+│   ├── main.css        ← 公共样式文件
+│   └── pages/          ← 各自的样式文件，在各自的入口文件中被导入
 │       ├── post.css
 │       └── index.css
 └── scripts/
-    ├── main.ts            ← 公共资源文件（包含 import "../styles/main.css";）
-    └── pages/             ← 各自的入口文件
-        ├── post.ts        ← （包含 import "../../styles/pages/post.css";）
-        └── index.ts
+    ├── main.ts         ← 公共脚本文件（包含 import "../styles/main.css";）
+    └── pages/          ← 各自的脚本入口文件
+        ├── post.ts     ← 文章详情页脚本（包含 import "../../styles/pages/post.css";）
+        └── index.ts    ← 首页脚本（包含 import "../../styles/pages/index.css";）
 ```
 
 构建结果（由 Vite 自动处理）：
 
 ```plaintext
 dist/
-  ├── BHmhdQc.js          ← 首页代码（仅此页面需要）
-  ├── A1h342c.css         ← 首页样式（仅此页面需要）
-  ├── 0U3f2Kd.js          ← 文章详情页代码（仅此页面需要）
-  ├── QbsQr12.css         ← 文章详情页样式（仅此页面需要）
-  ├── ChjrFNR.js          ← 共享代码
-  ├── B0bwbiH.js          ← 组件 A 的代码
-  ├── U12VxHi.css         ← 组件 A 的样式
-  └── Dt5VXXw.js          ← 组件 B 的代码
+  ├── BHmhdQc.js  ← 首页代码（仅此页面需要）
+  ├── A1h342c.css ← 首页样式（仅此页面需要）
+  ├── 0U3f2Kd.js  ← 文章详情页代码（仅此页面需要）
+  ├── QbsQr12.css ← 文章详情页样式（仅此页面需要）
+  ├── ChjrFNR.js  ← 共享代码
+  ├── B0bwbiH.js  ← 组件 A 的代码
+  ├── U12VxHi.css ← 组件 A 的样式
+  └── Dt5VXXw.js  ← 组件 B 的代码
 ```
 
 优势：每个页面只加载自己需要的代码，共享代码自动去重。
@@ -177,38 +177,38 @@ dist/
 
 ### 步骤 1：项目结构设计
 
-首先，建立以下文件结构：
+首先，建立以下示例文件结构：
 
 ```plaintext
 src/
   ├── styles/
-  │   ├── main.css           ← 全局样式
+  │   ├── main.css        ← 全局样式
   │   └── pages/
-  │       ├── post.css       ← 文章页样式
-  │       └── index.css      ← 首页样式
+  │       ├── post.css    ← 文章页样式
+  │       └── index.css   ← 首页样式
   ├── scripts/
-  │   ├── main.ts            ← 全局脚本
+  │   ├── main.ts         ← 全局脚本
   │   └── pages/
-  │       ├── post.ts        ← 文章页脚本
-  │       └── index.ts       ← 首页脚本
+  │       ├── post.ts     ← 文章页脚本
+  │       └── index.ts    ← 首页脚本
   ├── components/
-  │   ├── pagination/        ← 分页组件
+  │   ├── pagination/     ← 分页组件
   │   │   ├── main.ts
   │   │   ├── styles.css
   │   │   └── index.html
-  │   ├── post-list/         ← 文章列表组件
+  │   ├── post-list/      ← 文章列表组件
   │   │   ├── main.ts
   │   │   ├── styles.css
   │   │   └── index.html
-  │   └── header/            ← 页面头部组件（如页面导航）
+  │   └── header/         ← 页面头部组件（如页面导航）
   │       ├── main.ts
   │       ├── styles.css
   │       └── index.html
   └── templates/
       ├── fragments
-      │   └── layout.html     ← 公共布局模板（根级布局片段）
-      ├── post.html           ← 文章详情页模板
-      └── index.html          ← 首页模板
+      │   └── layout.html ← 公共布局模板（根级布局片段）
+      ├── post.html       ← 文章详情页模板
+      └── index.html      ← 首页模板
 ```
 
 随后在 ts 文件中导入对应 css 文件：
@@ -269,6 +269,12 @@ export default defineConfig({
   },
 });
 ```
+
+::: warning 警告
+
+由于 Vite 的构建机制限制，当前的组织方式可能导致模板文件的生成位置不符合预期。如遇到此问题，请参考[常见问题 - 模板文件生成位置错误](#模板文件生成位置错误)章节获取解决方案。
+
+:::
 
 ### 步骤 3：创建根级布局片段
 
@@ -613,9 +619,9 @@ src/components/pagination/
 
 ### 模板文件生成位置错误
 
-**问题**：构建后的模板文件没有生成在项目的 `templates` 文件夹内。
+**问题**：构建后的模板文件不在预期的 `build.outDir` 文件夹内。
 
-**原因**：Vite 的构建限制导致。
+**原因**：Vite 的构建机制限制。
 
 例子：如果你把 HTML 文件放置在 `src/templates/index.html`，用以下配置进行编译
 
@@ -640,7 +646,13 @@ export default defineConfig({
 
 最终会编译到 `templates/src/templates/index.html`
 
-**解决方案**：使用以下自定义插件，移除多余嵌套结构
+**解决方案 1**：
+
+将页面模板文件放置在项目根目录，例如将首页模板放在 `index.html`，使用上述配置进行编译，最终会编译到 `templates/index.html`，并且完美支持文件监听功能（`vite build --watch`）。该方案的缺点是根目录文件数量较多。
+
+**解决方案 2**：
+
+使用以下自定义插件，移除多余嵌套结构
 
 ```ts
 // plugins/vite-plugin-move-html.ts
@@ -878,7 +890,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 **原因**：页面模板缺少 `<head>` 或 `<body>` 标签，Vite 找不到合适的注入点，只能将内容追加到文件末尾。
 
-**解决方案**：确保页面模板包含完整的 `<head>` 和 `<body>` 标签，参考本文步骤 4 和步骤 6 中的示例结构。
+**解决方案**：确保页面模板包含完整的 `<head>` 和 `<body>` 标签，可以参考上文提供的示例结构，也可以参考 [HowieHz/halo-theme-higan-hz](https://github.com/HowieHz/halo-theme-higan-hz/tree/95d7b8ee1d985667e7c375c04f19889c0ac6b3ec/src/templates/components/example) 实现的示例组件。
 
 此问题可能出现在使用 [@vitejs/plugin-legacy](https://www.npmjs.com/package/@vitejs/plugin-legacy) 插件时。
 
@@ -965,7 +977,7 @@ export default defineConfig({
 
 ### 模块预加载
 
-在主 JS 文件加载后，让浏览器预加载可能需要的其他模块。Vite 会自动生成 `<link rel="modulepreload">` 标签：
+在主 JS 文件加载后，让浏览器预加载可能需要的其他模块。Vite 会**自动**生成 `<link rel="modulepreload">` 标签：
 
 ```html
 <link
@@ -976,7 +988,12 @@ export default defineConfig({
 />
 ```
 
-这告诉浏览器提前下载这个模块，但不执行。对于多入口应用，这能有效减少主模块加载后的等待时间。
+modulepreload 对具有多层依赖链的模块性能提升最为显著。
+
+假设模块 A 依赖模块 B，模块 B 依赖模块 C。当页面加载模块 A 时：
+
+- 无 modulepreload：需要串行加载（模块 A → 模块 B → 模块 C），总加载时间较长
+- 使用 modulepreload：浏览器并行预加载所有依赖，显著减少总的加载时间
 
 ### 静态资源预压缩
 
