@@ -67,7 +67,7 @@ application/atom+xml application/javascript application/json application/vnd.api
 
 ### 系统相关配置
 
-在内存受限环境中使用 zstandard 最高压缩等级（​level 22）时，构建过程可能因内存不足被系统终止。
+在内存受限环境中使用较高压缩等级时，构建过程可能因内存不足被系统终止。
 此时建议增加可用虚拟内存：​Windows 扩大虚拟内存（pagefile），​Linux 增加交换分区（swap）。
 
 例如，在 GitHub Actions 的 `ubuntu-latest`（[公开仓库](https://docs.github.com/zh/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories)为 ​16GB 内存 + 4GB 交换分区​）中，可在 `steps` 开头增加以下步骤，额外创建 ​12GB 交换分区，以降低构建失败的风险：
@@ -133,10 +133,11 @@ export default defineConfig({
             [constants.BROTLI_PARAM_QUALITY]: 11,
           },
         }),
-        // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
+        // Zstandard 最大压缩等级为 22，但为符合 RFC 9659 规范，实际最大可用值为 19，以防止在 Chrome（v123+）和 Firefox（v126+）中报错
+        // 详见 https://github.com/nonzzz/vite-plugin-compression/issues/93
         defineAlgorithm("zstandard", {
           params: {
-            [constants.ZSTD_c_compressionLevel]: 22,
+            [constants.ZSTD_c_compressionLevel]: 19,
           },
         }),
       ],
@@ -208,10 +209,11 @@ export default defineConfig({
           algorithm: "zstdCompress",
           include:
             /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
-          // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
+          // Zstandard 最大压缩等级为 22，但为符合 RFC 9659 规范，实际最大可用值为 19，以防止在 Chrome（v123+）和 Firefox（v126+）中报错
+          // 详见 https://github.com/nonzzz/vite-plugin-compression/issues/93
           compressionOptions: {
             params: {
-              [constants.ZSTD_c_compressionLevel]: 22,
+              [constants.ZSTD_c_compressionLevel]: 19,
             },
           },
           minRatio: Number.MAX_SAFE_INTEGER,
@@ -277,10 +279,11 @@ module.exports = {
       algorithm: "zstdCompress",
       include:
         /\.(atom|rss|xml|xhtml|js|mjs|ts|html|json|css|eot|otf|ttf|svg|ico|bmp|dib|txt|text|log|md|conf|ini|cfg)$/,
-      // 最大压缩等级是 22，内存消耗量较大。如构建失败，可设置为 21，扩大系统虚拟内存，或去除此段
+      // Zstandard 最大压缩等级为 22，但为符合 RFC 9659 规范，实际最大可用值为 19，以防止在 Chrome（v123+）和 Firefox（v126+）中报错
+      // 详见 https://github.com/nonzzz/vite-plugin-compression/issues/93
       compressionOptions: {
         params: {
-          [constants.ZSTD_c_compressionLevel]: 22,
+          [constants.ZSTD_c_compressionLevel]: 19,
         },
       },
       minRatio: Number.MAX_SAFE_INTEGER,
