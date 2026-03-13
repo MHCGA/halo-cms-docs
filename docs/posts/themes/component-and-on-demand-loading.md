@@ -998,3 +998,7 @@ modulepreload 对具有多层依赖链的模块性能提升最为显著。
 ### 静态资源预压缩
 
 参考[《实现静态资源预压缩》](./static-resource-precompression.md)一文，在构建时生成 gzip、brotli 等多种压缩格式，让服务器直接提供预压缩文件，节省运行时的 CPU 和带宽。
+
+## 下一步
+
+推荐尝试使用 [halo-sigs/vite-plugin-halo-theme](https://github.com/halo-sigs/vite-plugin-halo-theme) 这一 Vite 插件，它很好地实现了本文介绍的理念。
