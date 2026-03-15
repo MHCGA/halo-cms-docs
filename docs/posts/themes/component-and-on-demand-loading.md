@@ -235,6 +235,12 @@ import "../../styles/pages/index.css";
 import "./styles.css";
 ```
 
+::: tip 提示
+
+在 Typescript 文件导入资源文件，需要配置[客户端类型](https://vite.dev/guide/features#client-types)。
+
+:::
+
 ### 步骤 2：Vite 配置
 
 配置 Vite 使用 HTML 入口：
