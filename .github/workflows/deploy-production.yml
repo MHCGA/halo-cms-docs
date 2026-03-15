@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       deploy:
-        description: 'Deploy to Halo after build'
+        description: "Deploy to Halo after build"
         required: true
         type: boolean
         default: true
@@ -23,7 +23,7 @@ concurrency:
       (github.event_name == 'workflow_dispatch' && inputs.deploy == 'false') && format('build-only-{0}', github.sha) ||
       'other'
     }}
-  cancel-in-progress: false  # 等待当前组任务完成，不自动取消（唯一组不受影响）
+  cancel-in-progress: false # 等待当前组任务完成，不自动取消（唯一组不受影响）
 
 jobs:
   build:
@@ -57,7 +57,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: lts/*
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Deploy Doc to Halo
         run: |
           pnpm --package=halo-static-pages-deploy-cli dlx halo-static-pages-deploy deploy \
