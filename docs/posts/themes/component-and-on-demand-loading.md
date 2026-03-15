@@ -650,7 +650,33 @@ export default defineConfig({
 
 将页面模板文件放置在项目根目录，例如将首页模板放在 `index.html`，使用上述配置进行编译，最终会编译到 `templates/index.html`，并且完美支持文件监听功能（`vite build --watch`）。该方案的缺点是根目录文件数量较多。
 
-**解决方案 2**：
+**解决方案 2（最推荐）**：
+
+将页面模板文件放置在 `src/templates/`，例如将首页模板放在 `src/templates/index.html`。在构建配置中额外设置 `root`，用以下配置进行编译：
+
+```ts
+// vite.config.ts
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  root: path.resolve(__dirname, "src/templates/"),  // [!code ++]
+  base: "/themes/ABC/", // ABC 替换为主题的 metadata.name
+  build: {
+    outDir: fileURLToPath(new URL("./templates/", import.meta.url)),
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, "src/templates/index.html"),
+      },
+    },
+  },
+});
+```
+
+最终会编译到 `templates/index.html`，并且完美支持文件监听功能（`vite build --watch`）。该方案的缺点是嵌套层数较多，但相对来说是最推荐的方案。
+
+**解决方案 3**：
 
 使用以下自定义插件，移除多余嵌套结构
 
