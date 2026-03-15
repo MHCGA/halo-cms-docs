@@ -213,6 +213,12 @@ src/
 
 随后在 ts 文件中导入对应 css 文件：
 
+::: tip 提示
+
+在 Typescript 文件导入资源文件，需要配置[客户端类型](https://vite.dev/guide/features#client-types)。
+
+:::
+
 ```ts
 // src/scripts/main.ts
 import "../styles/main.css";
@@ -234,12 +240,6 @@ import "../../styles/pages/index.css";
 // src/components/header/main.ts
 import "./styles.css";
 ```
-
-::: tip 提示
-
-在 Typescript 文件导入资源文件，需要配置[客户端类型](https://vite.dev/guide/features#client-types)。
-
-:::
 
 ### 步骤 2：Vite 配置
 
