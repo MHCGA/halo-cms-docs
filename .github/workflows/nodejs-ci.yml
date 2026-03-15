@@ -12,7 +12,6 @@ on:
 #   确保 main 分支的检查和自动格式化始终基于最新代码，避免多个并发运行相互干扰。
 # - pull_request：每个 PR 独立成组（组名包含 PR 编号），同一 PR 内新提交时取消旧运行，
 #   保证每个 PR 只保留最新的检查结果，节省资源。
-# - cancel-in-progress: true 实现上述“新运行取消旧运行”的行为。
 concurrency:
   group: |
     ${{
@@ -35,7 +34,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ github.head_ref || github.ref }}
-          # 使用 PR_WORKFLOW_TOKEN 以确保自动提交不会触发无限循环（需在仓库 secrets 中配置）
+          # why token is required
+          # ref: https://github.com/stefanzweifel/git-auto-commit-action/tree/v7/?tab=readme-ov-file#commits-made-by-this-action-do-not-trigger-new-workflow-runs
           token: ${{ secrets.PR_WORKFLOW_TOKEN || github.token }}
 
       - uses: pnpm/action-setup@v4
