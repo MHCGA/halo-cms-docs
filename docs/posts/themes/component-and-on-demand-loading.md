@@ -97,6 +97,8 @@ src/components/pagination/
 - 自动分包：Vite 会自动为每个组件生成独立的代码包
 - 精确加载：页面只加载实际使用的组件代码，无冗余
 
+## 架构比较
+
 ### 集中化架构
 
 以 [halo-dev/theme-modern-starter@c44c56c](https://github.com/halo-dev/theme-modern-starter/tree/c44c56c7a30b3a65ba56988a8d083d42b62b64e5/) 为例：
@@ -122,7 +124,7 @@ dist/
 
 劣势：无论用户访问哪个页面，都需要加载完整的 `main.iife.js` 和 `style.css` 文件。这对于适配多个第三方插件的主题来说，会产生更明显的影响。
 
-### 组件化架构
+### 半组件化架构
 
 以 [HowieHz/halo-theme-higan-hz@95d7b8e](https://github.com/HowieHz/halo-theme-higan-hz/tree/95d7b8ee1d985667e7c375c04f19889c0ac6b3ec/src/) 为例：
 
@@ -177,7 +179,11 @@ dist/
 
 :::
 
-## 实现细节
+### 完全组件化架构
+
+实现可参考：[HowieHz/halo-theme-higan-hz@daa7038](https://github.com/HowieHz/halo-theme-higan-hz/tree/daa7038479243830246e51819bce0a576d39641d/src/templates/)。
+
+## 组件化架构实现细节
 
 ### 步骤 1：项目结构设计
 
