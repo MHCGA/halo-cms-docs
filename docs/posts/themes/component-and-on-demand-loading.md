@@ -661,7 +661,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: path.resolve(__dirname, "src/templates/"),  // [!code ++]
+  root: path.resolve(__dirname, "src/templates/"), // [!code ++]
   base: "/themes/ABC/", // ABC 替换为主题的 metadata.name
   build: {
     outDir: fileURLToPath(new URL("./templates/", import.meta.url)),
