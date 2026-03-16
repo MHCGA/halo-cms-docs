@@ -35,6 +35,7 @@ interface Props extends Omit<GiscusProps, "strict" | "reactionsEnabled" | "emitM
   mapping?: GiscusProps["mapping"];
 }
 
+
 /* oxlint-disable eslint(no-undef) */
 const props = withDefaults(defineProps<Props>(), {
   mapping: "pathname",
@@ -47,13 +48,16 @@ const props = withDefaults(defineProps<Props>(), {
   loading: "lazy",
 });
 
+
 const { page, isDark } = useData();
+
 
 // 路径前缀到 Giscus 语言代码的映射
 const pathToLang: Record<string, AvailableLanguage> = {
   root: "zh-CN",
   en: "en",
 };
+
 
 const giscusLang = computed((): AvailableLanguage => {
   const path = page.value.relativePath || "";
@@ -67,11 +71,14 @@ const giscusLang = computed((): AvailableLanguage => {
   return rt;
 });
 
+
 const giscusTheme: ComputedRef<"light" | "dark"> = computed(() => (isDark.value ? "dark" : "light"));
+
 
 const giscusStrict: ComputedRef<"0" | "1"> = computed(() => (props.strict ? "1" : "0"));
 const giscusReactionsEnabled: ComputedRef<"0" | "1"> = computed(() => (props.reactionsEnabled ? "1" : "0"));
 const giscusEmitMetadata: ComputedRef<"0" | "1"> = computed(() => (props.emitMetadata ? "1" : "0"));
+
 
 const shouldShow = computed(() => {
   // 不在 publish: false 页面显示
