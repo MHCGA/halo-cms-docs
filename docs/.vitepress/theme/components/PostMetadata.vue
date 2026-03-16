@@ -6,6 +6,7 @@ import { normalizePeople } from "../utils/people";
 
 const { page } = useData();
 
+
 const isEnglish = computed(() => page.value.relativePath?.startsWith("en/") ?? false);
 interface FrontmatterReference {
   name?: string;
@@ -17,6 +18,7 @@ interface FrontmatterReference {
   };
 }
 
+
 interface NormalizedReference {
   label: string;
   url: string;
@@ -25,6 +27,7 @@ interface NormalizedReference {
     url: string;
   }[];
 }
+
 
 const labels = computed(() =>
   isEnglish.value
@@ -38,6 +41,7 @@ const labels = computed(() =>
       },
 );
 
+
 const frontmatter = computed(() => page.value.frontmatter || {});
 const shouldRender = computed(() => {
   if (frontmatter.value?.layout === "home") {
@@ -47,8 +51,10 @@ const shouldRender = computed(() => {
   return Boolean(frontmatter.value.authors || frontmatter.value.references);
 });
 
+
 const contributors = computed(() => normalizePeople(frontmatter.value.authors));
 const references = computed(() => normalizeReferences(frontmatter.value.references));
+
 
 function normalizeReferences(
   value: FrontmatterReference | FrontmatterReference[] | string | undefined,
@@ -56,6 +62,7 @@ function normalizeReferences(
   if (!value) {
     return [];
   }
+
 
   const list = Array.isArray(value) ? value : [value];
   return list
@@ -82,6 +89,7 @@ function normalizeReferences(
     })
     .filter((item): item is NormalizedReference => Boolean(item));
 }
+
 
 function buildReference(label: string, url: string, archives?: { type: string; url: string }[]): NormalizedReference {
   return {
