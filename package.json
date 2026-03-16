@@ -44,7 +44,7 @@
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.16.2",
-    "eslint-plugin-oxlint": "^1.55.0",
+    "eslint-plugin-oxlint": "^1.56.0",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
     "lightningcss": "^1.32.0",
