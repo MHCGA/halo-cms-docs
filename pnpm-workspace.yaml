@@ -1,9 +1,6 @@
 packages:
   - .
-
-onlyBuiltDependencies:
-  - esbuild
-  - less
-  - sharp
-  - unrs-resolver
-  - vue-demi
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
