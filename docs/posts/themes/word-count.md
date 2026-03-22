@@ -1,4 +1,5 @@
 ---
+outline: deep
 published: 2025-12-04T08:09:39Z
 author:
   - name: HowieHz
