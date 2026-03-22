@@ -2,7 +2,7 @@
 
 **简体中文** ｜ [English](README.en.md)
 
-[![Docs Build](https://img.shields.io/github/actions/workflow/status/MHCGA/halo-cms-docs/build-and-deploy-doc.yml?branch=main&style=flat-square)](https://github.com/MHCGA/halo-cms-docs/actions/workflows/build-and-deploy-doc.yml)
+[![Docs Build](https://img.shields.io/github/actions/workflow/status/MHCGA/halo-cms-docs/deploy-production.yml?branch=main&style=flat-square)](https://github.com/MHCGA/halo-cms-docs/actions/workflows/deploy-production.yml)
 [![Node CI](https://img.shields.io/github/actions/workflow/status/MHCGA/halo-cms-docs/nodejs-ci.yml?branch=main&label=node%20ci&style=flat-square)](https://github.com/MHCGA/halo-cms-docs/actions/workflows/nodejs-ci.yml)
 [![GitHub Stars](https://img.shields.io/github/stars/MHCGA/halo-cms-docs.svg?style=social&label=Star)](https://github.com/MHCGA/halo-cms-docs)
 [![GitHub Watchers](https://img.shields.io/github/watchers/MHCGA/halo-cms-docs.svg?style=social&label=Watch)](https://github.com/MHCGA/halo-cms-docs)
