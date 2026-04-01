@@ -116,7 +116,10 @@ const fetchLatestPnpmVersion = async (releaseCutoffDate) => {
     }))
     .filter(
       ({ publishedAt, semVer, version }) =>
-        publishedAt !== null && semVer !== null && version !== "" && publishedAt.getTime() <= releaseCutoffDate.getTime(),
+        publishedAt !== null &&
+        semVer !== null &&
+        version !== "" &&
+        publishedAt.getTime() <= releaseCutoffDate.getTime(),
     )
     .sort((left, right) => compareSemVer(right.semVer, left.semVer));
 
