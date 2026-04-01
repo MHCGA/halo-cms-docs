@@ -105,7 +105,8 @@ const readPackageJsonDocument = async () => {
 const readTrackedToolchainVersions = async () => {
   const { packageJson } = await readPackageJsonDocument();
   const nodeMajor = parseNodeEngineMajor(packageJson.engines?.node);
-  const pnpmVersion = parsePinnedSemVerString(packageJson.packageManager) ?? parsePinnedSemVerString(packageJson.engines?.pnpm);
+  const pnpmVersion =
+    parsePinnedSemVerString(packageJson.packageManager) ?? parsePinnedSemVerString(packageJson.engines?.pnpm);
 
   if (nodeMajor === null) {
     throw new Error(`Could not determine the tracked Node.js major from ${packageJsonPath}`);
@@ -144,7 +145,9 @@ const fetchLatestNodeRelease = async () => {
       semVer: parseSemVer(release.tag_name),
       tagName: typeof release.tag_name === "string" ? release.tag_name : "",
     }))
-    .find(({ draft, prerelease, publishedAt, semVer }) => !draft && !prerelease && publishedAt !== null && semVer !== null);
+    .find(
+      ({ draft, prerelease, publishedAt, semVer }) => !draft && !prerelease && publishedAt !== null && semVer !== null,
+    );
 
   if (!latestRelease) {
     throw new Error("Could not determine the current latest stable Node.js release from GitHub");
@@ -259,10 +262,7 @@ const updatePackageJson = async (nodeMajor, pnpmVersion) => {
 
 const replaceStepInputValue = (content, actionPattern, inputName, nextValue) => {
   const lines = content.split(/\r?\n/u);
-  const inputPattern = new RegExp(
-    `^(\\s*${escapeRegExp(inputName)}:\\s*)(["']?)([^"'#\\s]+)\\2(\\s*(?:#.*)?)$`,
-    "u",
-  );
+  const inputPattern = new RegExp(`^(\\s*${escapeRegExp(inputName)}:\\s*)(["']?)([^"'#\\s]+)\\2(\\s*(?:#.*)?)$`, "u");
   let changed = false;
   let stepUsesTargetAction = false;
   let withinWithBlock = false;
@@ -338,7 +338,10 @@ const updateNodeVersionReferences = async (filePath, nodeMajor) => {
 };
 
 const updateNodeVersionReferencesInFiles = async (nodeMajor) => {
-  const workflowFiles = await collectFiles(workflowsDirPath, (fileName) => fileName.endsWith(".yml") || fileName.endsWith(".yaml"));
+  const workflowFiles = await collectFiles(
+    workflowsDirPath,
+    (fileName) => fileName.endsWith(".yml") || fileName.endsWith(".yaml"),
+  );
   const actionFiles = await collectFiles(actionsDirPath, (fileName) => fileName === "action.yml");
   const targetFiles = [...workflowFiles, ...actionFiles];
   const updateGroups = [];
@@ -374,13 +377,19 @@ console.log(`Release cutoff: ${new Date(cooldownThreshold).toISOString()}`);
 console.log(`Latest Node.js release: ${latestNodeRelease.versionTag} published at ${latestNodeRelease.publishedAt}`);
 console.log(`Latest pnpm release: ${latestPnpmRelease.version} published at ${latestPnpmRelease.publishedAt}`);
 
-if (nodeMajor === trackedToolchainVersions.nodeMajor && latestNodeRelease.major !== trackedToolchainVersions.nodeMajor) {
+if (
+  nodeMajor === trackedToolchainVersions.nodeMajor &&
+  latestNodeRelease.major !== trackedToolchainVersions.nodeMajor
+) {
   console.log(
     `Skipping Node.js update because the current latest release ${latestNodeRelease.versionTag} has not reached the 24-hour cooldown yet`,
   );
 }
 
-if (pnpmVersion === trackedToolchainVersions.pnpmVersion && latestPnpmRelease.version !== trackedToolchainVersions.pnpmVersion) {
+if (
+  pnpmVersion === trackedToolchainVersions.pnpmVersion &&
+  latestPnpmRelease.version !== trackedToolchainVersions.pnpmVersion
+) {
   console.log(
     `Skipping pnpm update because the current latest release ${latestPnpmRelease.version} has not reached the 24-hour cooldown yet`,
   );
