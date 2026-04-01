@@ -5,6 +5,8 @@ const packageJsonPath = "package.json";
 const workflowsDirPath = path.join(".github", "workflows");
 const actionsDirPath = path.join(".github", "actions");
 const dryRun = process.argv.includes("--dry-run");
+const releaseCooldownDays = 1;
+const millisecondsPerDay = 24 * 60 * 60 * 1000;
 
 const appendGitHubOutput = async (name, value) => {
   const outputPath = process.env.GITHUB_OUTPUT;
@@ -37,7 +39,32 @@ const compareSemVer = (left, right) =>
   compareNumbers(left.minor, right.minor) ||
   compareNumbers(left.patch, right.patch);
 
-const fetchLatestNodeMajor = async () => {
+const getReleaseCutoffDate = (days) => new Date(Date.now() - days * millisecondsPerDay);
+
+const parseReleaseTimestamp = (value, { dateOnlyAsEndOfDay = false } = {}) => {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const normalizedValue = value.trim();
+
+  if (normalizedValue === "") {
+    return null;
+  }
+
+  const isoTimestamp = /^\d{4}-\d{2}-\d{2}$/u.test(normalizedValue)
+    ? `${normalizedValue}T${dateOnlyAsEndOfDay ? "23:59:59.999" : "00:00:00.000"}Z`
+    : normalizedValue;
+  const timestamp = new Date(isoTimestamp);
+
+  if (Number.isNaN(timestamp.getTime())) {
+    return null;
+  }
+
+  return timestamp;
+};
+
+const fetchLatestNodeMajor = async (releaseCutoffDate) => {
   const response = await fetch("https://nodejs.org/dist/index.json", {
     headers: {
       Accept: "application/json",
@@ -51,19 +78,25 @@ const fetchLatestNodeMajor = async () => {
 
   const releases = await response.json();
   const stableVersions = releases
-    .map((release) => parseSemVer(release.version))
-    .filter(Boolean)
-    .sort((left, right) => compareSemVer(right, left));
+    .map((release) => ({
+      publishedAt: parseReleaseTimestamp(release.date, { dateOnlyAsEndOfDay: true }),
+      version: parseSemVer(release.version),
+    }))
+    .filter(
+      ({ publishedAt, version }) =>
+        publishedAt !== null && version !== null && publishedAt.getTime() <= releaseCutoffDate.getTime(),
+    )
+    .sort((left, right) => compareSemVer(right.version, left.version));
 
   if (stableVersions.length === 0) {
-    throw new Error("No stable Node.js versions found in release index");
+    throw new Error(`No stable Node.js versions found in release index before ${releaseCutoffDate.toISOString()}`);
   }
 
-  return stableVersions[0].major;
+  return stableVersions[0].version.major;
 };
 
-const fetchLatestPnpmVersion = async () => {
-  const response = await fetch("https://registry.npmjs.org/pnpm/latest", {
+const fetchLatestPnpmVersion = async (releaseCutoffDate) => {
+  const response = await fetch("https://registry.npmjs.org/pnpm", {
     headers: {
       Accept: "application/json",
       "User-Agent": "halo-cms-docs-toolchain-updater",
@@ -71,17 +104,27 @@ const fetchLatestPnpmVersion = async () => {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch pnpm latest metadata: ${response.status} ${response.statusText}`);
+    throw new Error(`Failed to fetch pnpm metadata: ${response.status} ${response.statusText}`);
   }
 
   const metadata = await response.json();
-  const version = typeof metadata.version === "string" ? metadata.version.trim() : "";
+  const stableVersions = Object.entries(metadata.time ?? {})
+    .map(([version, publishedAt]) => ({
+      publishedAt: parseReleaseTimestamp(publishedAt),
+      version: version.trim(),
+      semVer: parseSemVer(version),
+    }))
+    .filter(
+      ({ publishedAt, semVer, version }) =>
+        publishedAt !== null && semVer !== null && version !== "" && publishedAt.getTime() <= releaseCutoffDate.getTime(),
+    )
+    .sort((left, right) => compareSemVer(right.semVer, left.semVer));
 
-  if (!parseSemVer(version)) {
-    throw new Error(`Invalid pnpm latest version: ${version || "<empty>"}`);
+  if (stableVersions.length === 0) {
+    throw new Error(`No stable pnpm versions found before ${releaseCutoffDate.toISOString()}`);
   }
 
-  return version;
+  return stableVersions[0].version;
 };
 
 const readFileWithLineEnding = async (filePath) => {
@@ -218,9 +261,12 @@ const updateNodeVersionReferencesInFiles = async (nodeMajor) => {
   return updateGroups;
 };
 
-const nodeMajor = await fetchLatestNodeMajor();
-const pnpmVersion = await fetchLatestPnpmVersion();
+const releaseCutoffDate = getReleaseCutoffDate(releaseCooldownDays);
+const nodeMajor = await fetchLatestNodeMajor(releaseCutoffDate);
+const pnpmVersion = await fetchLatestPnpmVersion(releaseCutoffDate);
 
+console.log(`Applying release cooldown: ${releaseCooldownDays} day(s)`);
+console.log(`Release cutoff: ${releaseCutoffDate.toISOString()}`);
 console.log(`Resolved latest Node.js major: ${nodeMajor}`);
 console.log(`Resolved latest pnpm version: ${pnpmVersion}`);
 
