@@ -178,9 +178,7 @@ const logLatestReleaseStatus = (repository, latestRelease) => {
   }
 
   if (latestRelease.skipReason === "unsupported_latest_release") {
-    console.log(
-      `Skipped ${repository} because the current latest release cannot be mapped to a stable semver tag`,
-    );
+    console.log(`Skipped ${repository} because the current latest release cannot be mapped to a stable semver tag`);
     return;
   }
 
@@ -234,9 +232,7 @@ const fetchLatestStableRelease = async (repository) => {
   }
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch the latest release for ${repository}: ${response.status} ${response.statusText}`,
-    );
+    throw new Error(`Failed to fetch the latest release for ${repository}: ${response.status} ${response.statusText}`);
   }
 
   const release = await response.json();
