@@ -4,6 +4,11 @@ import path from "node:path";
 const defaultActionRoot = path.join(".github", "actions");
 const targetFilesFromArgs = process.argv.slice(2);
 const releaseCooldownMs = 24 * 60 * 60 * 1000;
+// Only the current GitHub "latest" release can unlock release-based updates.
+// If 1.0.0 was published at 00:00 and 1.1.0 became the new latest at 12:00 on
+// the same day, we skip all semver-tagged updates until 1.1.0 itself is at
+// least 24 hours old. We do not fall back to 1.0.0 just because it is older.
+const releaseCooldownThreshold = Date.now() - releaseCooldownMs;
 
 const collectActionYamlFiles = async (directoryPath) => {
   const absoluteDirectoryPath = path.resolve(process.cwd(), directoryPath);
@@ -34,6 +39,7 @@ const commitRefPattern = /^[0-9a-f]{7,40}$/iu;
 const releaseTagUrlPattern = /\/releases\/tag\/([^/\s#]+)$/u;
 const latestReleaseCache = new Map();
 const repoMetadataCache = new Map();
+const defaultBranchHeadCache = new Map();
 const tagCommitCache = new Map();
 const githubHeaders = {
   Accept: "application/vnd.github+json",
@@ -45,14 +51,14 @@ if (githubToken) {
   githubHeaders.Authorization = `Bearer ${githubToken}`;
 }
 
-const appendGitHubOutput = (name, value) => {
+const appendGitHubOutput = async (name, value) => {
   const outputPath = process.env.GITHUB_OUTPUT;
 
   if (!outputPath) {
     return;
   }
 
-  return fs.appendFile(outputPath, `${name}=${value}\n`);
+  await fs.appendFile(outputPath, `${name}=${value}\n`, "utf8");
 };
 
 const parseStableSemVer = (tag) => {
@@ -136,9 +142,17 @@ const resolveTargetRef = (currentRef, latestVersion) => {
   return null;
 };
 
-const getReleaseCooldownThreshold = () => Date.now() - releaseCooldownMs;
+// Once a newer GitHub latest release exists, older stable tags are no longer
+// eligible for automation until that latest release itself clears the cooldown.
+const resolveSemVerUpdateTarget = (currentRef, latestRelease) => {
+  if (!latestRelease.eligible || latestRelease.latestVersion === null) {
+    return null;
+  }
 
-const hasReleaseClearedCooldown = (publishedAt, cooldownThreshold = getReleaseCooldownThreshold()) => {
+  return resolveTargetRef(currentRef, latestRelease.latestVersion);
+};
+
+const hasReleaseClearedCooldown = (publishedAt, cooldownThreshold = releaseCooldownThreshold) => {
   const timestamp = parseTimestamp(publishedAt);
 
   if (timestamp === null) {
@@ -226,14 +240,15 @@ const fetchLatestStableRelease = async (repository) => {
   }
 
   const release = await response.json();
-  const latestVersion = parseStableSemVer(release.tag_name);
-  const publishedAt = typeof release.published_at === "string" ? release.published_at : null;
+  const latestTag = typeof release.tag_name === "string" ? release.tag_name.trim() : "";
+  const publishedAt = typeof release.published_at === "string" ? release.published_at.trim() : "";
+  const latestVersion = parseStableSemVer(latestTag);
 
-  if (!latestVersion || publishedAt === null || release.draft === true || release.prerelease === true) {
+  if (!latestVersion || publishedAt === "" || release.draft === true || release.prerelease === true) {
     const latestRelease = {
       eligible: false,
       latestVersion,
-      publishedAt,
+      publishedAt: publishedAt || null,
       skipReason: "unsupported_latest_release",
     };
 
@@ -293,6 +308,12 @@ const fetchCommitShaForTag = async (repository, tag) => {
 };
 
 const fetchDefaultBranchHeadSha = async (repository) => {
+  const cached = defaultBranchHeadCache.get(repository);
+
+  if (cached) {
+    return cached;
+  }
+
   const metadata = await fetchRepositoryMetadata(repository);
   const response = await fetch(`https://api.github.com/repos/${repository}/commits/${metadata.default_branch}`, {
     headers: githubHeaders,
@@ -303,6 +324,7 @@ const fetchDefaultBranchHeadSha = async (repository) => {
   }
 
   const commit = await response.json();
+  defaultBranchHeadCache.set(repository, commit.sha);
   return commit.sha;
 };
 
@@ -319,14 +341,7 @@ const buildCommitRefUpdate = async (repository, currentRef, suffix) => {
   }
 
   const latestRelease = await fetchLatestStableRelease(repository);
-
-  // Keep release-based updates pinned to the current tracked version until the
-  // newest GitHub latest release has been published for at least 24 hours.
-  if (!latestRelease.eligible) {
-    return null;
-  }
-
-  const targetTag = resolveTargetRef(commentTag, latestRelease.latestVersion);
+  const targetTag = resolveSemVerUpdateTarget(commentTag, latestRelease);
 
   if (!targetTag) {
     return null;
@@ -362,12 +377,7 @@ const updateFile = async (filePath) => {
       update = await buildCommitRefUpdate(repository, currentRef, suffix);
     } else {
       const latestRelease = await fetchLatestStableRelease(repository);
-
-      if (!latestRelease.eligible) {
-        continue;
-      }
-
-      const targetVersion = resolveTargetRef(currentRef, latestRelease.latestVersion);
+      const targetVersion = resolveSemVerUpdateTarget(currentRef, latestRelease);
 
       if (targetVersion) {
         update = {
@@ -411,10 +421,9 @@ if (targetFilesFromArgs.length === 0) {
 }
 
 const updateGroups = [];
-const cooldownThreshold = getReleaseCooldownThreshold();
 
 console.log("Applying latest-only release cooldown: 24 elapsed hours");
-console.log(`Release cutoff: ${new Date(cooldownThreshold).toISOString()}`);
+console.log(`Release cutoff: ${new Date(releaseCooldownThreshold).toISOString()}`);
 
 for (const filePath of targetFiles) {
   const updates = await updateFile(filePath);
