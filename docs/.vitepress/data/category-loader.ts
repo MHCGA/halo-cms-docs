@@ -59,7 +59,7 @@ export function createCategoryLoader(globPattern: string, categoryIndexUrl: stri
           // 最后的备选方案：从 URL 推断
           title = title || inferTitleFromUrl(url);
 
-          const rawDate = item.lastUpdated;
+          const rawDate = frontmatter.published;
           const lastUpdated = formatDateToYMD(rawDate) || rawDate;
           return { title, url, lastUpdated };
         });
