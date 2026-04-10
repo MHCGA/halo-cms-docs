@@ -188,11 +188,7 @@ const fetchLatestLtsNodeRelease = async () => {
     }))
     .filter(
       ({ draft, prerelease, publishedAt, semVer }) =>
-        !draft &&
-        !prerelease &&
-        publishedAt !== null &&
-        semVer !== null &&
-        semVer.major === latestLtsLine.major,
+        !draft && !prerelease && publishedAt !== null && semVer !== null && semVer.major === latestLtsLine.major,
     )
     .sort((left, right) => compareSemVer(right.semVer, left.semVer))[0];
 
