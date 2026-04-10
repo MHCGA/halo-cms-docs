@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const packageJsonPath = "package.json";
+const rootPackageJsonPath = "package.json";
 const workflowsDirPath = path.join(".github", "workflows");
 const actionsDirPath = path.join(".github", "actions");
 const dryRun = process.argv.includes("--dry-run");
@@ -39,6 +39,7 @@ const parseSemVer = (version) => {
 };
 
 const formatSemVer = ({ major, minor, patch }) => `${major}.${minor}.${patch}`;
+const compareSemVer = (left, right) => left.major - right.major || left.minor - right.minor || left.patch - right.patch;
 
 const parseTimestamp = (value) => {
   if (typeof value !== "string") {
@@ -58,6 +59,15 @@ const parseTimestamp = (value) => {
   }
 
   return timestamp;
+};
+
+const parseMajorVersion = (value) => {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const match = /^v?(\d+)$/u.exec(value.trim());
+  return match ? Number(match[1]) : null;
 };
 
 const getReleaseCooldownThreshold = () => Date.now() - releaseCooldownMs;
@@ -90,8 +100,8 @@ const parsePinnedSemVerString = (value) => {
   return match?.[1] ?? null;
 };
 
-const readPackageJsonDocument = async () => {
-  const absolutePath = path.resolve(process.cwd(), packageJsonPath);
+const readPackageJsonDocument = async (filePath = rootPackageJsonPath) => {
+  const absolutePath = path.resolve(process.cwd(), filePath);
   const content = stripUtf8Bom(await fs.readFile(absolutePath, { encoding: "utf8" }));
 
   return {
@@ -109,11 +119,11 @@ const readTrackedToolchainVersions = async () => {
     parsePinnedSemVerString(packageJson.packageManager) ?? parsePinnedSemVerString(packageJson.engines?.pnpm);
 
   if (nodeMajor === null) {
-    throw new Error(`Could not determine the tracked Node.js major from ${packageJsonPath}`);
+    throw new Error(`Could not determine the tracked Node.js major from ${rootPackageJsonPath}`);
   }
 
   if (pnpmVersion === null || !parseSemVer(pnpmVersion)) {
-    throw new Error(`Could not determine the tracked pnpm version from ${packageJsonPath}`);
+    throw new Error(`Could not determine the tracked pnpm version from ${rootPackageJsonPath}`);
   }
 
   return {
@@ -122,10 +132,41 @@ const readTrackedToolchainVersions = async () => {
   };
 };
 
-const fetchLatestNodeRelease = async () => {
-  // nodejs.org/dist/index.json only exposes a calendar date. We need the exact
-  // publish timestamp so the "1 day" delay really means 24 elapsed hours.
-  const response = await fetch("https://api.github.com/repos/nodejs/node/releases?per_page=5", {
+const fetchNodeReleaseSchedule = async () => {
+  const response = await fetch("https://raw.githubusercontent.com/nodejs/Release/main/schedule.json", {
+    headers: {
+      Accept: "application/json",
+      "User-Agent": "halo-cms-docs-toolchain-updater",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch the Node.js release schedule: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+const fetchLatestLtsNodeRelease = async () => {
+  const schedule = await fetchNodeReleaseSchedule();
+  const now = Date.now();
+  const latestLtsLine = Object.entries(schedule)
+    .map(([version, details]) => ({
+      codename: typeof details?.codename === "string" ? details.codename : null,
+      end: parseTimestamp(details?.end),
+      lts: parseTimestamp(details?.lts),
+      major: parseMajorVersion(version),
+      version,
+    }))
+    .filter(({ end, lts, major }) => major !== null && lts !== null && lts <= now && (end === null || end > now))
+    .sort((left, right) => right.major - left.major)[0];
+
+  if (!latestLtsLine) {
+    throw new Error("Could not determine the current latest Node.js LTS major from the release schedule");
+  }
+
+  // GitHub exposes the exact release timestamp, which we need for the 24-hour cooldown.
+  const response = await fetch("https://api.github.com/repos/nodejs/node/releases?per_page=100", {
     headers: {
       Accept: "application/vnd.github+json",
       "User-Agent": "halo-cms-docs-toolchain-updater",
@@ -145,16 +186,24 @@ const fetchLatestNodeRelease = async () => {
       semVer: parseSemVer(release.tag_name),
       tagName: typeof release.tag_name === "string" ? release.tag_name : "",
     }))
-    .find(
-      ({ draft, prerelease, publishedAt, semVer }) => !draft && !prerelease && publishedAt !== null && semVer !== null,
-    );
+    .filter(
+      ({ draft, prerelease, publishedAt, semVer }) =>
+        !draft &&
+        !prerelease &&
+        publishedAt !== null &&
+        semVer !== null &&
+        semVer.major === latestLtsLine.major,
+    )
+    .sort((left, right) => compareSemVer(right.semVer, left.semVer))[0];
 
   if (!latestRelease) {
-    throw new Error("Could not determine the current latest stable Node.js release from GitHub");
+    throw new Error(`Could not determine the latest stable release in the current LTS major ${latestLtsLine.version}`);
   }
 
   return {
     major: latestRelease.semVer.major,
+    ltsCodename: latestLtsLine.codename,
+    ltsLine: latestLtsLine.version,
     publishedAt: latestRelease.publishedAt,
     version: formatSemVer(latestRelease.semVer),
     versionTag: latestRelease.tagName,
@@ -205,7 +254,8 @@ const maybeWriteFile = async (filePath, nextContent) => {
   await fs.writeFile(path.resolve(process.cwd(), filePath), nextContent, { encoding: "utf8" });
 };
 
-const collectFiles = async (directoryPath, matcher) => {
+const collectFiles = async (directoryPath, matcher, options = {}) => {
+  const { ignoredDirectoryNames = new Set() } = options;
   const absoluteDirectoryPath = path.resolve(process.cwd(), directoryPath);
   const dirEntries = await fs.readdir(absoluteDirectoryPath, { withFileTypes: true });
   const filePaths = [];
@@ -214,7 +264,11 @@ const collectFiles = async (directoryPath, matcher) => {
     const relativePath = path.join(directoryPath, entry.name);
 
     if (entry.isDirectory()) {
-      filePaths.push(...(await collectFiles(relativePath, matcher)));
+      if (ignoredDirectoryNames.has(entry.name)) {
+        continue;
+      }
+
+      filePaths.push(...(await collectFiles(relativePath, matcher, options)));
       continue;
     }
 
@@ -226,9 +280,12 @@ const collectFiles = async (directoryPath, matcher) => {
   return filePaths.sort((left, right) => left.localeCompare(right));
 };
 
-const updatePackageJson = async (nodeMajor, pnpmVersion) => {
-  const { indent, lineEnding, packageJson } = await readPackageJsonDocument();
+const collectTrackedPackageJsonPaths = async () => [rootPackageJsonPath];
+
+const updatePackageJson = async (filePath, nodeMajor, pnpmVersion) => {
+  const { indent, lineEnding, packageJson } = await readPackageJsonDocument(filePath);
   const updatedFields = [];
+  const isRootPackageJson = filePath === rootPackageJsonPath;
 
   packageJson.engines ??= {};
 
@@ -241,12 +298,12 @@ const updatePackageJson = async (nodeMajor, pnpmVersion) => {
     updatedFields.push(`engines.node -> ${nextNodeRange}`);
   }
 
-  if (packageJson.engines.pnpm !== nextPnpmRange) {
+  if ((isRootPackageJson || packageJson.engines.pnpm != null) && packageJson.engines.pnpm !== nextPnpmRange) {
     packageJson.engines.pnpm = nextPnpmRange;
     updatedFields.push(`engines.pnpm -> ${nextPnpmRange}`);
   }
 
-  if (packageJson.packageManager !== nextPackageManager) {
+  if ((isRootPackageJson || packageJson.packageManager != null) && packageJson.packageManager !== nextPackageManager) {
     packageJson.packageManager = nextPackageManager;
     updatedFields.push(`packageManager -> ${nextPackageManager}`);
   }
@@ -256,7 +313,7 @@ const updatePackageJson = async (nodeMajor, pnpmVersion) => {
   }
 
   const nextContent = `${JSON.stringify(packageJson, null, indent)}${lineEnding}`.replace(/\n/gu, lineEnding);
-  await maybeWriteFile(packageJsonPath, nextContent);
+  await maybeWriteFile(filePath, nextContent);
   return updatedFields;
 };
 
@@ -359,7 +416,7 @@ const updateNodeVersionReferencesInFiles = async (nodeMajor) => {
 
 const trackedToolchainVersions = await readTrackedToolchainVersions();
 const cooldownThreshold = getReleaseCooldownThreshold();
-const latestNodeRelease = await fetchLatestNodeRelease();
+const latestNodeRelease = await fetchLatestLtsNodeRelease();
 const latestPnpmRelease = await fetchLatestPnpmRelease();
 
 // Only the current latest release is eligible for automation. If a newer latest
@@ -374,7 +431,9 @@ const pnpmVersion = hasReleaseClearedCooldown(latestPnpmRelease.publishedAt, coo
 
 console.log("Applying latest-only release cooldown: 24 elapsed hours");
 console.log(`Release cutoff: ${new Date(cooldownThreshold).toISOString()}`);
-console.log(`Latest Node.js release: ${latestNodeRelease.versionTag} published at ${latestNodeRelease.publishedAt}`);
+console.log(
+  `Latest Node.js LTS release: ${latestNodeRelease.versionTag} (${latestNodeRelease.ltsLine}${latestNodeRelease.ltsCodename ? ` ${latestNodeRelease.ltsCodename}` : ""}) published at ${latestNodeRelease.publishedAt}`,
+);
 console.log(`Latest pnpm release: ${latestPnpmRelease.version} published at ${latestPnpmRelease.publishedAt}`);
 
 if (
@@ -382,7 +441,7 @@ if (
   latestNodeRelease.major !== trackedToolchainVersions.nodeMajor
 ) {
   console.log(
-    `Skipping Node.js update because the current latest release ${latestNodeRelease.versionTag} has not reached the 24-hour cooldown yet`,
+    `Skipping Node.js update because the latest release in the current LTS line ${latestNodeRelease.versionTag} has not reached the 24-hour cooldown yet`,
   );
 }
 
@@ -398,13 +457,19 @@ if (
 console.log(`Resolved Node.js major target: ${nodeMajor}`);
 console.log(`Resolved pnpm version target: ${pnpmVersion}`);
 
-const updateGroups = [
-  {
-    filePath: packageJsonPath,
-    updates: await updatePackageJson(nodeMajor, pnpmVersion),
-  },
-  ...(await updateNodeVersionReferencesInFiles(nodeMajor)),
-].filter(({ updates }) => updates.length > 0);
+const packageJsonUpdateGroups = [];
+
+for (const filePath of await collectTrackedPackageJsonPaths()) {
+  const updates = await updatePackageJson(filePath, nodeMajor, pnpmVersion);
+
+  if (updates.length > 0) {
+    packageJsonUpdateGroups.push({ filePath, updates });
+  }
+}
+
+const updateGroups = [...packageJsonUpdateGroups, ...(await updateNodeVersionReferencesInFiles(nodeMajor))].filter(
+  ({ updates }) => updates.length > 0,
+);
 
 if (updateGroups.length === 0) {
   console.log("No toolchain version updates were required");
