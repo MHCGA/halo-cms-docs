@@ -14,13 +14,11 @@
     "url": "https://github.com/MHCGA/halo-cms-docs"
   },
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "build": "pnpm run \"/:build$/\"",
-    "dev": "pnpm run \"/:dev$/\"",
     "docs:build": "vitepress build docs",
-    "docs:dev": "vitepress dev docs",
     "docs:preview": "pnpm run docs:build && vitepress preview docs",
+    "docs:watch": "vitepress dev docs",
     "fmt": "pnpm run \"/^fmt:/\"",
     "fmt:oxfmt": "oxfmt \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
     "lint": "pnpm run \"/^lint:/\"",
@@ -29,7 +27,8 @@
     "lint:oxlint+eslint": "oxlint --type-aware --fix && eslint --fix",
     "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
     "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run fmt",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "watch": "pnpm run \"/:watch$/\""
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.5",
