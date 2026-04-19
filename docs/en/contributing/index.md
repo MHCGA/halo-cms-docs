@@ -51,9 +51,9 @@ We cherish every contributor's enthusiasm and understand that everyone's experie
 ## Quick Start
 
 1. Install dependencies: `pnpm install`
-2. Start the docs site: `pnpm docs:dev`
-3. Build artifacts: `pnpm docs:build`
-4. Preview artifacts: `pnpm docs:preview`
+2. Start the docs development server with hot reload: `pnpm docs:watch`
+3. Build the docs site: `pnpm docs:build`
+4. Build the docs site and start the preview server: `pnpm docs:preview`
 5. Before submitting, run: `pnpm format` and `pnpm lint`
 
 ## Category Scope
