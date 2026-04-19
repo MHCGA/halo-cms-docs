@@ -17,10 +17,9 @@
   "main": "index.js",
   "scripts": {
     "build": "pnpm run \"/:build$/\"",
-    "watch": "pnpm run \"/:watch$/\"",
     "docs:build": "vitepress build docs",
-    "docs:watch": "vitepress dev docs",
     "docs:preview": "pnpm run docs:build && vitepress preview docs",
+    "docs:watch": "vitepress dev docs",
     "fmt": "pnpm run \"/^fmt:/\"",
     "fmt:oxfmt": "oxfmt \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
     "lint": "pnpm run \"/^lint:/\"",
@@ -29,7 +28,8 @@
     "lint:oxlint+eslint": "oxlint --type-aware --fix && eslint --fix",
     "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
     "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run fmt",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "watch": "pnpm run \"/:watch$/\""
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.5",
