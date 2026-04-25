@@ -60,9 +60,13 @@ references:
 
 对应 MIME：
 
+<!-- markdownlint-disable MD013 -->
+
 ```plaintext
 application/atom+xml application/javascript application/json application/vnd.api+json application/rss+xml application/vnd.ms-fontobject application/x-font-opentype application/x-font-truetype application/x-font-ttf application/x-javascript application/xhtml+xml application/xml font/eot font/opentype font/otf font/truetype image/svg+xml image/vnd.microsoft.icon image/x-icon image/x-win-bitmap text/css text/javascript text/plain text/xml text/html
 ```
+
+<!-- markdownlint-enable MD013 -->
 
 注：根据文档，nginx 配置 `gzip_types`, `brotli_types`, `zstd_types` 时，均无需填写 `text/html`。不论 `*_types`是否包括`text/html`，`text/html` 始终会被动态压缩。相关文档：[gzip_types](https://nginx.org/en/docs/http/ngx_http_gzip_module.html#gzip_types)，[brotli_types](https://github.com/google/ngx_brotli#brotli_types)，[zstd_types](https://github.com/tokers/zstd-nginx-module#zstd_types)。
 
@@ -305,6 +309,8 @@ module.exports = {
 
 #### 在 nginx 上使用
 
+<!-- markdownlint-disable MD013 -->
+
 ```nginx
 http {
     # nginx 会根据 Accept-Encoding 决定提供哪种格式的文件，因此不同算法配置顺序不影响结果。
@@ -351,7 +357,11 @@ http {
 }
 ```
 
+<!-- markdownlint-enable MD013 -->
+
 #### 在 Apache 上使用
+
+<!-- markdownlint-disable MD013 -->
 
 ```apache
 # 启用 mod_deflate 以实现回退动态压缩
@@ -410,6 +420,8 @@ http {
     Header set Content-Encoding "zstd"
 </FilesMatch>
 ```
+
+<!-- markdownlint-enable MD013 -->
 
 ## 如何确定生效
 
