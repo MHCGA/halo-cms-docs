@@ -14,12 +14,29 @@ references:
 
 ## 前言
 
-本文实现了两个完整示例：
+本文实现了以下示例：
 
 1. 获取多篇随机文章。
-2. 在第一个示例的基础上，按当前页面文章第一个分类过滤结果。
+   - [方案一：使用官方 Finder API 实现](#official-finder-api)
+   - [方案二：纯模板实现](#random-posts)
+2. 获取多篇随机文章，并按当前页面文章第一个分类过滤结果。
+   - [方案一：纯模板实现](#random-posts-by-first-category)
 
-## 完整代码示例
+## 使用官方 Finder API 实现 {#official-finder-api}
+
+> 自 Halo CMS [v2.24.1](https://github.com/halo-dev/halo/releases/tag/v2.24.1)
+
+将以下代码插入模板，会创建一百个指向随机文章的超链接。
+
+```html
+<th:block th:with="posts = ${postFinder.random(100)}">
+  <a th:each="post : ${posts}" th:href="${post.status.permalink}">随机文章</a>
+</th:block>
+```
+
+注：官方提供的 `postFinder.random` 不具有过滤功能，因此仅能实现获取多篇随机文章。
+
+## 纯模板实现：获取多篇随机文章 {#random-posts}
 
 模板代码使用了两个配置项：
 
@@ -53,7 +70,7 @@ spec:
 
 :::
 
-模板代码示例如下：
+模板代码示例如下：  
 （这段代码是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，可以将 `th:if="${#lists.size(firstPagePostList) > 1}"` 中的 `> 1` 改为 `> 0`，并且要去除 `<div th:if="${post.metadata.name != iterPost.metadata.name}"> .. </div>` 的 `th:if` 属性。具体含义会在下文解释。）
 
 ```html
@@ -107,9 +124,9 @@ spec:
 </th:block>
 ```
 
-## 代码示例讲解
+### 代码示例讲解
 
-### 第一层
+#### 第一层
 
 ```html
 <th:block
@@ -132,7 +149,7 @@ spec:
   - `postFinderResult` 使用 Halo CMS 提供的 Finder API 中的 [list({...})](https://docs.halo.run/developer-guide/theme/finder-apis/post/#list) 获取文章列表数据（查询参数设置了分页条数和排序字段。排序字段无要求；分页条数必须为 `n`，保证随机出的文章数接近要求数。参数含义详情请参考[官方文档](https://docs.halo.run/developer-guide/theme/finder-apis/post/#%E5%8F%82%E6%95%B0-4)），变量类型为 [ListResult\<ListedPostVo>](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listresultlistedpostvo)。
   - `firstPagePostList` 保存 `postFinderResult` 的文章列表数据，变量类型为 List\<[ListedPostVo](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listedpostvo)\>。
 
-### 第二层
+#### 第二层
 
 ```html
 <th:block
@@ -156,9 +173,9 @@ spec:
   - `targetPagePostFinderResult`：使用 Halo CMS 提供的 Finder API 中的 [list({...})](https://docs.halo.run/developer-guide/theme/finder-apis/post/#list) 获取文章列表数据（查询参数设置了目标页码、分页条数和排序字段。目标页码为随机出的页码 `randomPageNumber`；排序字段无要求；分页条数必须为 `n`，保证随机出的文章数接近要求数。参数含义详情请参考[官方文档](https://docs.halo.run/developer-guide/theme/finder-apis/post/#%E5%8F%82%E6%95%B0-4)），变量类型为 [ListResult\<ListedPostVo>](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listresultlistedpostvo)。
   - `targetPagePostList`：保存 `targetPagePostFinderResult` 的文章列表数据，变量类型为 List\<[ListedPostVo](https://docs.halo.run/developer-guide/theme/finder-apis/post/#listedpostvo)\>。
 
-### 第三层
+#### 第三层
 
-#### 第三层第一部分
+##### 第三层第一部分
 
 ```html
 <th:block th:each="iterPost: ${targetPagePostList}">
@@ -175,7 +192,7 @@ spec:
 使用 `th:if="${post.metadata.name != iterPost.metadata.name}"` 避免推荐列表中出现当前文章（这段代码原本是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，请去除这个 `th:if` 属性）。
 最内层使用一个 `<time>` 标签和一个 `<a>` 标签展示文章信息。
 
-#### 第三层第二部分
+##### 第三层第二部分
 
 ```html
 <th:block
@@ -201,7 +218,7 @@ spec:
     `th:with` 初始化一个变量：
   - `itemsNeeded`：保存需要补偿的文章数，通过计算 `n` 减去实际查询结果。
 
-##### 第三层第二部分内层 - 补偿显示部分
+###### 第三层第二部分内层 - 补偿显示部分
 
 ```html
 <th:block th:if="${itemsNeeded > 0}">
@@ -218,15 +235,15 @@ spec:
 </th:block>
 ```
 
-如果 `itemsNeeded` 大于 0，才进行之后的补偿。
-使用 `#numbers.sequence` 创建索引序列，遍历从 0 到 `itemsNeeded-1`。
-复用 `firstPagePostList` 节约查询次数（这就是为什么笔者将两次查询填写了相同的 `sort` 参数）。展示 `firstPagePostList` 中索引数从 0 到 `itemsNeeded-1` 的文章数据。
-使用 `th:if="${post.metadata.name != iterPost.metadata.name}"` 避免推荐列表中出现当前文章（这段代码原本是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，请去除这个 `th:if` 属性）。
+如果 `itemsNeeded` 大于 0，才进行之后的补偿。  
+使用 `#numbers.sequence` 创建索引序列，遍历从 0 到 `itemsNeeded-1`。  
+复用 `firstPagePostList` 节约查询次数（这就是为什么笔者将两次查询填写了相同的 `sort` 参数）。展示 `firstPagePostList` 中索引数从 0 到 `itemsNeeded-1` 的文章数据。  
+使用 `th:if="${post.metadata.name != iterPost.metadata.name}"` 避免推荐列表中出现当前文章（这段代码原本是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，请去除这个 `th:if` 属性）。  
 最内层展示方法同第三层第一部分，使用一个 `<time>` 标签和一个 `<a>` 标签展示文章信息。
 
-## 完整代码示例（按当前文章第一个分类过滤结果）
+## 纯模板实现：按当前文章第一个分类过滤 {#random-posts-by-first-category}
 
-此处对上述代码进行了增强，仅选取当前文章第一个分类的文章。
+此处对[上述代码](#random-posts)进行了增强，仅选取当前文章第一个分类的文章。
 需放置于模板 `/templates/post.html`。
 后文详细讲解仅讲解新增代码。
 
@@ -287,9 +304,9 @@ spec:
 </th:block>
 ```
 
-## 代码示例讲解（按当前文章第一个分类过滤结果）
+### 代码示例讲解
 
-### 第一层（按当前文章第一个分类过滤结果）
+#### 第一层
 
 ```html
 <th:block
@@ -314,7 +331,7 @@ spec:
 - `th:with` 初始化了一个变量：
   - `firstCategoryName`：保存当前文章第一个分类的唯一标识。
 
-### 第二层（按当前文章第一个分类过滤结果）
+#### 第二层
 
 ```html
 <th:block
@@ -335,7 +352,7 @@ spec:
 - `th:with` 初始化了一个变量：
   - `targetPagePostFinderResult`：在原有的基础上新设置了分类标识，为当前文章第一个分类的唯一标识。参数含义详情请参考[官方文档](https://docs.halo.run/developer-guide/theme/finder-apis/post/#%E5%8F%82%E6%95%B0-4)。
 
-### 第三层（按当前文章第一个分类过滤结果）
+#### 第三层
 
 此层无变化。
 
