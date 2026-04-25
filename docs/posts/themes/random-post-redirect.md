@@ -217,10 +217,7 @@ references:
 
 ```html
 <th:block th:with="posts = ${postFinder.random(1)}">
-  <a
-    th:each="post : ${posts}"
-    th:href="${post.status.permalink}"
-  >随机文章</a>
+  <a th:each="post : ${posts}" th:href="${post.status.permalink}">随机文章</a>
 </th:block>
 ```
 
@@ -232,11 +229,7 @@ references:
 
 ```html [window.location.href（无 th:inline）]
 <th:block th:with="posts = ${postFinder.random(1)}">
-  <script
-    th:each="post : ${posts}"
-    id="random-post-script"
-    th:data-permalink="${post.status.permalink}"
-  >
+  <script th:each="post : ${posts}" id="random-post-script" th:data-permalink="${post.status.permalink}">
     function toRandomPost() {
       // 跳转到目标链接
       window.location.href = document.getElementById("random-post-script").dataset.permalink;
@@ -247,11 +240,7 @@ references:
 
 ```html [window.open（无 th:inline）]
 <th:block th:with="posts = ${postFinder.random(1)}">
-  <script
-    th:each="post : ${posts}"
-    id="random-post-script"
-    th:data-permalink="${post.status.permalink}"
-  >
+  <script th:each="post : ${posts}" id="random-post-script" th:data-permalink="${post.status.permalink}">
     function toRandomPost() {
       // 跳转到目标链接
       window.open(document.getElementById("random-post-script").dataset.permalink);
@@ -262,11 +251,7 @@ references:
 
 ```html [pjax.loadUrl（无 th:inline）]
 <th:block th:with="posts = ${postFinder.random(1)}">
-  <script
-    th:each="post : ${posts}"
-    id="random-post-script"
-    th:data-permalink="${post.status.permalink}"
-  >
+  <script th:each="post : ${posts}" id="random-post-script" th:data-permalink="${post.status.permalink}">
     function toRandomPost() {
       // 跳转到目标链接
       pjax.loadUrl(document.getElementById("random-post-script").dataset.permalink);
