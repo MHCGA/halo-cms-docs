@@ -17,12 +17,12 @@ references:
 本文实现了以下示例：
 
 1. 获取多篇随机文章。
-   - [方案一：使用官方 Finder API 实现](#使用官方-finder-api-实现)
-   - [方案二：纯模板实现](#纯模板实现-获取多篇随机文章)
+   - [方案一：使用官方 Finder API 实现](#official-finder-api)
+   - [方案二：纯模板实现](#random-posts)
 2. 获取多篇随机文章，并按当前页面文章第一个分类过滤结果。
-   - [方案一：纯模板实现](#纯模板实现-随机多篇-按当前文章第一个分类过滤)
+   - [方案一：纯模板实现](#random-posts-by-first-category)
 
-## 使用官方 Finder API 实现
+## 使用官方 Finder API 实现 {#official-finder-api}
 
 > 自 Halo CMS [v2.24.1](https://github.com/halo-dev/halo/releases/tag/v2.24.1)
 
@@ -36,7 +36,7 @@ references:
 
 注：官方提供的 `postFinder.random` 不具有过滤功能，因此仅能实现获取多篇随机文章。
 
-## 纯模板实现：获取多篇随机文章
+## 纯模板实现：获取多篇随机文章 {#random-posts}
 
 模板代码使用了两个配置项：
 
@@ -241,9 +241,9 @@ spec:
 使用 `th:if="${post.metadata.name != iterPost.metadata.name}"` 避免推荐列表中出现当前文章（这段代码原本是设计放置在文章页模板，即 `/templates/post.html`。如果这段模板代码不是放置在文章页模板，请去除这个 `th:if` 属性）。  
 最内层展示方法同第三层第一部分，使用一个 `<time>` 标签和一个 `<a>` 标签展示文章信息。
 
-## 纯模板实现：随机多篇+按当前文章第一个分类过滤
+## 纯模板实现：按当前文章第一个分类过滤 {#random-posts-by-first-category}
 
-此处对上述代码进行了增强，仅选取当前文章第一个分类的文章。
+此处对[上述代码](#random-posts)进行了增强，仅选取当前文章第一个分类的文章。
 需放置于模板 `/templates/post.html`。
 后文详细讲解仅讲解新增代码。
 
