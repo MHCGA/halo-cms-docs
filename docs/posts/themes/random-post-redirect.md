@@ -47,7 +47,7 @@ references:
 - `th:href="${postPermalink}"`：
   - 将这个标签的 `href` 属性设置为 `postPermalink`，即刚才取出的超链接。
 
-## 结合 JavaScript 使用
+### 结合 JavaScript 使用
 
 插入以下代码到模板中，之后调用 `toRandomPost()` 即可跳转到随机文章。
 
@@ -119,9 +119,57 @@ references:
 </th:block>
 ```
 
+```html [window.location.href（无 th:inline）]
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    id="random-post-script"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))}"
+    th:data-permalink="${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      window.location.href = document.getElementById("random-post-script").dataset.permalink;
+    }
+  </script>
+</th:block>
+```
+
+```html [window.open（无 th:inline）]
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    id="random-post-script"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))}"
+    th:data-permalink="${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      window.open(document.getElementById("random-post-script").dataset.permalink);
+    }
+  </script>
+</th:block>
+```
+
+```html [pjax.loadUrl（无 th:inline）]
+<th:block th:with="allPostList=${postFinder.listAll()}">
+  <script
+    th:if="${not #lists.isEmpty(allPostList)}"
+    id="random-post-script"
+    th:with="randomIndex=${T(java.lang.Math).floor(T(java.lang.Math).random()*#lists.size(allPostList))}"
+    th:data-permalink="${allPostList[randomIndex].status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      pjax.loadUrl(document.getElementById("random-post-script").dataset.permalink);
+    }
+  </script>
+</th:block>
+```
+
 :::
 
-## 拓展
+### 拓展
 
 在上面模板代码中 `allPostList[randomIndex]` 返回的是 [ListedPostVo](https://docs.halo.run/developer-guide/theme/finder-apis/post#listedpostvo) 类型的变量。  
 因此你可以拿到文章更多相关信息，如：标题，创建时间，发布时间，是否置顶，摘要内容等。
@@ -160,3 +208,71 @@ references:
   </script>
 </th:block>
 ```
+
+## 使用官方 Finder API 实现
+
+> 自 Halo CMS [v2.24.1](https://github.com/halo-dev/halo/releases/tag/v2.24.1)
+
+将以下代码插入模板，会创建一个指向随机文章的超链接。
+
+```html
+<th:block th:with="posts = ${postFinder.random(1)}">
+  <a
+    th:each="post : ${posts}"
+    th:href="${post.status.permalink}"
+  >随机文章</a>
+</th:block>
+```
+
+### 结合 JavaScript 使用
+
+插入以下代码到模板中，之后调用 `toRandomPost()` 即可跳转到随机文章。
+
+::: code-group
+
+```html [window.location.href（无 th:inline）]
+<th:block th:with="posts = ${postFinder.random(1)}">
+  <script
+    th:each="post : ${posts}"
+    id="random-post-script"
+    th:data-permalink="${post.status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      window.location.href = document.getElementById("random-post-script").dataset.permalink;
+    }
+  </script>
+</th:block>
+```
+
+```html [window.open（无 th:inline）]
+<th:block th:with="posts = ${postFinder.random(1)}">
+  <script
+    th:each="post : ${posts}"
+    id="random-post-script"
+    th:data-permalink="${post.status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      window.open(document.getElementById("random-post-script").dataset.permalink);
+    }
+  </script>
+</th:block>
+```
+
+```html [pjax.loadUrl（无 th:inline）]
+<th:block th:with="posts = ${postFinder.random(1)}">
+  <script
+    th:each="post : ${posts}"
+    id="random-post-script"
+    th:data-permalink="${post.status.permalink}"
+  >
+    function toRandomPost() {
+      // 跳转到目标链接
+      pjax.loadUrl(document.getElementById("random-post-script").dataset.permalink);
+    }
+  </script>
+</th:block>
+```
+
+:::
