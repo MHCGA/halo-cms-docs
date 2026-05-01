@@ -20,7 +20,7 @@
     "docs:preview": "pnpm run docs:build && vitepress preview docs",
     "docs:watch": "vitepress dev docs",
     "fmt": "pnpm run \"/^fmt:/\"",
-    "fmt:oxfmt": "oxfmt \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
+    "fmt:oxfmt": "oxfmt --threads 2 \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
     "lint": "pnpm run \"/^lint:/\"",
     "lint:autocorrect": "autocorrect --fix",
     "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
