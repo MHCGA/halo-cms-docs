@@ -10,7 +10,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e # https://github.com/pnpm/action-setup/releases/tag/v6.0.3
+    - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # https://github.com/pnpm/action-setup/releases/tag/v6.0.8
       name: Install pnpm
       with:
         run_install: false
