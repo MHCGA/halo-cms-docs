@@ -127,7 +127,7 @@ references:
 ### 向 PR 追加更改
 
 1. 打开 [Pull Request 列表](https://github.com/MHCGA/halo-cms-docs/pulls)，进入你提交的 PR。
-2. PR 标题下方会显示 `<你的 GitHub ID> wants to merge ... from <你的分支名>`，点击分支名即可跳转到个人 Fork。
+2. PR 标题下方会显示 `<你的 GitHub ID> wants to merge ... from <你的分支名>`，点击分支名即可跳转到 Fork 仓库。
 3. 根据需求继续编辑：
    - 少量文件：在 GitHub 网页端直接修改并 Commit。
    - 多文件：按 <kbd>.</kbd> 进入网页版 VS Code，再批量提交。
@@ -141,10 +141,10 @@ references:
 
 大致步骤：
 
-1. Fork `MHCGA/halo-cms-docs` 至个人账号。
+1. Fork `MHCGA/halo-cms-docs`。
 2. 将 Fork 仓库克隆到本地：`git clone git@github.com:<you>/halo-cms-docs.git`。
 3. 创建分支并完成修改，按规范填写 commit。
-4. `git push` 至个人 Fork，然后在 GitHub 上创建 PR。
+4. `git push` 至 Fork 仓库，然后在 GitHub 上创建 PR。
 5. 需要追加改动时，在本地继续提交并推送即可。
 
 更多 Git 用法可参考社区教程。
@@ -152,6 +152,20 @@ references:
 ## 在构建页面中预览
 
 每个 PR 会自动触发 GitHub Actions 构建，用于保证 lint 与 build 通过。目前仓库未接入托管预览，请在本地 `pnpm docs:dev` 或 `pnpm docs:preview` 中自查排版与链接。
+
+PR 分支位于本仓库时，CI 可自动提交格式化或部分修复结果；PR 分支位于 Fork 仓库时，CI 只运行检查。若检查提示存在自动修复后的未提交变更，CI 会上传 `ci-autofix.patch`。可从 CI Job Summary 复制补丁链接，并在 PR 分支本地运行对应命令：
+
+Linux / macOS：
+
+```shell
+curl -L -o ci-autofix.patch "<ci-autofix.patch 链接>" && git apply ci-autofix.patch
+```
+
+Windows PowerShell：
+
+```powershell
+Invoke-WebRequest -Uri "<ci-autofix.patch 链接>" -OutFile ci-autofix.patch; git apply ci-autofix.patch
+```
 
 ## 目录与链接调整
 

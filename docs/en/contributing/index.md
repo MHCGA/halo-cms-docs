@@ -154,6 +154,20 @@ Refer to community Git tutorials for more information.
 
 Each PR automatically triggers GitHub Actions to ensure lint and build pass. Currently, the repository does not have integrated hosting previews, so please self-check formatting and links locally using `pnpm docs:dev` or `pnpm docs:preview`.
 
+When the PR branch is in this repository, CI may automatically commit formatting or some auto-fix results. When the PR branch is in a fork, CI runs checks only. If the check reports uncommitted auto-fix changes, CI uploads `ci-autofix.patch`. Copy the patch link from the CI job summary and run the matching commands locally on the PR branch.
+
+Linux / macOS:
+
+```shell
+curl -L -o ci-autofix.patch "<ci-autofix.patch link>" && git apply ci-autofix.patch
+```
+
+Windows PowerShell:
+
+```powershell
+Invoke-WebRequest -Uri "<ci-autofix.patch link>" -OutFile ci-autofix.patch; git apply ci-autofix.patch
+```
+
 ## Directory and link adjustments
 
 - If you must change the path of a published page, please simultaneously update any manually referenced links (such as README, related articles).
