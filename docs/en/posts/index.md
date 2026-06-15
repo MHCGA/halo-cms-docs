@@ -8,7 +8,7 @@ Welcome to browse articles or submit content according to the following topics:
 
 - [Plugin Development Tips](/en/posts/plugins/)
 - [Theme Development Tips](/en/posts/themes/)
-- [Plugin & Theme Synergy Tips](/en/posts/plugin-theme-synergy/)
+- [General Development Tips](/en/posts/general-tips/)
 - [Usage Tips](/en/posts/usage/)
 - [Miscellaneous Practices](/en/posts/misc/)
 

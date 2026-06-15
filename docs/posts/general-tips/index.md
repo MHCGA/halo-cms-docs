@@ -2,20 +2,20 @@
 publish: false
 ---
 
-# Plugin & Theme Synergy
+# 通用开发技巧
 
 <script setup lang="ts">
 import { data as posts } from "./posts.data.ts";
 import { withBase } from "vitepress";
 </script>
 
-Guides and case studies showing how plugins and themes work together to create cohesive Halo CMS experiences.
+收录不限定于插件、主题或站点使用场景的 Halo CMS 通用实践。
 
-## Article List
+## 文章标题一览
 
 <ul class="category-post-list">
  <li v-for="post in posts" :key="post.url">
   <a :href="withBase(post.url)">{{ post.title }}</a>
-    <span v-if="post.lastUpdated" class="category-post-date">({{ post.lastUpdated }})</span>
+    <span v-if="post.lastUpdated" class="category-post-date">（{{ post.lastUpdated }}）</span>
  </li>
 </ul>

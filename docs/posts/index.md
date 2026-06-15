@@ -8,7 +8,7 @@ publish: false
 
 - [插件开发技巧](/posts/plugins/)
 - [主题开发技巧](/posts/themes/)
-- [插件与主题协同技巧](/posts/plugin-theme-synergy/)
+- [通用开发技巧](/posts/general-tips/)
 - [使用技巧](/posts/usage/)
 - [其他实践](/posts/misc/)
 
