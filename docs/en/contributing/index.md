@@ -111,7 +111,7 @@ Before your changes are merged, the online site won't be affected. If you're sti
 ### Edit a single page
 
 1. Find the target page on this site.
-2. Click the **Edit this page** button in the top-right of the article (confirm you've read this page and format conventions) to jump to the GitHub editor.
+2. Click the **Edit this page** button in the bottom-left of the article (confirm you've read this page and format conventions) to jump to the GitHub editor.
 3. Modify the content in the edit box. Please disable browser auto-translation to avoid changing filenames or Frontmatter.
 4. Scroll to the bottom of the page, follow the commit convention below, fill in the information, and click **Propose changes** to submit.
 5. GitHub will automatically fork the repository and save your commit, then click the green **Create pull request** button to enter the PR page, fill in the description according to "Pull Request Convention" and submit.
