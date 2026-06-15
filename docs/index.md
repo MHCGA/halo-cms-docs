@@ -34,7 +34,7 @@ features:
     linkText: 查看清单
   - icon: 🔗
     title: 通用开发技巧
-    details: 整理跨插件、主题与站点配置场景的通用经验。
+    details: 表单定义、渲染机制、调试排错等通用开发经验。
     link: /posts/general-tips/
     linkText: 查看清单
   - icon: ⚙️

@@ -14,7 +14,7 @@ const basePath = "/mhcga/";
 const githubRepoUrl = "https://github.com/MHCGA/halo-cms-docs";
 
 const DOCS_ROOT = path.resolve(__dirname, "..");
-const POST_GROUPS = ["plugins", "themes", "plugin-theme-synergy", "usage", "misc"] as const;
+const POST_GROUPS = ["plugins", "themes", "general-tips", "usage", "misc"] as const;
 
 const ROOT_INFO_SIDEBAR: DefaultTheme.SidebarItem[] = [
   {
@@ -54,7 +54,7 @@ const POST_LABELS: Record<
     categories: {
       plugins: "插件开发技巧",
       themes: "主题开发技巧",
-      "plugin-theme-synergy": "插件与主题协同技巧",
+      "general-tips": "通用开发技巧",
       usage: "使用技巧",
       misc: "其他实践",
     },
@@ -66,7 +66,7 @@ const POST_LABELS: Record<
     categories: {
       plugins: "Plugin Development",
       themes: "Theme Development",
-      "plugin-theme-synergy": "Plugin & Theme Synergy",
+      "general-tips": "General Development Tips",
       usage: "Usage Tips",
       misc: "Miscellaneous",
     },
@@ -341,7 +341,7 @@ export default defineConfig({
             items: [
               { text: "插件开发技巧", link: "/posts/plugins/" },
               { text: "主题开发技巧", link: "/posts/themes/" },
-              { text: "插件与主题协同技巧", link: "/posts/plugin-theme-synergy/" },
+              { text: "通用开发技巧", link: "/posts/general-tips/" },
               { text: "使用技巧", link: "/posts/usage/" },
               { text: "其他", link: "/posts/misc/" },
             ],
@@ -415,7 +415,7 @@ export default defineConfig({
             items: [
               { text: "Plugin Development", link: "/en/posts/plugins/" },
               { text: "Theme Development", link: "/en/posts/themes/" },
-              { text: "Plugin & Theme Synergy", link: "/en/posts/plugin-theme-synergy/" },
+              { text: "General Development Tips", link: "/en/posts/general-tips/" },
               { text: "Usage Tips", link: "/en/posts/usage/" },
               { text: "Miscellaneous", link: "/en/posts/misc/" },
             ],

@@ -34,7 +34,7 @@ features:
     linkText: View list
   - icon: 🔗
     title: General Development Tips
-    details: General practices across plugins, themes, and site configuration.
+    details: Form schemas, rendering behavior, debugging, and other shared development practices.
     link: /en/posts/general-tips/
     linkText: View list
   - icon: ⚙️
