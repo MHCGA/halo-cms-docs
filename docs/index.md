@@ -33,9 +33,9 @@ features:
     link: /posts/themes/
     linkText: 查看清单
   - icon: 🔗
-    title: 插件与主题协同技巧
-    details: 打造插件与主题的协作体验，提升整体站点能力。
-    link: /posts/plugin-theme-synergy/
+    title: 通用开发技巧
+    details: 整理跨插件、主题与站点配置场景的通用经验。
+    link: /posts/general-tips/
     linkText: 查看清单
   - icon: ⚙️
     title: 使用技巧

@@ -33,9 +33,9 @@ features:
     link: /en/posts/themes/
     linkText: View list
   - icon: 🔗
-    title: Plugin & Theme Synergy
-    details: Improve the end-to-end experience by coordinating plugins and themes.
-    link: /en/posts/plugin-theme-synergy/
+    title: General Development Tips
+    details: General practices across plugins, themes, and site configuration.
+    link: /en/posts/general-tips/
     linkText: View list
   - icon: ⚙️
     title: Usage Tips

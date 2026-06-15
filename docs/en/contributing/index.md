@@ -60,7 +60,7 @@ We cherish every contributor's enthusiasm and understand that everyone's experie
 
 1. [Plugin Development Tips](/en/posts/plugins/) · [docs/posts/plugins/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/plugins)
 2. [Theme Development Tips](/en/posts/themes/) · [docs/posts/themes/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/themes)
-3. [Plugin & Theme Synergy](/en/posts/plugin-theme-synergy/) · [docs/posts/plugin-theme-synergy/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/plugin-theme-synergy)
+3. [General Development Tips](/en/posts/general-tips/) · [docs/posts/general-tips/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/general-tips)
 4. [Usage Tips](/en/posts/usage/) · [docs/posts/usage/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/usage)
 5. [Miscellaneous Practices](/en/posts/misc/) · [docs/posts/misc/](https://github.com/MHCGA/halo-cms-docs/tree/main/docs/posts/misc)
 
