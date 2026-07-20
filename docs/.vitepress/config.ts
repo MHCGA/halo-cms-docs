@@ -237,9 +237,6 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist(pkg.browserslist)),
       },
     },
-    build: {
-      cssMinify: "lightningcss",
-    },
   },
 
   async transformHtml(code) {
