@@ -212,11 +212,6 @@
     },
     {
       "files": ["**/*.js", "**/*.ts"],
-      "globals": {
-        "AsyncDisposableStack": "readonly",
-        "DisposableStack": "readonly",
-        "SuppressedError": "readonly"
-      },
       "env": {
         "es2026": true,
         "browser": true
@@ -224,11 +219,6 @@
     },
     {
       "files": ["**/*.vue"],
-      "globals": {
-        "AsyncDisposableStack": "readonly",
-        "DisposableStack": "readonly",
-        "SuppressedError": "readonly"
-      },
       "env": {
         "es2026": true,
         "browser": true,
@@ -237,11 +227,6 @@
     },
     {
       "files": ["postcss.config.js", "scripts/**/*.js", ".github/scripts/**/*.js"],
-      "globals": {
-        "AsyncDisposableStack": "readonly",
-        "DisposableStack": "readonly",
-        "SuppressedError": "readonly"
-      },
       "env": {
         "node": true
       }
