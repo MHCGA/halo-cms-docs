@@ -21,7 +21,7 @@
     "docs:watch": "vitepress dev docs",
     "fmt": "pnpm run '/^fmt:/'",
     "fmt:oxfmt": "oxfmt --threads 2 '**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}' '.github/**/*.{yml,js,json}'",
-    "lint": "pnpm run lint:type-check && pnpm run '/^lint:(?!type-check$)/'",
+    "lint": "pnpm run '/^lint:(?!type-check$)/' && pnpm run lint:type-check",
     "lint:autocorrect": "autocorrect --fix",
     "lint:md": "markdownlint --fix '**/*.md' --ignore-path .gitignore",
     "lint:oxlint+eslint": "oxlint --type-aware --report-unused-disable-directives --fix && eslint --fix",
