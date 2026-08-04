@@ -26,6 +26,7 @@
     "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
     "lint:oxlint+eslint": "oxlint --type-aware --report-unused-disable-directives --fix && eslint --fix",
     "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
+    "lint:type-check:tsgo": "tsgo -b",
     "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run fmt",
     "preinstall": "npx only-allow pnpm",
     "watch": "pnpm run \"/:watch$/\""
@@ -37,6 +38,7 @@
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@types/node": "^26.1.2",
     "@typescript-eslint/parser": "^8.65.0",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.7",
     "eslint": "^10.8.0",

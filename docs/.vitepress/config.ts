@@ -5,9 +5,9 @@ import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
 import { defineConfig, type DefaultTheme } from "vitepress";
 import { chineseSearchOptimize, pagefindPlugin } from "vitepress-plugin-pagefind";
-import { RSSOptions, RssPlugin } from "vitepress-plugin-rss";
+import { type RSSOptions, RssPlugin } from "vitepress-plugin-rss";
 
-import pkg from "../../package.json";
+import pkg from "../../package.json" with { type: "json" };
 
 const baseUrl = "https://howiehz.top";
 const basePath = "/mhcga/";
@@ -294,7 +294,6 @@ export default defineConfig({
 
   lastUpdated: true,
   cleanUrls: true,
-  metaChunk: true,
 
   sitemap: {
     hostname: `${baseUrl}${basePath}`,
@@ -317,7 +316,7 @@ export default defineConfig({
 
   markdown: {
     image: {
-      lazyLoading: true,
+      lazyLoad: true,
     },
   },
 
