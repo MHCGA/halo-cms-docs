@@ -1,4 +1,4 @@
-import { createContentLoader } from "vitepress";
+import { createContentLoader, type LoaderModule } from "vitepress";
 
 import { formatDateToYMD } from "../utils/formatDate";
 
@@ -28,7 +28,11 @@ function getDefaultTitle(content: string): string {
  * @param categoryIndexUrl URL of the category index page itself; this page is excluded from the returned post list.
  * @param options Optional loader settings, such as a custom sort function.
  */
-export function createCategoryLoader(globPattern: string, categoryIndexUrl: string, options: LoaderOptions = {}) {
+export function createCategoryLoader(
+  globPattern: string,
+  categoryIndexUrl: string,
+  options: LoaderOptions = {},
+): LoaderModule<CategoryPostMeta[]> {
   return createContentLoader(globPattern, {
     includeSrc: true,
     excerpt: false,
