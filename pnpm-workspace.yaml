@@ -8,3 +8,5 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+shellEmulator: true
+dedupePeers: true

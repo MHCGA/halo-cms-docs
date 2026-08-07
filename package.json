@@ -15,21 +15,21 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm run \"/:build$/\"",
+    "build": "pnpm run '/:build$/'",
     "docs:build": "vitepress build docs",
     "docs:preview": "pnpm run docs:build && vitepress preview docs",
     "docs:watch": "vitepress dev docs",
-    "fmt": "pnpm run \"/^fmt:/\"",
-    "fmt:oxfmt": "oxfmt --threads 2 \"**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}\" \".github/**/*.{yml,js,json}\"",
-    "lint": "pnpm run \"/^lint:/\"",
+    "fmt": "pnpm run '/^fmt:/'",
+    "fmt:oxfmt": "oxfmt --threads 2 '**/*.{json,jsonc,yaml,md,css,js,ts,vue,html}' '.github/**/*.{yml,js,json}'",
+    "lint": "pnpm run '/^lint:/'",
     "lint:autocorrect": "autocorrect --fix",
-    "lint:md": "markdownlint --fix \"**/*.md\" --ignore-path .gitignore",
+    "lint:md": "markdownlint --fix '**/*.md' --ignore-path .gitignore",
     "lint:oxlint+eslint": "oxlint --type-aware --report-unused-disable-directives --fix && eslint --fix",
-    "lint:style": "stylelint --fix \"**/*.{css,vue}\" \"docs/.vitepress/**/*.{css,vue}\" --ignore-path .gitignore",
-    "lint:type-check:tsgo": "tsgo -b",
+    "lint:style": "stylelint --fix '**/*.{css,vue}' 'docs/.vitepress/**/*.{css,vue}' --ignore-path .gitignore",
+    "lint:type-check": "vue-tsc -b",
     "migrate:oxlint": "pnpm dlx @oxlint/migrate --type-aware --with-nursery && pnpm run fmt",
     "preinstall": "npx only-allow pnpm",
-    "watch": "pnpm run \"/:watch$/\""
+    "watch": "pnpm run '/:watch$/'"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
@@ -38,7 +38,6 @@
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@types/node": "^26.1.2",
     "@typescript-eslint/parser": "^8.65.0",
-    "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "autocorrect-node": "^2.14.0",
     "browserslist": "^4.28.7",
     "eslint": "^10.8.0",
@@ -63,7 +62,8 @@
     "vitepress-plugin-pagefind": "^0.4.24",
     "vitepress-plugin-rss": "^0.4.4",
     "vue": "^3.5.40",
-    "vue-eslint-parser": "^10.4.1"
+    "vue-eslint-parser": "^10.4.1",
+    "vue-tsc": "^3.3.9"
   },
   "browserslist": [
     "defaults",
