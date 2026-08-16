@@ -5,7 +5,7 @@ publish: false
 # 通用开发技巧
 
 <script setup lang="ts">
-import { data as posts } from "./posts.data.ts";
+import { data as posts } from "./posts.node.data.ts";
 import { withBase } from "vitepress";
 </script>
 

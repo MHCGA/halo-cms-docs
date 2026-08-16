@@ -1,6 +1,6 @@
 import { createContentLoader, type LoaderModule } from "vitepress";
 
-import { formatDateToYMD } from "../utils/formatDate";
+import { formatDateToYMD } from "../utils/formatDate.ts";
 
 export interface CategoryPostMeta {
   title: string;
@@ -33,7 +33,7 @@ export function createCategoryLoader(
   categoryIndexUrl: string,
   options: LoaderOptions = {},
 ): LoaderModule<CategoryPostMeta[]> {
-  return createContentLoader(globPattern, {
+  return createContentLoader<CategoryPostMeta[]>(globPattern, {
     includeSrc: true,
     excerpt: false,
     transform(items) {
