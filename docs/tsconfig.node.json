@@ -5,5 +5,11 @@
     "declarationDir": "../node_modules/.tmp/types/docs/node",
     "isolatedDeclarations": false
   },
-  "include": [".vitepress/config.ts", ".vitepress/types/node/*.d.ts"]
+  "include": [
+    ".vitepress/config.ts",
+    ".vitepress/data/**/*.ts",
+    ".vitepress/utils/**/*.ts",
+    ".vitepress/types/node/*.d.ts",
+    "**/*.node.data.ts"
+  ]
 }

@@ -1,5 +1,7 @@
 packages:
   - .
+overrides:
+  sharp: 0.35.3
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - "semver@5.7.2"
@@ -8,3 +10,5 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+shellEmulator: true
+dedupePeers: true

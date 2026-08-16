@@ -1,6 +1,11 @@
 {
   "$schema": "https://www.schemastore.org/tsconfig",
   "extends": "../tsconfig/tsconfig.browser.json",
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
   "compilerOptions": {
     "declarationDir": "../node_modules/.tmp/types/docs/browser",
     "isolatedDeclarations": false
