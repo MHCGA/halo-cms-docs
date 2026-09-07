@@ -23,7 +23,7 @@ importers:
         version: 3.1.1(vue@3.5.42)
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: ^2.18.2
-        version: 2.18.2(supports-color@10.2.2)(vitepress@2.0.0-alpha.19)
+        version: 2.18.2(supports-color@10.2.2)(vitepress@2.0.0-alpha.20)
       '@types/node':
         specifier: ^26.3.0
         version: 26.3.0
@@ -91,14 +91,14 @@ importers:
         specifier: ^8.69.0
         version: 8.69.0(eslint@10.9.1)(supports-color@10.2.2)(typescript@6.0.3)
       vitepress:
-        specifier: 2.0.0-alpha.19
-        version: 2.0.0-alpha.19(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
+        specifier: 2.0.0-alpha.20
+        version: 2.0.0-alpha.20(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
       vitepress-plugin-pagefind:
         specifier: ^0.4.24
-        version: 0.4.24(pagefind@1.5.2)(vitepress@2.0.0-alpha.19)(vue@3.5.42)
+        version: 0.4.24(pagefind@1.5.2)(vitepress@2.0.0-alpha.20)(vue@3.5.42)
       vitepress-plugin-rss:
         specifier: ^0.4.4
-        version: 0.4.4(@types/node@26.3.0)(vitepress@2.0.0-alpha.19)
+        version: 0.4.4(@types/node@26.3.0)(vitepress@2.0.0-alpha.20)
       vue:
         specifier: ^3.5.42
         version: 3.5.42(typescript@6.0.3)
@@ -2740,8 +2740,8 @@ packages:
     peerDependencies:
       vitepress: ^1.0.0-0 || ^2.0.0-0
 
-  vitepress@2.0.0-alpha.19:
-    resolution: {integrity: sha512-WnBsb0Bwr43kXKyiis+lld/7ri3hnMbthS8N3hpFtjjwsdLO4IRmiAE08D7aud4q6oMDf9uwRowxzNqRFe/amw==}
+  vitepress@2.0.0-alpha.20:
+    resolution: {integrity: sha512-uQWKmP9PaBkf9zxHn0iOml/ZPPDaGKqQXVMBHz3yjwyyd9Eg+BKLGxbqmOGlfOMCt6Fj8TLiAnE59qlKZ0A3xw==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
@@ -3103,10 +3103,10 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(supports-color@10.2.2)(vitepress@2.0.0-alpha.19)':
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.18.2(supports-color@10.2.2)(vitepress@2.0.0-alpha.20)':
     dependencies:
       less: 4.9.0(supports-color@10.2.2)
-      vitepress: 2.0.0-alpha.19(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
+      vitepress: 2.0.0-alpha.20(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -5287,39 +5287,37 @@ snapshots:
       fsevents: 2.3.3
       less: 4.9.0(supports-color@10.2.2)
 
-  vitepress-plugin-pagefind@0.4.24(pagefind@1.5.2)(vitepress@2.0.0-alpha.19)(vue@3.5.42):
+  vitepress-plugin-pagefind@0.4.24(pagefind@1.5.2)(vitepress@2.0.0-alpha.20)(vue@3.5.42):
     dependencies:
       '@sugarat/theme-shared': 0.0.7
       '@vueuse/core': 14.4.0(vue@3.5.42)
       javascript-stringify: 2.1.0
       pagefind: 1.5.2
-      vitepress: 2.0.0-alpha.19(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
+      vitepress: 2.0.0-alpha.20(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
     transitivePeerDependencies:
       - vue
 
-  vitepress-plugin-rss@0.4.4(@types/node@26.3.0)(vitepress@2.0.0-alpha.19):
+  vitepress-plugin-rss@0.4.4(@types/node@26.3.0)(vitepress@2.0.0-alpha.20):
     dependencies:
       '@sugarat/theme-shared': 0.0.7
       feed: 5.2.1
       markdown-it-container: 4.0.0
       sharp: 0.35.3(@types/node@26.3.0)
-      vitepress: 2.0.0-alpha.19(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
+      vitepress: 2.0.0-alpha.20(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3)
     transitivePeerDependencies:
       - '@types/node'
 
-  vitepress@2.0.0-alpha.19(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3):
+  vitepress@2.0.0-alpha.20(@types/node@26.3.0)(less@4.9.0)(postcss@8.5.26)(typescript@6.0.3):
     dependencies:
       '@docsearch/css': 4.7.0
       '@docsearch/js': 4.7.0
       '@docsearch/sidepanel-js': 4.7.0
       '@iconify-json/simple-icons': 1.2.93
-      '@shikijs/core': 4.4.3
       '@shikijs/transformers': 4.4.3
-      '@shikijs/types': 4.4.3
       '@types/markdown-it': 14.1.2
       '@vitejs/plugin-vue': 6.0.8(vite@8.2.1)(vue@3.5.42)
       '@vue/devtools-api': 8.2.1
-      '@vue/shared': 3.5.41
+      '@vue/shared': 3.5.42
       '@vueuse/core': 14.4.0(vue@3.5.42)
       '@vueuse/integrations': 14.4.0(focus-trap@8.2.2)(vue@3.5.42)
       focus-trap: 8.2.2
