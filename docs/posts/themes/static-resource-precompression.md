@@ -122,6 +122,7 @@ yarn add vite-plugin-compression2 -D
 ```ts
 // vite.config.ts
 import { constants } from "node:zlib";
+
 import { compression, defineAlgorithm } from "vite-plugin-compression2";
 
 export default defineConfig({
@@ -180,6 +181,7 @@ yarn add compression-webpack-plugin -D
 ```ts
 // rsbuild.config.ts
 import { constants } from "node:zlib";
+
 import CompressionPlugin from "compression-webpack-plugin";
 
 export default defineConfig({
