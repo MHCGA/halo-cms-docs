@@ -259,6 +259,7 @@ import "./styles.css";
 ```ts
 // vite.config.ts
 import { resolve } from "node:path";
+
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -432,7 +433,6 @@ export default defineConfig({
 ```ts
 // src/scripts/pages/index.ts
 import "../../styles/pages/index.css";
-
 // 导入当前页面需要的模块
 // 以 Alpine 为示例
 import Alpine from "alpinejs";
@@ -646,6 +646,7 @@ src/components/pagination/
 // vite.config.ts
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -675,6 +676,7 @@ export default defineConfig({
 // vite.config.ts
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -814,7 +816,9 @@ export default function moveHtmlPlugin(opts: MoveHtmlOptions): Plugin {
 // vite.config.ts
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { defineConfig } from "vite";
+
 import moveHtmlPlugin from "./plugins/vite-plugin-move-html";
 
 export default defineConfig({
